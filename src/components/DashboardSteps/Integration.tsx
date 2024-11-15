@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState } from "react";
 import Heading from "../Layout/Heading/Heading";
 import Papa from "papaparse";

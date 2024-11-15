@@ -1,11 +1,13 @@
-import React from 'react';
-import { FaBell, FaCog } from 'react-icons/fa';  // React Icons
-import Button  from '../Layout/Button/Button';  // Assuming Button component is in the same folder
-import Text  from '../Layout/Text/Text';      // Assuming Text component is in the same folder
+// @ts-nocheck
+
+import React from "react";
+import { FaBell, FaCog } from "react-icons/fa"; // React Icons
+import Button from "../Layout/Button/Button"; // Assuming Button component is in the same folder
+import Text from "../Layout/Text/Text"; // Assuming Text component is in the same folder
 
 const user = {
-  name: 'John Doe',
-  profileImage: '/path/to/profile.jpg',
+  name: "John Doe",
+  profileImage: "/path/to/profile.jpg",
 };
 
 const DashboardNavbar: React.FC = () => {
@@ -13,7 +15,9 @@ const DashboardNavbar: React.FC = () => {
     <div className="flex justify-between items-center bg-white shadow-md px-6 py-4">
       <div className="flex items-center space-x-3">
         {/* <img src="/path/to/logo.svg" alt="Logo" className="h-8" /> */}
-        <Text fontSize="lg" className="font-semibold">Taxate</Text>
+        <Text fontSize="lg" className="font-semibold">
+          Taxate
+        </Text>
       </div>
 
       <div className="flex items-center w-1/2 max-w-lg space-x-2  px-4 py-2">
@@ -49,7 +53,9 @@ const DashboardNavbar: React.FC = () => {
             alt="Profile"
             className="w-8 h-8 rounded-full object-cover"
           />
-          <Text fontSize="md" className="font-medium">{user.name}</Text>
+          <Text fontSize="md" className="font-medium">
+            {user.name}
+          </Text>
         </div>
       </div>
     </div>

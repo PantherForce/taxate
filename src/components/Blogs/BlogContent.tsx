@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from "react";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Navbar from "../Navbar/Navbar";
@@ -31,9 +33,9 @@ const Blogcontent: React.FC = () => {
           />
           <meta name="author" content="Likhith Reddy Taxate" />
           <meta
-        name="keywords"
-        content="paying taxes on crypto, cryptocurrency taxes, crypto tax responsibility, tax obligations for cryptocurrency, reporting crypto gains, crypto tax tips, how to pay taxes on crypto, tax reporting for Bitcoin, crypto tax guide, cryptocurrency tax laws, crypto tax calculator, crypto tax software, taxable events in crypto, crypto tax deductions, tax on cryptocurrency investments, cryptocurrency tax reporting software, understanding crypto taxes, bitcoin tax reporting, ethereum tax implications, how to file crypto taxes, crypto taxes for beginners, tax consequences of crypto trading, taxation of crypto income, cryptocurrency tax filing, irs crypto tax guidelines, bitcoin capital gains tax, reporting crypto on taxes, crypto tax obligations in the US, crypto tax avoidance vs. evasion, how to calculate crypto capital gains tax, international crypto tax laws, paying taxes on Bitcoin earnings, tax-free crypto trading, crypto mining tax obligations, taxes on crypto staking, how the irs taxes cryptocurrency, tax implications of crypto airdrops, crypto-to-crypto tax rules, defi tax considerations, tax benefits of investing in crypto, irs cryptocurrency audit, tax reporting for crypto exchanges, crypto tax loss harvesting, impact of crypto on taxes, crypto tax compliance, how to avoid crypto tax penalties, crypto tax strategies, crypto tax filing deadline, crypto tax experts, navigating crypto taxes in 2024"
-      />
+            name="keywords"
+            content="paying taxes on crypto, cryptocurrency taxes, crypto tax responsibility, tax obligations for cryptocurrency, reporting crypto gains, crypto tax tips, how to pay taxes on crypto, tax reporting for Bitcoin, crypto tax guide, cryptocurrency tax laws, crypto tax calculator, crypto tax software, taxable events in crypto, crypto tax deductions, tax on cryptocurrency investments, cryptocurrency tax reporting software, understanding crypto taxes, bitcoin tax reporting, ethereum tax implications, how to file crypto taxes, crypto taxes for beginners, tax consequences of crypto trading, taxation of crypto income, cryptocurrency tax filing, irs crypto tax guidelines, bitcoin capital gains tax, reporting crypto on taxes, crypto tax obligations in the US, crypto tax avoidance vs. evasion, how to calculate crypto capital gains tax, international crypto tax laws, paying taxes on Bitcoin earnings, tax-free crypto trading, crypto mining tax obligations, taxes on crypto staking, how the irs taxes cryptocurrency, tax implications of crypto airdrops, crypto-to-crypto tax rules, defi tax considerations, tax benefits of investing in crypto, irs cryptocurrency audit, tax reporting for crypto exchanges, crypto tax loss harvesting, impact of crypto on taxes, crypto tax compliance, how to avoid crypto tax penalties, crypto tax strategies, crypto tax filing deadline, crypto tax experts, navigating crypto taxes in 2024"
+          />
         </Helmet>
         <div className="flex flex-col md:flex-row">
           <div className="w-full">

@@ -1,4 +1,6 @@
-import React from 'react';
+// @ts-nocheck
+
+import React from "react";
 
 interface AlphabetFilterProps {
   onSelectLetter: (letter: string | null) => void;

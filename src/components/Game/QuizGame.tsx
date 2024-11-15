@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState, useEffect } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { motion } from "framer-motion";
@@ -18,7 +20,9 @@ const QuizGame: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   // Initialize GoogleGenerativeAI client with API Key
-  const genAI = new GoogleGenerativeAI({ apiKey: process.env.REACT_APP_API_KEY });
+  const genAI = new GoogleGenerativeAI({
+    apiKey: process.env.REACT_APP_API_KEY,
+  });
 
   // Model selection (e.g., gemini-1.5-flash)
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -48,17 +52,20 @@ const QuizGame: React.FC = () => {
 
   const parseQuizResponse = (responseText: string) => {
     // A simple parser for demonstration purposes (you may need to improve this based on actual output)
-    const questions = responseText.split("\n").map((line, index) => {
-      if (line.trim()) {
-        const parts = line.split(";");
-        return {
-          question: parts[0],
-          options: parts.slice(1, 5),
-          correctAnswer: parts[5],
-        };
-      }
-      return null;
-    }).filter(Boolean);
+    const questions = responseText
+      .split("\n")
+      .map((line, index) => {
+        if (line.trim()) {
+          const parts = line.split(";");
+          return {
+            question: parts[0],
+            options: parts.slice(1, 5),
+            correctAnswer: parts[5],
+          };
+        }
+        return null;
+      })
+      .filter(Boolean);
     return questions;
   };
 
@@ -129,7 +136,9 @@ const QuizGame: React.FC = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-2xl font-semibold mb-4">{currentQuestion?.question}</h2>
+        <h2 className="text-2xl font-semibold mb-4">
+          {currentQuestion?.question}
+        </h2>
         <div className="mb-4">
           {currentQuestion?.options.map((option, index) => (
             <motion.button

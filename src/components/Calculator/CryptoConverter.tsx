@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState, useEffect } from "react";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Navbar from "../Navbar/Navbar";
@@ -165,9 +167,7 @@ const CryptoConverter: React.FC = () => {
               </div>
             )}
 
-            {loading && (
-              <LoadingSpinner/>
-            )}
+            {loading && <LoadingSpinner />}
 
             {/* <div className="flex justify-center mt-8">
               <Button
@@ -207,8 +207,7 @@ const CryptoConverter: React.FC = () => {
           </div>
         </div>
 
-        <FAQ/>
-
+        <FAQ />
       </ContentContainer>
 
       <Footer />

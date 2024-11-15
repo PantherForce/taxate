@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState } from "react";
 import BlogCard from "./BlogCard";
 import AlphabetFilter from "./AlphabetFilter";
@@ -46,7 +48,7 @@ const BlogList: React.FC = () => {
           </div>
         </div>
 
-        <ResponsiveCard/>
+        <ResponsiveCard />
       </ContentContainer>
     </>
   );

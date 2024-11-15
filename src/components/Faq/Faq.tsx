@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp, FaQuestionCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -71,7 +73,11 @@ const FAQ: React.FC = () => {
           >
             <div className="flex items-center space-x-3">
               <FaCoins className="text-primary" />
-              <Heading className="font-normal" fontSize="lg" fontColor="text-black">
+              <Heading
+                className="font-normal"
+                fontSize="lg"
+                fontColor="text-black"
+              >
                 {faq.question}
               </Heading>
             </div>

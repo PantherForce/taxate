@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState } from "react";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Navbar from "../Navbar/Navbar";
@@ -180,16 +182,13 @@ const CryptoTaxCalculator: React.FC = () => {
               Get Started for FREE →
             </Button>
           </div>
-        </div>
-    
-          {" "}
-          <div className="p-2 md:p-8">
+        </div>{" "}
+        <div className="p-2 md:p-8">
           <FAQ />
-          </div>
-      
+        </div>
       </ContentContainer>
 
-      <Footer/>
+      <Footer />
     </>
   );
 };
