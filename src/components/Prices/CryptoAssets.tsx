@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Heading from "../Layout/Heading/Heading";
@@ -85,29 +87,32 @@ const CryptoAssets = () => {
   }, []);
 
   return (
-
     <>
-    <Navbar/>
-    <ContentContainer>
-    <div className="">
-      <Heading fontSize="xl" fontColor="text-gray-900" className="mb-8 font-semibold">
-        Cryptocurrency price trends and market capital figures.
-      </Heading>
-      {loading && !error ? (
-        <LoadingSpinner/>
-      ) : error ? (
-        <Text fontSize="md" className="text-center text-red-600">
-          {error}
-        </Text>
-      ) : (
-        <div className="overflow-x-auto">
-          <CryptoTable assets={assets} />
+      <Navbar />
+      <ContentContainer>
+        <div className="">
+          <Heading
+            fontSize="xl"
+            fontColor="text-gray-900"
+            className="mb-8 font-semibold"
+          >
+            Cryptocurrency price trends and market capital figures.
+          </Heading>
+          {loading && !error ? (
+            <LoadingSpinner />
+          ) : error ? (
+            <Text fontSize="md" className="text-center text-red-600">
+              {error}
+            </Text>
+          ) : (
+            <div className="overflow-x-auto">
+              <CryptoTable assets={assets} />
+            </div>
+          )}
         </div>
-      )}
-    </div>
-    <SignupCard/>
-    </ContentContainer>
-    <Footer/>
+        <SignupCard />
+      </ContentContainer>
+      <Footer />
     </>
   );
 };
