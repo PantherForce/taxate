@@ -1,4 +1,3 @@
-// src/components/SectionLayout.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -7,9 +6,10 @@ interface SectionLayoutProps {
   description: string;
   imageSrc: string;
   reverse?: boolean;
+  blur?: boolean;  // Add this prop to conditionally blur the image
 }
 
-const SectionLayout: React.FC<SectionLayoutProps> = ({ title, description, imageSrc, reverse = false }) => {
+const SectionLayout: React.FC<SectionLayoutProps> = ({ title, description, imageSrc, reverse = false, blur = false }) => {
   return (
     <motion.div
       className={`flex ${reverse ? 'flex-row-reverse' : 'flex-row'} items-center justify-between space-x-8 w-full py-10`}
@@ -27,7 +27,7 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({ title, description, image
         <motion.img
           src={imageSrc}
           alt="Image description"
-          className="w-3/4 h-[40vh] object-contain rounded-lg shadow-lg"
+          className={`w-3/4 h-[40vh] object-contain rounded-lg shadow-lg ${blur ? 'filter blur-md' : ''}`}  // Apply blur conditionally
         />
       </motion.div>
     </motion.div>
