@@ -20,13 +20,13 @@ import Blogcontent from "./components/Blogs/BlogContent";
 import Stats from "./components/Pages/Stats/Stats";
 
 const App: React.FC = () => {
-  const location = useLocation();
+  // const location = useLocation();
 
-  useEffect(() => {
-    ReactGA.initialize("G-5ZV7QG0229"); 
+  // useEffect(() => {
+  //   ReactGA.initialize("G-5ZV7QG0229"); 
 
-    ReactGA.send({ hitType: "pageview", page: location.pathname });
-  }, [location]);
+  //   ReactGA.send({ hitType: "pageview", page: location.pathname });
+  // }, [location]);
 
   return (
     <Router>
