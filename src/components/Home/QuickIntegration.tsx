@@ -8,9 +8,12 @@ import Heading from "../Layout/Heading/Heading";
 const QuickIntegration: React.FC = () => {
   return (
     <ContentContainer>
-      <div className="flex flex-col items-center bg-primary h-auto md:h-[46vh] rounded-lg text-black p-8">
+      <div className="flex flex-col items-center bg-primary h-auto md:h-[56vh] rounded-lg text-black p-8">
         <div className="flex mt-6 flex-col w-full">
-          <Heading fontSize="xl" className="font-semibold text-white mb-4 text-center">
+          <Heading
+            fontSize="xl"
+            className="font-semibold text-white mb-4 text-center"
+          >
             Quick Integration
           </Heading>
           <Text fontSize="lg" className="text-gray-200 mt-2 text-center">
@@ -26,7 +29,9 @@ const QuickIntegration: React.FC = () => {
               alt="Binance"
               className="w-12 h-12 md:w-16 md:h-16"
             />
-            <Heading fontSize="xl" className="font-semibold text-white">Binance</Heading>
+            <Heading fontSize="xl" className="font-semibold text-white">
+              Binance
+            </Heading>
           </div>
 
           {/* Horizontal Timeline Layout */}
@@ -44,7 +49,9 @@ const QuickIntegration: React.FC = () => {
               <div className="w-12 h-12 mt-5 rounded-full bg-white flex items-center justify-center">
                 <FaCheckCircle color="black" size={30} />
               </div>
-              <Text fontSize="xl" className="text-white mt-2">Importing transactions</Text>
+              <Text fontSize="xl" className="text-white mt-2">
+                Importing transactions
+              </Text>
             </motion.div>
 
             {/* Step 2: Processing the Data */}
@@ -55,9 +62,11 @@ const QuickIntegration: React.FC = () => {
               transition={{ duration: 0.8 }}
             >
               <div className="w-12 h-12 mt-5 rounded-full bg-white flex items-center justify-center">
-              <FaCheckCircle color="black" size={30} />
+                <FaCheckCircle color="black" size={30} />
               </div>
-              <Text fontSize="xl" className="text-white mt-2">Processing the data</Text>
+              <Text fontSize="xl" className="text-white mt-2">
+                Processing the data
+              </Text>
             </motion.div>
 
             {/* Step 3: Calculating Taxes */}
@@ -68,9 +77,11 @@ const QuickIntegration: React.FC = () => {
               transition={{ duration: 1 }}
             >
               <div className="w-12 h-12 mt-5 rounded-full bg-white flex items-center justify-center">
-              <FaCircle color="green" size={30} />
+                <FaCircle color="green" size={30} />
               </div>
-              <Text fontSize="xl" className="text-white mt-2">Calculating your taxes</Text>
+              <Text fontSize="xl" className="text-white mt-2">
+                Calculating your taxes
+              </Text>
             </motion.div>
           </div>
         </div>
