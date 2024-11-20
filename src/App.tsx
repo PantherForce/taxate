@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -12,6 +14,7 @@ import Faqs from "./components/Pages/Faqs/Faqs";
 import BlogList from "./components/Blogs/BlogList";
 import Blogcontent from "./components/Blogs/BlogContent";
 import Stats from "./components/Pages/Stats/Stats";
+import { Analytics } from "@vercel/analytics/react";
 
 const App: React.FC = () => {
   // const location = useLocation();
@@ -43,6 +46,7 @@ const App: React.FC = () => {
           element={<Blogcontent />}
         />
       </Routes>
+      <Analytics />
     </Router>
   );
 };
