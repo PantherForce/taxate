@@ -1,14 +1,5 @@
-// @ts-nocheck
-
-
-import React, { useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import ReactGA from "react-ga4"; // Import react-ga4
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./components/Pages/Home/Home";
 import CryptoTaxCalculator from "./components/Calculator/CryptoTaxCalculator";
@@ -26,7 +17,7 @@ const App: React.FC = () => {
   // const location = useLocation();
 
   // useEffect(() => {
-  //   ReactGA.initialize("G-5ZV7QG0229"); 
+  //   ReactGA.initialize("G-5ZV7QG0229");
 
   //   ReactGA.send({ hitType: "pageview", page: location.pathname });
   // }, [location]);
