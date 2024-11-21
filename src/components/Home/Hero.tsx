@@ -22,7 +22,7 @@ const Hero: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://127.0.0.1:5000/add_user", {
+      const response = await axios.post("https://taxate-backend.onrender.com", {
         name,
         email,
       });
