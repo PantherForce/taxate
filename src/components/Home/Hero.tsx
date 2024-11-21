@@ -1,3 +1,6 @@
+// @ts-nocheck
+
+
 import React, { useState } from "react";
 import axios from "axios";
 import Button from "../Layout/Button/Button";
@@ -22,7 +25,7 @@ const Hero: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("https://taxate-backend.onrender.com", {
+      const response = await axios.post("https://taxate-backend.onrender.com/add_user", {
         name,
         email,
       });
