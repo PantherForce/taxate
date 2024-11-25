@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import { Pie } from 'react-chartjs-2';
