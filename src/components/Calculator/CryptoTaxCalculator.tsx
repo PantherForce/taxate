@@ -8,6 +8,7 @@ import Text from "../Layout/Text/Text";
 import Button from "../Layout/Button/Button";
 import FAQ from "../Faq/Faq";
 import Footer from "../Footer/Footer";
+import FAQS from "../Faq/Faqs";
 
 const CryptoTaxCalculator: React.FC = () => {
   const [purchasePrice, setPurchasePrice] = useState<number | "">(1);
@@ -184,7 +185,7 @@ const CryptoTaxCalculator: React.FC = () => {
           </div>
         </div>{" "}
         <div className="p-2 md:p-8">
-          <FAQ />
+          <FAQS />
         </div>
       </ContentContainer>
 

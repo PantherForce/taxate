@@ -1,6 +1,5 @@
 // @ts-nocheck
 
-
 import React, { useState } from "react";
 import axios from "axios";
 import Button from "../Layout/Button/Button";
@@ -16,29 +15,35 @@ const Hero: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
+  // Show the modal when the "Join Wishlist" button is clicked
   const handleJoinWishlist = () => {
     setShowModal(true);
   };
 
+  // Handle form submission for adding user
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); // Set loading state to true when submitting
 
     try {
+      // Make API request to the backend
       const response = await axios.post("https://taxate-backend.onrender.com/add_user", {
         name,
         email,
       });
 
-      setLoading(false);
+      setLoading(false); // Reset loading state
       setMessage("Successfully added to the wishlist!");
-      setShowModal(false);
+      setShowModal(false); // Close the modal
 
       toast.success("Successfully added to the wishlist!"); // Show success toast
     } catch (error) {
-      setLoading(false);
+      setLoading(false); // Reset loading state
       setMessage("Something went wrong. Please try again later.");
-      toast.error("Something went wrong. Please try again later."); // Show error toast
+      setShowModal(true); // Ensure the modal remains open for error feedback
+
+      // Show error toast
+      toast.error("Something went wrong. Please try again later.");
     }
   };
 
@@ -61,7 +66,7 @@ const Hero: React.FC = () => {
                 fontSize="lg"
                 className="px-8 font-semibold py-3 bg-[#F4F1E6] text-black"
                 onClick={handleJoinWishlist}
-                disabled={loading}
+                disabled={loading} // Disable button when loading
               >
                 {loading ? "Joining..." : "Join wishlist"}
               </Button>
@@ -74,6 +79,8 @@ const Hero: React.FC = () => {
           </div>
         </ContentContainer>
       </section>
+
+      {/* Modal for user information */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-md w-1/3">
@@ -103,7 +110,7 @@ const Hero: React.FC = () => {
                 <Button
                   fontSize="lg"
                   className="px-8 font-semibold py-3 bg-[#F4F1E6] text-black"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => setShowModal(false)} // Close modal on cancel
                 >
                   Cancel
                 </Button>
@@ -111,7 +118,7 @@ const Hero: React.FC = () => {
                   fontSize="lg"
                   className="px-8 font-semibold py-3 bg-[#F4F1E6] text-black"
                   type="submit"
-                  disabled={loading}
+                  disabled={loading} // Disable submit button during loading
                 >
                   {loading ? "Submitting..." : "Submit"}
                 </Button>
@@ -120,7 +127,8 @@ const Hero: React.FC = () => {
           </div>
         </div>
       )}
-      <ToastContainer /> {/* Toast Container */}
+      
+      <ToastContainer /> {/* Toast Container for displaying success/error messages */}
     </ContentContainer>
   );
 };

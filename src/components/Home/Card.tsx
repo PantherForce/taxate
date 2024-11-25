@@ -39,9 +39,10 @@ const KoinlyFeatures: React.FC = () => {
   return (
     <ContentContainer>
       <div className="flex bg-[#F4F1E6] h-auto flex-col items-center w-full py-16">
-        <Heading fontSize="xl" className="font-semibold mb-4 text-center">
+        <Heading fontSize="xl" className="font-bold mb-4 text-center">
           Taxate, the crypto tax calculator India needs
         </Heading>
+    
         <Text
           fontSize="lg"
           className="text-gray-600 mb-8 text-center max-w-5xl px-4"

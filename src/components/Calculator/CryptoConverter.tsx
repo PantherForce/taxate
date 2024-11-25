@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import React, { useState, useEffect } from "react";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Navbar from "../Navbar/Navbar";
@@ -7,74 +5,128 @@ import Heading from "../Layout/Heading/Heading";
 import Text from "../Layout/Text/Text";
 import Button from "../Layout/Button/Button";
 import Footer from "../Footer/Footer";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import LoadingSpinner from "../Loader/LoadingSpinner";
 import FAQ from "../Faq/Faq";
 
+const API_URL = "https://api.coincap.io/v2/assets";
+
 const CryptoConverter: React.FC = () => {
-  const [inputAmountUSD, setInputAmountUSD] = useState<number | "">("");
-  const [outputAmountCrypto, setOutputAmountCrypto] = useState<number | "">("");
-  const [conversionRate, setConversionRate] = useState<number>(0);
-  const [selectedCrypto, setSelectedCrypto] = useState<string>("BTC");
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [inputAmountUSD, setInputAmountUSD] = useState<number | "">(""); // User input in USD
+  const [outputAmountCrypto, setOutputAmountCrypto] = useState<number | "">(""); // Converted amount of selected crypto
+  const [conversionRateCrypto, setConversionRateCrypto] = useState<number>(0); // Price of selected crypto in USD
+  const [conversionRateUSDT, setConversionRateUSDT] = useState<number>(1); // Price of USDT in USD (typically 1, as USDT = USD)
+  const [selectedCrypto, setSelectedCrypto] = useState<string>("bitcoin"); // Default to Bitcoin
+  const [error, setError] = useState<string>(""); // Error message
+  const [loading, setLoading] = useState<boolean>(false); // Loading state
+  const [cryptos, setCryptos] = useState<any[]>([]); // List of all cryptos
 
-  const generativeAI = new GoogleGenerativeAI(
-    "AIzaSyDj1d-KGQHhn7S4bCKz4021Do4Y6HAmTAw"
-  );
-
-  const fetchCryptoPrice = async (crypto: string) => {
-    setLoading(true); // Start loading state
-    setError(""); // Reset any previous errors
+  // Fetch all available cryptocurrencies from the CoinCap API
+  const fetchCryptos = async () => {
+    setLoading(true);
+    setError("");
     try {
-      const prompt = `What is the current price of ${crypto} in USD?`;
-      const response = await generativeAI.query({
-        model: "gemini-1.5-flash",
-        prompt,
-      });
-
-      const price = parseFloat(
-        response?.text?.trim().replace(/[^\d.-]/g, "") || "0"
-      );
-
-      if (!price) {
-        throw new Error("Price not found");
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      if (response.ok && data.data) {
+        setCryptos(data.data);
+      } else {
+        setError("Failed to fetch cryptocurrency data.");
       }
-
-      setConversionRate(price);
-      setError("");
     } catch (err) {
-      setError("Failed to fetch the price. Please try again.");
+      console.error("Error fetching cryptocurrencies:", err);
+      setError("Failed to fetch cryptocurrencies.");
     } finally {
-      setLoading(false); // Stop loading state
+      setLoading(false);
     }
   };
 
+  // Fetch price for selected cryptocurrency in USD
+  const fetchCryptoPrice = async (crypto: string) => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch(`https://api.coincap.io/v2/assets/${crypto}`);
+      const data = await response.json();
+      
+      if (response.ok && data.data && data.data.priceUsd) {
+        const price = parseFloat(data.data.priceUsd);
+        if (!isNaN(price)) {
+          setConversionRateCrypto(price);
+          setError(""); // Clear any previous errors
+        } else {
+          setError("Invalid price data for cryptocurrency.");
+        }
+      } else {
+        setError("Failed to fetch the price data.");
+      }
+    } catch (err) {
+      console.error("Error fetching price for crypto:", err);
+      setError("Failed to fetch the price for selected cryptocurrency.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch the price for USDT to use as USD reference (typically 1 USDT = 1 USD)
+  const fetchUSDTPrice = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("https://api.coincap.io/v2/assets/usdt");
+      const data = await response.json();
+      
+      if (response.ok && data.data && data.data.priceUsd) {
+        const price = parseFloat(data.data.priceUsd);
+        setConversionRateUSDT(price); // Typically, USDT is 1 USD, but fetching for accuracy
+      } else {
+        setError("Failed to fetch USDT price.");
+      }
+    } catch (err) {
+      console.error("Error fetching USDT price:", err);
+      setError("Failed to fetch USDT price.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch all necessary data on page load
   useEffect(() => {
-    fetchCryptoPrice(selectedCrypto);
+    fetchCryptos(); // Fetch available cryptocurrencies
+    fetchUSDTPrice(); // Fetch USDT price
+  }, []);
+
+  // Fetch price for the selected crypto whenever it changes
+  useEffect(() => {
+    if (selectedCrypto) {
+      fetchCryptoPrice(selectedCrypto);
+    }
   }, [selectedCrypto]);
 
+  // Handle conversion logic (USD to crypto)
   const handleConvert = () => {
-    if (
-      inputAmountUSD &&
-      !isNaN(Number(inputAmountUSD)) &&
-      conversionRate > 0
-    ) {
-      const result = Number(inputAmountUSD) / conversionRate;
-      setOutputAmountCrypto(result);
+    if (inputAmountUSD && !isNaN(Number(inputAmountUSD)) && conversionRateCrypto > 0) {
+      const usdAmountInUSDT = Number(inputAmountUSD) / conversionRateUSDT; // Convert USD into USDT
+      const cryptoAmount = usdAmountInUSDT / conversionRateCrypto; // Convert USDT to selected crypto
+      setOutputAmountCrypto(cryptoAmount);
     } else {
       setError("Invalid input or no conversion rate found.");
     }
   };
 
+  // Handle crypto selection change
   const handleCryptoChange = (crypto: string) => {
     setSelectedCrypto(crypto);
-    setOutputAmountCrypto(""); // Reset output when changing crypto
+    setOutputAmountCrypto(""); // Clear the previous result
+    fetchCryptoPrice(crypto); // Fetch the new crypto's price
   };
 
+  // Handle USD input change
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputAmountUSD(Number(e.target.value));
-    setOutputAmountCrypto(""); // Reset output when changing USD amount
+    if (Number(e.target.value) && conversionRateCrypto > 0 && conversionRateUSDT > 0) {
+      const usdAmountInUSDT = Number(e.target.value) / conversionRateUSDT; // Convert USD into USDT
+      const cryptoAmount = usdAmountInUSDT / conversionRateCrypto; // Convert USDT to selected crypto
+      setOutputAmountCrypto(cryptoAmount); // Update the result dynamically
+    }
   };
 
   return (
@@ -106,11 +158,11 @@ const CryptoConverter: React.FC = () => {
                 onChange={(e) => handleCryptoChange(e.target.value)}
                 className="mt-2 p-2 border bg-gray-100 h-16 border-gray-300 rounded-md w-full"
               >
-                <option value="BTC">Bitcoin (BTC)</option>
-                <option value="ETH">Ethereum (ETH)</option>
-                <option value="USDT">Tether (USDT)</option>
-                <option value="ADA">Cardano (ADA)</option>
-                <option value="SOL">Solana (SOL)</option>
+                {cryptos.map((crypto) => (
+                  <option key={crypto.id} value={crypto.symbol}>
+                    {crypto.name} ({crypto.symbol})
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -161,26 +213,13 @@ const CryptoConverter: React.FC = () => {
               </div>
             </div>
 
-            {error && (
+            {/* {error && (
               <div className="mt-4 text-red-600 text-center">
                 <Text>{error}</Text>
               </div>
-            )}
+            )} */}
 
             {loading && <LoadingSpinner />}
-
-            {/* <div className="flex justify-center mt-8">
-              <Button
-                fontSize="lg"
-                fontColor="text-white"
-                height="50px"
-                width="50%"
-                className="bg-primary font-semibold"
-                onClick={handleConvert}
-              >
-                Convert
-              </Button>
-            </div> */}
           </div>
 
           <div className=" p-4 bg-primary flex flex-col items-center justify-center w-full rounded-xl md:w-[600px] h-[30vh] text-white rounded-md text-center">

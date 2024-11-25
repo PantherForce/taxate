@@ -1,112 +1,155 @@
-import React, { useEffect, useState } from "react";
-import { Line, Pie } from "react-chartjs-2";
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js';
-import 'chart.js/auto';
+import React, { useState, useEffect } from 'react';
+import Papa from 'papaparse';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, PointElement, LineElement);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-type CSVData = {
+interface Transaction {
+  transactionType: string;
   date: string;
-  amount: number;
-  category: "Profit" | "Loss";
-};
+  depositType: string;
+  fiatAmount: string;
+  symbol: string;
+  cryptoQuantity: string;
+  transactionId: string;
+}
 
-const Overview: React.FC = () => {
-  const [csvData, setCsvData] = useState<CSVData[]>([]);
-  const [totalProfit, setTotalProfit] = useState<number>(0);
-  const [totalLoss, setTotalLoss] = useState<number>(0);
+const App: React.FC = () => {
+  const [csvData, setCsvData] = useState<Transaction[]>([]);
+  const [uploading, setUploading] = useState<boolean>(false);
+  const [transactionSummary, setTransactionSummary] = useState<any>({
+    spot: 0,
+    deposit: 0,
+    withdrawal: 0,
+    others: 0,
+  });
 
-  useEffect(() => {
-    const storedCsvData = localStorage.getItem("csvData");
-    if (storedCsvData) {
-      const parsedData = JSON.parse(storedCsvData);
-      const formattedData = parsedData.map((item: any) => ({
-        date: item.date,
-        amount: parseFloat(item.amount),
-        category: item.category === "Profit" ? "Profit" : "Loss",
-      }));
+  // Handle CSV file upload and parse
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      setUploading(true);
+      Papa.parse(file, {
+        complete: (result) => {
+          const transactions: Transaction[] = result.data.map((row: any) => ({
+            transactionType: row['Transaction Type'],
+            date: row['Date'],
+            depositType: row['Deposit Type'],
+            fiatAmount: row['Fiat Amount'],
+            symbol: row['Symbol'],
+            cryptoQuantity: row['Crypto Quantity'],
+            transactionId: row['Transaction ID'],
+          }));
 
-      setCsvData(formattedData);
-      calculateTotals(formattedData);
+          setCsvData(transactions);
+          calculateTransactionSummary(transactions);
+          setUploading(false);
+        },
+        header: true,
+        skipEmptyLines: true,
+      });
     }
-  }, []);
-
-  const calculateTotals = (data: CSVData[]) => {
-    const profit = data.filter((item) => item.category === "Profit").reduce((acc, item) => acc + item.amount, 0);
-    const loss = data.filter((item) => item.category === "Loss").reduce((acc, item) => acc + item.amount, 0);
-    setTotalProfit(profit);
-    setTotalLoss(loss);
   };
 
-  const profitLossChartData = {
-    labels: ["Profit", "Loss"],
-    datasets: [
-      {
-        label: "Profit/Loss",
-        data: [totalProfit, totalLoss],
-        backgroundColor: ["#38A169", "#E53E3E"],
-        borderColor: ["#38A169", "#E53E3E"],
-        borderWidth: 1,
-      },
-    ],
+  // Calculate the transaction summary
+  const calculateTransactionSummary = (transactions: Transaction[]) => {
+    let spot = 0;
+    let deposit = 0;
+    let withdrawal = 0;
+    let others = 0;
+
+    transactions.forEach((transaction) => {
+      if (transaction.transactionType.toLowerCase().includes('spot')) {
+        spot++;
+      } else if (transaction.transactionType.toLowerCase().includes('deposit')) {
+        deposit++;
+      } else if (transaction.transactionType.toLowerCase().includes('withdrawal')) {
+        withdrawal++;
+      } else {
+        others++;
+      }
+    });
+
+    const total = spot + deposit + withdrawal + others;
+    setTransactionSummary({
+      spot: ((spot / total) * 100).toFixed(2),
+      deposit: ((deposit / total) * 100).toFixed(2),
+      withdrawal: ((withdrawal / total) * 100).toFixed(2),
+      others: ((others / total) * 100).toFixed(2),
+    });
   };
 
-  const lineChartData = {
-    labels: csvData.map((item) => item.date),
+  // Data for pie charts
+  const chartData = {
+    labels: ['Spot', 'Deposit', 'Withdrawal', 'Others'],
     datasets: [
       {
-        label: "Amount Over Time",
-        data: csvData.map((item) => item.amount),
-        fill: false,
-        borderColor: "#4299E1",
-        tension: 0.4,
+        data: [
+          parseFloat(transactionSummary.spot),
+          parseFloat(transactionSummary.deposit),
+          parseFloat(transactionSummary.withdrawal),
+          parseFloat(transactionSummary.others),
+        ],
+        backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#FF5733'],
+        hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#FF5733'],
       },
     ],
   };
 
   return (
-    <div className="p-8 max-w-5xl mx-auto bg-gray-50 rounded-xl shadow-lg space-y-8">
-      <h1 className="text-3xl font-bold text-gray-800 text-center">CSV Data Overview</h1>
-      
-      <div className="grid gap-8 sm:grid-cols-2">
-        <div className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-lg font-semibold text-gray-700 text-center">Profit/Loss Distribution</h2>
-          <Pie data={profitLossChartData} options={{ responsive: true }} />
+    <div className="container mx-auto p-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Account Settings Section */}
+        <div className="p-6 border rounded-md shadow-md bg-white">
+          <h2 className="text-xl font-bold mb-4">Account Settings</h2>
+          <div className="space-y-2">
+            <p><strong>Country:</strong> INDIA</p>
+            <p><strong>Base Currency:</strong> INR</p>
+            <p><strong>Calculation Method:</strong> First-in First-out (FIFO)</p>
+          </div>
         </div>
-        
-        <div className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-lg font-semibold text-gray-700 text-center">Amount Over Time</h2>
-          <Line data={lineChartData} options={{ responsive: true }} />
+
+        {/* Integrated Platform Section */}
+        <div className="p-6 border rounded-md shadow-md bg-white flex items-center justify-start">
+          <img src="https://via.placeholder.com/50" alt="Mudrex Logo" className="mr-4" />
+          <span className="text-xl font-bold">Mudrex</span>
+        </div>
+
+        {/* Transaction Summary Section with Pie Charts */}
+        <div className="p-6 border rounded-md shadow-md bg-white">
+          <h2 className="text-xl font-bold mb-4">Transaction Summary</h2>
+          <div className="flex flex-col items-center">
+            {uploading ? (
+              <p>Loading...</p>
+            ) : (
+              <>
+                <div className="w-full h-64">
+                  <Pie data={chartData} />
+                </div>
+                <div className="mt-4 space-y-2">
+                  <p><strong>Spot:</strong> {transactionSummary.spot}%</p>
+                  <p><strong>Deposit:</strong> {transactionSummary.deposit}%</p>
+                  <p><strong>Withdrawal:</strong> {transactionSummary.withdrawal}%</p>
+                  <p><strong>Others:</strong> {transactionSummary.others}%</p>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
-      <div className="overflow-hidden bg-white shadow-lg rounded-lg">
-        <table className="min-w-full text-sm text-left text-gray-600">
-          <thead className="bg-gray-200">
-            <tr>
-              <th className="px-4 py-3 font-semibold text-gray-700">Date</th>
-              <th className="px-4 py-3 font-semibold text-gray-700">Amount</th>
-              <th className="px-4 py-3 font-semibold text-gray-700">Category</th>
-            </tr>
-          </thead>
-          <tbody>
-            {csvData.map((item, index) => (
-              <tr key={index} className={`${item.category === "Profit" ? "bg-green-50" : "bg-red-50"} hover:bg-gray-100`}>
-                <td className="px-4 py-3">{item.date}</td>
-                <td className="px-4 py-3">₹{item.amount.toFixed(2)}</td>
-                <td className="px-4 py-3">{item.category}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div className="flex justify-between mt-4 text-lg font-semibold">
-        <div className="text-green-600">Total Profit: ₹{totalProfit.toFixed(2)}</div>
-        <div className="text-red-600">Total Loss: ₹{totalLoss.toFixed(2)}</div>
+      {/* File Upload Section */}
+      <div className="mt-6">
+        <input
+          type="file"
+          accept=".csv"
+          onChange={handleFileUpload}
+          className="mb-4 px-4 py-2 border rounded-md bg-gray-100"
+        />
       </div>
     </div>
   );
 };
 
-export default Overview;
+export default App;

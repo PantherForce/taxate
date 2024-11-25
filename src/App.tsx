@@ -15,6 +15,7 @@ import BlogList from "./components/Blogs/BlogList";
 import Blogcontent from "./components/Blogs/BlogContent";
 import Stats from "./components/Pages/Stats/Stats";
 import { Analytics } from "@vercel/analytics/react";
+import Naaskets from "./components/Pages/Baskets/Naaskets";
 
 const App: React.FC = () => {
   // const location = useLocation();
@@ -41,6 +42,7 @@ const App: React.FC = () => {
         <Route path="/blogs" element={<BlogList />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/stats" element={<Stats />} />
+        <Route path="/baskets" element={<Naaskets/>}/>
         <Route
           path="/why-paying-taxes-on-crypto-matters"
           element={<Blogcontent />}
