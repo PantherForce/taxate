@@ -52,7 +52,7 @@ const KoinlyFeatures: React.FC = () => {
           and simplify the process!
         </Text>
 
-        <div className="flex flex-wrap justify-center gap-12 w-full">
+        <div className="flex flex-wrap justify-center p-3 gap-12 w-full">
           {features.map((feature, index) => (
             <motion.div
               key={index}

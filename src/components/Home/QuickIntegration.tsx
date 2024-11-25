@@ -35,7 +35,7 @@ const QuickIntegration: React.FC = () => {
           </div>
 
           {/* Horizontal Timeline Layout */}
-          <div className="flex items-center justify-center space-x-10 relative w-full mt-8">
+          <div className="flex flex-col md:flex-row items-center justify-center space-x-10 relative w-full mt-8">
             {/* Timeline Line */}
             <div className="absolute w-1/2 h-1  bg-gray-300 top-1/2 transform -translate-y-1/2 z-0" />
 

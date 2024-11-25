@@ -58,7 +58,7 @@ const Freshsection: React.FC = () => {
         </Heading>
       </ContentContainer>
 
-      <div className="flex space-x-4 mb-8">
+      <div className="flex flex-col md:flex-row space-y-6 space-x-4 mb-8">
         {contentData.map((section, index) => (
           <button
             key={index}

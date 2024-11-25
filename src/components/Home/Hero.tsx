@@ -50,15 +50,15 @@ const Hero: React.FC = () => {
   return (
     <ContentContainer>
       <section
-        className="flex flex-col-reverse lg:flex-row items-center bg-cover bg-center h-[60vh]"
+        className="flex flex-col-reverse lg:flex-row items-center bg-cover bg-center h-[46vh] md:h-[60vh]"
         style={{ backgroundImage: "url(/images/Background/background.svg)" }}
       >
         <ContentContainer>
           <div className="w-full flex flex-col gap-6 text-center lg:text-left">
-            <Heading fontSize="xl" className="font-bold text-white">
+            <Heading fontSize="" className="font-semibold md:font-bold text-2xl md:text-4xl text-white">
               Simplifying crypto tax compliance and accounting for you
             </Heading>
-            <Heading fontSize="lg" className=" text-white">
+            <Heading fontSize="" className=" text-white text-lg md:text-2xl">
               Innovative tech for seamless crypto tax management.
             </Heading>
             <div>
@@ -82,8 +82,8 @@ const Hero: React.FC = () => {
 
       {/* Modal for user information */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-md w-1/3">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex flex-col md:flex-row justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-md w-3/4 md:w-1/3">
             <h3 className="text-xl font-bold mb-4">Join Wishlist</h3>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
@@ -106,7 +106,7 @@ const Hero: React.FC = () => {
                   required
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex flex-col gap-3 md:flex-row justify-between">
                 <Button
                   fontSize="lg"
                   className="px-8 font-semibold py-3 bg-[#F4F1E6] text-black"

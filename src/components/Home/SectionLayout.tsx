@@ -12,7 +12,7 @@ interface SectionLayoutProps {
 const SectionLayout: React.FC<SectionLayoutProps> = ({ title, description, imageSrc, reverse = false, blur = false }) => {
   return (
     <motion.div
-      className={`flex ${reverse ? 'flex-row-reverse' : 'flex-row'} items-center justify-between space-x-8 w-full py-10`}
+      className={`flex ${reverse ? 'flex-row-reverse' : 'flex-row'} items-center justify-between space-x-8 w-full py-10 flex-col sm:flex-row`}  // Make it column on small screens
       initial={{ opacity: 0, x: reverse ? 100 : -100 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6 }}
@@ -27,7 +27,7 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({ title, description, image
         <motion.img
           src={imageSrc}
           alt="Image description"
-          className={`w-3/4 h-[40vh] object-contain rounded-lg shadow-lg ${blur ? 'filter blur-md' : ''}`}  // Apply blur conditionally
+          className={`w-full h-[40vh] object-contain rounded-lg shadow-lg ${blur ? 'filter blur-md' : ''}`}  // Make the image full-width on mobile
         />
       </motion.div>
     </motion.div>
