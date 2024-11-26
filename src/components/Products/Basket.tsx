@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from "react";
 import Button from "../Layout/Button/Button";
 import JoinWishlistButton from "../Layout/Button/JoinWishlistButton";
@@ -12,17 +14,22 @@ const Basket: React.FC = () => {
           className="w-32 h-32 sm:w-48 sm:h-48 md:w-1/2 md:h-1/2 rounded-full"
         />
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 text-center mb-4">
-        Optimize your taxes and grow your wealth with Taxate Coin Sets—your secure path to diversified crypto exposure        </h1>
+          Optimize your taxes and grow your wealth with Taxate Coin Sets—your
+          secure path to diversified crypto exposure{" "}
+        </h1>
         <p className="text-base sm:text-lg md:text-xl text-gray-600 text-center mb-6">
-        Invest smartly with theme-based crypto baskets, designed to maximize growth and minimize risk.        </p>
-       
+          Invest smartly with theme-based crypto baskets, designed to maximize
+          growth and minimize risk.{" "}
+        </p>
 
         <div className="flex justify-center">
           {" "}
-          <JoinWishlistButton bgColor="" buttonText="Join the exclusive list!" />
+          <JoinWishlistButton
+            bgColor=""
+            buttonText="Join the exclusive list!"
+          />
         </div>
       </div>
-      
     </div>
   );
 };
