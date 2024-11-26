@@ -27,10 +27,13 @@ const Hero: React.FC = () => {
 
     try {
       // Make API request to the backend
-      const response = await axios.post("https://taxate-backend.onrender.com/add_user", {
-        name,
-        email,
-      });
+      const response = await axios.post(
+        "https://testdata-bh0z.onrender.com/add_user",
+        {
+          name,
+          email,
+        }
+      );
 
       setLoading(false); // Reset loading state
       setMessage("Successfully added to the wishlist!");
@@ -55,7 +58,10 @@ const Hero: React.FC = () => {
       >
         <ContentContainer>
           <div className="w-full flex flex-col gap-6 text-center lg:text-left">
-            <Heading fontSize="" className="font-semibold md:font-bold text-2xl md:text-4xl text-white">
+            <Heading
+              fontSize=""
+              className="font-semibold md:font-bold text-2xl md:text-4xl text-white"
+            >
               Simplifying crypto tax compliance and accounting for you
             </Heading>
             <Heading fontSize="" className=" text-white text-lg md:text-2xl">
@@ -71,15 +77,9 @@ const Hero: React.FC = () => {
                 {loading ? "Joining..." : "Join wishlist"}
               </Button>
             </div>
-            {message && (
-              <div className="mt-4 text-center text-white">
-                <p>{message}</p>
-              </div>
-            )}
           </div>
         </ContentContainer>
       </section>
-
       {/* Modal for user information */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex flex-col md:flex-row justify-center items-center z-50">
@@ -127,8 +127,8 @@ const Hero: React.FC = () => {
           </div>
         </div>
       )}
-      
-      <ToastContainer /> {/* Toast Container for displaying success/error messages */}
+      <ToastContainer />{" "}
+      {/* Toast Container for displaying success/error messages */}
     </ContentContainer>
   );
 };
