@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../Layout/Button/Button";
+import JoinWishlistButton from "../Layout/Button/JoinWishlistButton";
 
 const Basket: React.FC = () => {
   return (
@@ -18,15 +19,7 @@ const Basket: React.FC = () => {
 
         <div className="flex justify-center">
           {" "}
-          <Button
-            fontSize="xl"
-            fontColor="text-black"
-            height="50px"
-            width="100%"
-            className="bg-primary text-white font-semibold"
-          >
-            Get Started
-          </Button>
+          <JoinWishlistButton bgColor="" buttonText="Join the exclusive list!" />
         </div>
       </div>
       

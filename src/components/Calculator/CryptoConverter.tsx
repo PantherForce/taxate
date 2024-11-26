@@ -21,6 +21,10 @@ const CryptoConverter: React.FC = () => {
   const [error, setError] = useState<string>(""); // Error message
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const [cryptos, setCryptos] = useState<any[]>([]); // List of all cryptos
+  const [showModal, setShowModal] = useState(false); // Modal visibility state
+  const [name, setName] = useState(""); // User's name
+  const [email, setEmail] = useState(""); // User's email
+  const [hasSignedUp, setHasSignedUp] = useState(false); // Track if user has signed up
 
   // Fetch all available cryptocurrencies from the CoinCap API
   const fetchCryptos = async () => {
@@ -131,6 +135,27 @@ const CryptoConverter: React.FC = () => {
     }
   };
 
+  // Handle modal form submission
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (name && email) {
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
+      setHasSignedUp(true);
+      setShowModal(false); // Close the modal
+    }
+  };
+
+  // Check if user is already signed up
+  useEffect(() => {
+    const storedName = localStorage.getItem("name");
+    const storedEmail = localStorage.getItem("email");
+
+    if (storedName && storedEmail) {
+      setHasSignedUp(true);
+    }
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -187,39 +212,31 @@ const CryptoConverter: React.FC = () => {
               </div>
             </div>
 
-            <div className="">
-              <div className="p-4 bg-[#E0EAE8] rounded-md text-center">
-                <Text
-                  fontSize="xl"
-                  fontColor="text-[#2A3D3B]"
-                  className="font-semibold"
-                >
-                  Equivalent in {selectedCrypto}
-                </Text>
-                <Heading fontSize="2xl" fontColor="text-[#2A3D3B]">
-                  <p className="text-[#2A3D3B] mt-2 font-bold">
-                    {outputAmountCrypto === "" ? (
-                      `${selectedCrypto} 0`
-                    ) : (
-                      <>
-                        <span className="font-bold">
-                          {outputAmountCrypto.toLocaleString("en-US", {
-                            maximumFractionDigits: 6,
-                          })}
-                        </span>{" "}
-                        {selectedCrypto}
-                      </>
-                    )}
-                  </p>
-                </Heading>
-              </div>
+            <div className="p-4 bg-[#E0EAE8] rounded-md text-center">
+              <Text
+                fontSize="xl"
+                fontColor="text-[#2A3D3B]"
+                className="font-semibold"
+              >
+                Equivalent in {selectedCrypto}
+              </Text>
+              <Heading fontSize="2xl" fontColor="text-[#2A3D3B]">
+                <p className="text-[#2A3D3B] mt-2 font-bold">
+                  {outputAmountCrypto === "" ? (
+                    `${selectedCrypto} 0`
+                  ) : (
+                    <>
+                      <span className="font-bold">
+                        {outputAmountCrypto.toLocaleString("en-US", {
+                          maximumFractionDigits: 6,
+                        })}
+                      </span>{" "}
+                      {selectedCrypto}
+                    </>
+                  )}
+                </p>
+              </Heading>
             </div>
-
-            {/* {error && (
-              <div className="mt-4 text-red-600 text-center">
-                <Text>{error}</Text>
-              </div>
-            )} */}
 
             {loading && <LoadingSpinner />}
           </div>
@@ -236,18 +253,65 @@ const CryptoConverter: React.FC = () => {
               Use our crypto converter tool to easily convert between USD and
               cryptocurrencies.
             </Text>
+
             <Button
               fontSize="xl"
               fontColor="text-black"
               height="50px"
               width="80%"
               className="mt-4 bg-white font-semibold"
+              onClick={() => !hasSignedUp && setShowModal(true)}
+              disabled={hasSignedUp}
             >
-              Get Started →
+              {hasSignedUp ? "Thanks for joining!" : "Get Started →"}
             </Button>
           </div>
         </div>
 
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white p-6 rounded-md w-3/4 md:w-1/3">
+              <h3 className="text-xl font-bold mb-4">Sign Up</h3>
+              <form onSubmit={handleFormSubmit}>
+                <div className="mb-4">
+                  <label className="block text-sm font-semibold">Name</label>
+                  <input
+                    type="text"
+                    className="w-full p-2 mt-2 border rounded-md"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-sm font-semibold">Email</label>
+                  <input
+                    type="email"
+                    className="w-full p-2 mt-2 border rounded-md"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="flex justify-between">
+                  <Button
+                    className="bg-gray-300 px-8 py-3 font-semibold"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className="bg-[#F4F1E6] px-8 py-3 font-semibold"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+        
         <FAQ />
       </ContentContainer>
 

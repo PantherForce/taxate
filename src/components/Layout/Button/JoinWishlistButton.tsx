@@ -2,13 +2,16 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Button from "../Layout/Button/Button";
-import ContentContainer from "../Layout/ContentContainer/ContentContainer";
-import Heading from "../Layout/Heading/Heading";
+import Button from "../Button/Button"; // Adjust path based on your folder structure
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Hero: React.FC = () => {
+interface JoinWishlistButtonProps {
+  buttonText?: string;
+  bgColor?: string;  // New prop for background color
+}
+
+const JoinWishlistButton: React.FC<JoinWishlistButtonProps> = ({ buttonText, bgColor = "#F4F1E6" }) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -38,10 +41,9 @@ const Hero: React.FC = () => {
   // Handle form submission for adding user
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // Set loading state to true when submitting
+    setLoading(true);
 
     try {
-      // Make API request to the backend
       const response = await axios.post(
         "https://testdata-bh0z.onrender.com/add_user",
         {
@@ -50,9 +52,9 @@ const Hero: React.FC = () => {
         }
       );
 
-      setLoading(false); // Reset loading state
+      setLoading(false);
       setMessage("Successfully added to the wishlist!");
-      setShowModal(false); // Close the modal
+      setShowModal(false);
 
       // Store user details in localStorage
       localStorage.setItem("name", name);
@@ -61,47 +63,25 @@ const Hero: React.FC = () => {
       // Set hasJoined state to true to change button text
       setHasJoined(true);
 
-      toast.success("Successfully added to the wishlist!"); // Show success toast
+      toast.success("Successfully added to the wishlist!");
     } catch (error) {
-      setLoading(false); // Reset loading state
+      setLoading(false);
       setMessage("Something went wrong. Please try again later.");
-      setShowModal(true); // Ensure the modal remains open for error feedback
-
-      // Show error toast
+      setShowModal(true);
       toast.error("Something went wrong. Please try again later.");
     }
   };
 
   return (
-    <ContentContainer>
-      <section
-        className="flex flex-col-reverse lg:flex-row items-center bg-cover bg-center h-[46vh] md:h-[60vh]"
-        style={{ backgroundImage: "url(/images/Background/background.svg)" }}
+    <div>
+      <Button
+        fontSize="lg"
+        className={`px-8 bg-primary font-semibold py-3 ${bgColor} text-white`}  // Use bgColor prop to set the background color
+        onClick={handleJoinWishlist}
+        disabled={loading || hasJoined} // Disable button when loading or if user has joined
       >
-        <ContentContainer>
-          <div className="w-full flex flex-col gap-6 text-center lg:text-left">
-            <Heading
-              fontSize=""
-              className="font-semibold md:font-bold text-2xl md:text-4xl text-white"
-            >
-              Simplifying crypto tax compliance and accounting for you
-            </Heading>
-            <Heading fontSize="" className=" text-white text-lg md:text-2xl">
-              Innovative tech for seamless crypto tax management.
-            </Heading>
-            <div>
-              <Button
-                fontSize="lg"
-                className="px-8 font-semibold py-3 bg-[#F4F1E6] text-black"
-                onClick={handleJoinWishlist}
-                disabled={loading || hasJoined} // Disable button when loading or if user has joined
-              >
-                {loading ? "Joining..." : hasJoined ? "Thanks for joining us" : "Join wishlist"}
-              </Button>
-            </div>
-          </div>
-        </ContentContainer>
-      </section>
+        {loading ? "Joining..." : hasJoined ? "Thanks for joining us" : buttonText || "Join wishlist"}
+      </Button>
 
       {/* Modal for user information */}
       {showModal && (
@@ -150,9 +130,9 @@ const Hero: React.FC = () => {
           </div>
         </div>
       )}
-      <ToastContainer /> {/* Toast Container for displaying success/error messages */}
-    </ContentContainer>
+      <ToastContainer />
+    </div>
   );
 };
 
-export default Hero;
+export default JoinWishlistButton;

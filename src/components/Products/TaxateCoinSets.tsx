@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Button from "../Layout/Button/Button";
+import JoinWishlistButton from "../Layout/Button/JoinWishlistButton";
 
 const stepsData = [
   {
@@ -88,15 +89,8 @@ const TaxateCoinSets: React.FC = () => {
           </div>
         </div>
         <div className="flex justify-center">
-          <Button
-            fontSize="xl"
-            fontColor="text-black"
-            height="50px"
-            width="20%"
-            className="bg-primary text-white font-semibold"
-          >
-            Get Started
-          </Button>
+        <JoinWishlistButton bgColor="" buttonText="Join the exclusive list!" />
+
         </div>
         <div className="flex justify-center space-x-3 mt-8">
           {stepsData.map((stepItem) => (
