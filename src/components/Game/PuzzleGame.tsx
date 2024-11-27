@@ -1,11 +1,12 @@
-// PuzzleGame.tsx
+// @ts-nocheck
+
 import React, { useState } from "react";
 import { motion } from "framer-motion"; // Framer Motion
 
 const puzzleClues = [
   { clue: "What is the tax rate for long-term capital gains?", answer: "20%" },
   { clue: "What is the tax rate on staking rewards?", answer: "Income tax" },
-  { clue: "Are crypto airdrops taxed?", answer: "Yes" }
+  { clue: "Are crypto airdrops taxed?", answer: "Yes" },
 ];
 
 const PuzzleGame: React.FC = () => {
@@ -30,8 +31,10 @@ const PuzzleGame: React.FC = () => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg w-full sm:w-3/4 mx-auto">
-      <h2 className="text-2xl font-semibold mb-4">Puzzle Clue #{currentClueIndex + 1}</h2>
+    <div className="p-6 bg-white rounded-lg shadow-lg w-full mt-16 sm:w-3/4 mx-auto">
+      <h2 className="text-2xl font-semibold mb-4">
+        Puzzle Clue #{currentClueIndex + 1}
+      </h2>
       <p className="mb-4 text-lg">{currentClue.clue}</p>
       <input
         type="text"

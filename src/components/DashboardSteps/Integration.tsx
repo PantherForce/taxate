@@ -1,10 +1,11 @@
 // @ts-nocheck
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Heading from "../Layout/Heading/Heading";
 import Papa from "papaparse";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios"; // Import axios for API requests
 
 type Exchange = {
   id: number;
@@ -13,68 +14,25 @@ type Exchange = {
   logo: string;
 };
 
-const exchanges: Exchange[] = [
-  {
-    id: 1,
-    name: "BitBNS",
-    category: "Partners",
-    logo: "https://via.placeholder.com/40",
-  },
-  {
-    id: 2,
-    name: "CoinDCX",
-    category: "Partners",
-    logo: "https://via.placeholder.com/40",
-  },
-  {
-    id: 3,
-    name: "Flitpay",
-    category: "Partners",
-    logo: "https://via.placeholder.com/40",
-  },
-  {
-    id: 4,
-    name: "Giottus",
-    category: "Partners",
-    logo: "https://via.placeholder.com/40",
-  },
-  {
-    id: 5,
-    name: "Mudrex",
-    category: "Partners",
-    logo: "https://via.placeholder.com/40",
-  },
-  {
-    id: 6,
-    name: "SunCrypto",
-    category: "Partners",
-    logo: "https://via.placeholder.com/40",
-  },
-  {
-    id: 7,
-    name: "Binance",
-    category: "Popular",
-    logo: "https://via.placeholder.com/40",
-  },
-  {
-    id: 8,
-    name: "Ethereum",
-    category: "Popular",
-    logo: "https://via.placeholder.com/40",
-  },
-  {
-    id: 9,
-    name: "Optimism",
-    category: "Popular",
-    logo: "https://via.placeholder.com/40",
-  },
-];
-
 const Integration: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("All integrations");
   const [searchTerm, setSearchTerm] = useState("");
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>("");
+  const [exchanges, setExchanges] = useState<Exchange[]>([]); // State to store fetched exchanges
+
+  // Fetch the exchange data when the component mounts
+  useEffect(() => {
+    axios
+      .get("https://testdata-bh0z.onrender.com/get_images")
+      .then((response) => {
+        setExchanges(response.data.images); // Assuming the response structure is { images: [...] }
+      })
+      .catch((error) => {
+        console.error("Error fetching exchange data:", error);
+        toast.error("Failed to fetch exchange data.");
+      });
+  }, []);
 
   const filteredExchanges = exchanges.filter(
     (exchange) =>

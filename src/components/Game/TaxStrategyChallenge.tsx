@@ -3,97 +3,117 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-// Define the structure of a quiz question
-interface QuizQuestion {
+// Define the structure of a tax strategy quiz question
+interface TaxStrategyQuestion {
   question: string;
   options: string[];
   correctAnswer: string;
 }
 
-const QuizGame: React.FC = () => {
-  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([
-    {
-      question: "What is the tax rate on cryptocurrency transactions in India?",
-      options: ["10%", "15%", "30%", "40%"],
-      correctAnswer: "30%",
-    },
+const TaxStrategyChallenge: React.FC = () => {
+  const [quizQuestions, setQuizQuestions] = useState<TaxStrategyQuestion[]>([
     {
       question:
-        "Which Indian government body regulates cryptocurrency taxation?",
-      options: ["RBI", "SEBI", "CBDT", "NITI Aayog"],
-      correctAnswer: "CBDT", // Central Board of Direct Taxes
-    },
-    {
-      question: "What is the tax implication for crypto mining in India?",
+        "What is the tax advantage of investing in a tax-deferred account?",
       options: [
-        "No tax",
-        "Taxed as business income",
-        "Taxed as capital gains",
-        "Taxed as gifts",
+        "Immediate tax deduction on contributions",
+        "Tax-free growth of investments",
+        "No tax on withdrawals",
+        "Lower capital gains tax",
       ],
-      correctAnswer: "Taxed as business income",
+      correctAnswer: "Immediate tax deduction on contributions",
     },
     {
       question:
-        "Is the sale of cryptocurrency subject to Goods and Services Tax (GST) in India?",
+        "Which of the following is a tax strategy to minimize estate taxes?",
       options: [
-        "Yes",
-        "No",
-        "Only on transactions above ₹50,000",
-        "Only on ICOs",
+        "Maximizing charitable contributions",
+        "Tax-loss harvesting",
+        "Making gifts during lifetime",
+        "Using tax-deferred accounts",
       ],
-      correctAnswer: "Yes",
+      correctAnswer: "Making gifts during lifetime",
     },
     {
-      question:
-        "In which year did the Indian government officially impose a 30% tax on income from crypto assets?",
-      options: ["2021", "2022", "2023", "2020"],
-      correctAnswer: "2022",
-    },
-    {
-      question: "How are cryptocurrency gifts taxed in India?",
+      question: "What is the primary purpose of a 1031 exchange?",
       options: [
-        "Exempt from tax",
-        "Taxed as business income",
-        "Taxed as capital gains",
-        "Taxed as income from other sources",
+        "Tax-free capital gains on primary residence",
+        "Deferring capital gains tax on real estate investments",
+        "Deducting business expenses on real estate",
+        "Avoiding sales tax on real estate transactions",
       ],
-      correctAnswer: "Taxed as income from other sources",
+      correctAnswer: "Deferring capital gains tax on real estate investments",
     },
     {
       question:
-        "What is the tax rate on gifts of cryptocurrency above ₹50,000 in India?",
-      options: ["10%", "20%", "30%", "40%"],
-      correctAnswer: "30%",
-    },
-    {
-      question:
-        "What document is required to report crypto transactions for tax purposes in India?",
-      options: ["PAN card", "Form 16", "Form 26AS", "Tax audit report"],
-      correctAnswer: "Form 26AS", // This form tracks income and tax payments
-    },
-    {
-      question:
-        "What is the tax treatment of capital gains on cryptocurrency in India?",
+        "Which of the following is a tax-efficient strategy for long-term investment?",
       options: [
-        "Short-term capital gains tax applies on assets held for less than 3 years",
-        "Long-term capital gains tax applies on assets held for more than 1 year",
-        "No tax on capital gains",
-        "Taxed as income from other sources",
+        "Frequent trading of stocks",
+        "Holding investments for more than a year",
+        "Investing only in bonds",
+        "Investing in tax-exempt mutual funds",
+      ],
+      correctAnswer: "Holding investments for more than a year",
+    },
+    {
+      question: "How can tax-loss harvesting reduce your taxable income?",
+      options: [
+        "By offsetting capital gains with capital losses",
+        "By contributing to tax-deferred accounts",
+        "By deducting property taxes",
+        "By claiming a larger standard deduction",
+      ],
+      correctAnswer: "By offsetting capital gains with capital losses",
+    },
+    {
+      question: "What is the benefit of contributing to a Roth IRA?",
+      options: [
+        "Tax-free withdrawals in retirement",
+        "Tax deduction on contributions",
+        "Tax deferral on capital gains",
+        "Reduced income taxes in the current year",
+      ],
+      correctAnswer: "Tax-free withdrawals in retirement",
+    },
+    {
+      question:
+        "What is the maximum contribution limit to a 401(k) for individuals under 50 (2024)?",
+      options: ["$19,500", "$22,500", "$26,000", "$30,000"],
+      correctAnswer: "$22,500",
+    },
+    {
+      question:
+        "Which tax strategy is often used by high-income earners to reduce taxable income?",
+      options: [
+        "Maximizing contributions to tax-deferred accounts",
+        "Buying real estate",
+        "Investing in tax-free municipal bonds",
+        "Engaging in tax-loss harvesting",
+      ],
+      correctAnswer: "Maximizing contributions to tax-deferred accounts",
+    },
+    {
+      question:
+        "How does the 'step-up in basis' rule help reduce taxes on inherited assets?",
+      options: [
+        "It allows the asset to be sold without any tax",
+        "It resets the value of the asset to its fair market value at inheritance",
+        "It eliminates capital gains tax on inherited assets",
+        "It defers taxes on the asset indefinitely",
       ],
       correctAnswer:
-        "Short-term capital gains tax applies on assets held for less than 3 years",
+        "It resets the value of the asset to its fair market value at inheritance",
     },
     {
       question:
-        "Can losses from crypto trading be set off against other income in India?",
+        "What is the primary benefit of a Health Savings Account (HSA) in terms of tax strategy?",
       options: [
-        "Yes",
-        "No",
-        "Only against salary income",
-        "Only against capital gains",
+        "Tax-free withdrawals for medical expenses",
+        "Tax deduction on contributions",
+        "Tax-deferred growth of investments",
+        "All of the above",
       ],
-      correctAnswer: "No",
+      correctAnswer: "All of the above",
     },
   ]);
 
@@ -200,4 +220,4 @@ const QuizGame: React.FC = () => {
   );
 };
 
-export default QuizGame;
+export default TaxStrategyChallenge;

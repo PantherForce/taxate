@@ -11,6 +11,7 @@ import {
 import Integration from "../DashboardSteps/Integration";
 import Overview from "../DashboardSteps/Overview";
 import ReferAndEarn from "../DashboardSteps/ReferAndEarn";
+import FileUpload from "./FileUpload";
 
 interface Step {
   label: string;
@@ -46,7 +47,7 @@ const Stepper: React.FC = () => {
       case "overview":
         return (
           <div>
-            <Overview />
+            <FileUpload />
           </div>
         );
       case "portfolio":
@@ -56,7 +57,11 @@ const Stepper: React.FC = () => {
       case "taxes":
         return <div>Taxes Content</div>;
       case "referEarn":
-        return <div><ReferAndEarn/></div>;
+        return (
+          <div>
+            <ReferAndEarn />
+          </div>
+        );
       case "xplore":
         return <div>Xplore Content</div>;
       default:
@@ -65,31 +70,30 @@ const Stepper: React.FC = () => {
   };
 
   return (
-<div className="flex w-full h-full">
-  {/* Sidebar with steps */}
-  <div className="w-1/6 bg-gray-50 text-[#2D2D2D] py-4 h-screen px-2 space-y-4 border-r border-gray-300 sticky top-0 z-10">
-    {steps.map((step) => (
-      <div
-        key={step.value}
-        className={`cursor-pointer flex items-center space-x-4 w-full text-xl py-3 px-4 rounded-md transition-colors duration-200 ${
-          activeStep === step.value
-            ? "text-black bg-white"
-            : "text-[#2D2D2D] bg-transparent"
-        }`}
-        onClick={() => handleStepClick(step.value)}
-      >
-        <span className="text-2xl">{step.icon}</span>
-        <span className="flex-1">{step.label}</span>
+    <div className="flex w-full h-full">
+      {/* Sidebar with steps */}
+      <div className="w-1/6 bg-gray-50 text-[#2D2D2D] py-4 h-screen px-2 space-y-4 border-r border-gray-300 sticky top-0 z-10">
+        {steps.map((step) => (
+          <div
+            key={step.value}
+            className={`cursor-pointer flex items-center space-x-4 w-full text-xl py-3 px-4 rounded-md transition-colors duration-200 ${
+              activeStep === step.value
+                ? "text-black bg-white"
+                : "text-[#2D2D2D] bg-transparent"
+            }`}
+            onClick={() => handleStepClick(step.value)}
+          >
+            <span className="text-2xl">{step.icon}</span>
+            <span className="flex-1">{step.label}</span>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
 
-  {/* Content Area */}
-  <div className="w-5/6 p-6">
-    <div className="text-lg">{renderContent()}</div>
-  </div>
-</div>
-
+      {/* Content Area */}
+      <div className="w-5/6 p-6">
+        <div className="text-lg">{renderContent()}</div>
+      </div>
+    </div>
   );
 };
 
