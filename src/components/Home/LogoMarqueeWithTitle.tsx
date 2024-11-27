@@ -22,15 +22,15 @@ const LogoMarqueeWithTitle = () => {
     "/images/Exhanges/coindcx.png",
     "/images/Exhanges/mudrex.png",
     "/images/Exhanges/sun.png",
-    "/images/Exhanges/giottus.svg"
+    "/images/Exhanges/giottus.svg",
   ];
 
   return (
     <ContentContainer>
-      <div className="flex h-[36vh] md:h-[36vh] rounded-xl bg-[#F4F1E6] flex-col items-center justify-center px-4 ">
+      <div className="flex h-[26vh] md:h-[36vh] rounded-xl bg-[#F4F1E6] flex-col items-center justify-center px-4 ">
         {/* Centered Heading */}
         <ContentContainer>
-          <Heading fontSize="" className="font-bold text-center text-3xl md:text-4xl">
+          <Heading fontSize="xl" className="font-bold text-center">
             With best integrations
           </Heading>
         </ContentContainer>
@@ -42,12 +42,12 @@ const LogoMarqueeWithTitle = () => {
               <div
                 key={index}
                 className="flex items-center justify-center p-2 md:p-4 bg-black rounded-lg shadow-md"
-                style={{ minWidth: '160px' }} // Reduced minimum width for mobile screens
+                style={{ minWidth: "160px" }} // Reduced minimum width for mobile screens
               >
                 <img
                   src={src}
                   alt={`Logo ${index + 1}`}
-                  className="h-12 md:h-14 w-full object-contain" // Adjusted height for mobile screens (12 units)
+                  className="h-8 md:h-14 w-full object-contain" // Adjusted height for mobile screens (12 units)
                 />
               </div>
             ))}

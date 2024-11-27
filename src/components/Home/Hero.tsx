@@ -75,7 +75,7 @@ const Hero: React.FC = () => {
   return (
     <ContentContainer>
       <section
-        className="flex flex-col-reverse lg:flex-row items-center bg-cover bg-center h-[46vh] md:h-[60vh]"
+        className="flex flex-col-reverse lg:flex-row items-center bg-cover bg-center h-[42vh] md:h-[60vh]"
         style={{ backgroundImage: "url(/images/Background/background.svg)" }}
       >
         <ContentContainer>
@@ -96,13 +96,16 @@ const Hero: React.FC = () => {
                 onClick={handleJoinWishlist}
                 disabled={loading || hasJoined} // Disable button when loading or if user has joined
               >
-                {loading ? "Joining..." : hasJoined ? "Thanks for joining us" : "Join wishlist"}
+                {loading
+                  ? "Joining..."
+                  : hasJoined
+                  ? "Thanks for joining us"
+                  : "Join wishlist"}
               </Button>
             </div>
           </div>
         </ContentContainer>
       </section>
-
       {/* Modal for user information */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex flex-col md:flex-row justify-center items-center z-50">
@@ -150,7 +153,8 @@ const Hero: React.FC = () => {
           </div>
         </div>
       )}
-      <ToastContainer /> {/* Toast Container for displaying success/error messages */}
+      <ToastContainer />{" "}
+      {/* Toast Container for displaying success/error messages */}
     </ContentContainer>
   );
 };

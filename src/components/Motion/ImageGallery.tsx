@@ -11,7 +11,7 @@ const imageNames = Array.from({ length: 40 }, (_, index) => {
 const ImageGallery: React.FC = () => {
   return (
     <ContentContainer>
-      <div className="space-y-2 rounded-xl bg-primary h-[60vh]">
+      <div className="space-y-2 rounded-xl bg-primary h-[40vh] md:h-[60vh]">
         <ContentContainer>
           <Heading
             fontSize="xl"
@@ -21,12 +21,12 @@ const ImageGallery: React.FC = () => {
             An Extensive Range of Exchanges and Blockchains
           </Heading>{" "}
         </ContentContainer>
-        <div className="relative flex flex-col justify-center items-center gap-8 overflow-hidden">
+        <div className="relative flex flex-col justify-center items-center gap-4 md:gap-8 overflow-hidden">
           <div className="flex animate-scroll-left mt-4 mb-12">
             {imageNames.slice(0, 10).map((imageName) => (
               <div
                 key={imageName}
-                className="relative flex justify-center items-center bg-white w-20 h-20 rounded-full mx-2"
+                className="relative flex justify-center items-center bg-white h-10 w-10 md:w-20 md:h-20 rounded-full mx-2"
               >
                 <img
                   src={`/images/Crypto-icons/${imageName}`}
@@ -38,7 +38,7 @@ const ImageGallery: React.FC = () => {
             {imageNames.slice(0, 10).map((imageName) => (
               <div
                 key={`duplicate-${imageName}`}
-                className="relative flex justify-center items-center bg-white w-20 h-20 rounded-full mx-2"
+                className="relative flex justify-center items-center bg-white h-10 w-10 md:w-20 md:h-20 rounded-full mx-2"
               >
                 <img
                   src={`/images/Crypto-icons/${imageName}`}
@@ -51,7 +51,7 @@ const ImageGallery: React.FC = () => {
             {imageNames.slice(0, 10).map((imageName) => (
               <div
                 key={imageName}
-                className="relative flex justify-center items-center bg-white w-20 h-20 rounded-full mx-2"
+                className="relative flex justify-center items-center bg-white h-10 w-10 md:w-20 md:h-20 rounded-full mx-2"
               >
                 <img
                   src={`/images/Crypto-icons/${imageName}`}
@@ -63,7 +63,7 @@ const ImageGallery: React.FC = () => {
             {imageNames.slice(0, 10).map((imageName) => (
               <div
                 key={`duplicate-${imageName}`}
-                className="relative flex justify-center items-center bg-white w-20 h-20 rounded-full mx-2"
+                className="relative flex justify-center items-center bg-white h-10 w-10 md:w-20 md:h-20 rounded-full mx-2"
               >
                 <img
                   src={`/images/Crypto-icons/${imageName}`}
@@ -80,7 +80,7 @@ const ImageGallery: React.FC = () => {
             {imageNames.slice(0, 10).map((imageName) => (
               <div
                 key={imageName}
-                className="relative flex justify-center items-center bg-white w-20 h-20 rounded-full mx-2"
+                className="relative flex justify-center items-center bg-white h-10 w-10 md:w-20 md:h-20 rounded-full mx-2"
               >
                 <img
                   src={`/images/Crypto-icons/${imageName}`}
@@ -92,7 +92,7 @@ const ImageGallery: React.FC = () => {
             {imageNames.slice(0, 10).map((imageName) => (
               <div
                 key={`duplicate-${imageName}`}
-                className="relative flex justify-center items-center bg-white w-20 h-20 rounded-full mx-2"
+                className="relative flex justify-center items-center bg-white h-10 w-10 md:w-20 md:h-20 rounded-full mx-2"
               >
                 <img
                   src={`/images/Crypto-icons/${imageName}`}
@@ -105,7 +105,7 @@ const ImageGallery: React.FC = () => {
             {imageNames.slice(0, 10).map((imageName) => (
               <div
                 key={imageName}
-                className="relative flex justify-center items-center bg-white w-20 h-20 rounded-full mx-2"
+                className="relative flex justify-center items-center bg-white h-10 w-10 md:w-20 md:h-20 rounded-full mx-2"
               >
                 <img
                   src={`/images/Crypto-icons/${imageName}`}
@@ -117,7 +117,7 @@ const ImageGallery: React.FC = () => {
             {imageNames.slice(0, 10).map((imageName) => (
               <div
                 key={`duplicate-${imageName}`}
-                className="relative flex justify-center items-center bg-white w-20 h-20 rounded-full mx-2"
+                className="relative flex justify-center items-center bg-white h-10 w-10 md:w-20 md:h-20 rounded-full mx-2"
               >
                 <img
                   src={`/images/Crypto-icons/${imageName}`}
