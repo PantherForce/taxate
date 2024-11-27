@@ -16,6 +16,9 @@ import Blogcontent from "./components/Blogs/BlogContent";
 import Stats from "./components/Pages/Stats/Stats";
 import { Analytics } from "@vercel/analytics/react";
 import Naaskets from "./components/Pages/Baskets/Naaskets";
+import FileUpload from "./components/Dashboard/FileUpload";
+import Login from "./components/Login/Login";
+import Signup from "./components/Singup/Signup";
 
 const App: React.FC = () => {
   // const location = useLocation();
@@ -42,7 +45,10 @@ const App: React.FC = () => {
         <Route path="/blogs" element={<BlogList />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/stats" element={<Stats />} />
-        <Route path="/baskets" element={<Naaskets/>}/>
+        <Route path="/baskets" element={<Naaskets />} />
+        <Route path="/add" element={<FileUpload />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route
           path="/why-paying-taxes-on-crypto-matters"
           element={<Blogcontent />}
