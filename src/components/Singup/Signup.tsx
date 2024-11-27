@@ -52,7 +52,7 @@ const Signup = () => {
       });
 
       // Navigate to dashboard after success
-      navigate("/dashboard");
+      navigate("/");
     } catch (error: any) {
       const errorMessage = error.response?.data?.error || "Signup failed";
 

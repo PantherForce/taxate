@@ -50,7 +50,7 @@ const Login = () => {
       });
 
       // Redirect to the dashboard after successful login
-      navigate("/dashboard");
+      navigate("/");
     } catch (error: any) {
       const errorMessage = error.response?.data?.error || "Login failed";
 
