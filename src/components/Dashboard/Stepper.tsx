@@ -13,26 +13,27 @@ import {
 import Integration from "../DashboardSteps/Integration";
 import Overview from "../DashboardSteps/Overview";
 import ReferAndEarn from "../DashboardSteps/ReferAndEarn";
-import FileUpload from "./FileUpload";
+import CsvUpload from "../DashboardSteps/CsvUpload";
+import TransactionsContent from "./TransactionsContent";
 
 interface Step {
   label: string;
   value: string;
-  icon: React.ReactNode; // Add icon property to Step interface
+  icon: React.ReactNode;
 }
 
 const steps: Step[] = [
-  { label: "Add Integration", value: "integrations", icon: <FaCogs /> }, // FaCogs for integrations
-  { label: "Overview", value: "overview", icon: <FaChartLine /> }, // FaChartLine for overview
-  { label: "Portfolio", value: "portfolio", icon: <FaWallet /> }, // FaWallet for portfolio
-  { label: "Transactions", value: "transactions", icon: <FaExchangeAlt /> }, // FaExchangeAlt for transactions
-  { label: "Taxes", value: "taxes", icon: <FaDollarSign /> }, // FaDollarSign for taxes
-  { label: "Refer & Earn", value: "referEarn", icon: <FaGift /> }, // FaGift for refer & earn
-  { label: "Xplore", value: "xplore", icon: <FaSearch /> }, // FaSearch for xplore
+  { label: "Add Integration", value: "integrations", icon: <FaCogs /> },
+  { label: "Overview", value: "overview", icon: <FaChartLine /> },
+  { label: "Portfolio", value: "portfolio", icon: <FaWallet /> },
+  { label: "Transactions", value: "transactions", icon: <FaExchangeAlt /> },
+  { label: "Taxes", value: "taxes", icon: <FaDollarSign /> },
+  { label: "Refer & Earn", value: "referEarn", icon: <FaGift /> },
+  { label: "Xplore", value: "xplore", icon: <FaSearch /> },
 ];
 
 const Stepper: React.FC = () => {
-  const [activeStep, setActiveStep] = useState<string>("integrations"); // Initial state set to "Integrations"
+  const [activeStep, setActiveStep] = useState<string>("integrations");
 
   const handleStepClick = (stepValue: string) => {
     setActiveStep(stepValue);
@@ -41,29 +42,17 @@ const Stepper: React.FC = () => {
   const renderContent = () => {
     switch (activeStep) {
       case "integrations":
-        return (
-          <div>
-            <Integration />
-          </div>
-        );
+        return <Integration setActiveStep={setActiveStep} />;
       case "overview":
-        return (
-          <div>
-            <FileUpload />
-          </div>
-        );
+        return <CsvUpload setActiveStep={setActiveStep} />;
       case "portfolio":
-        return <div>Portfolio Content</div>;
+        return <TransactionsContent />;
       case "transactions":
-        return <div>Transactions Content</div>;
+        return <div>transactions</div>;
       case "taxes":
         return <div>Taxes Content</div>;
       case "referEarn":
-        return (
-          <div>
-            <ReferAndEarn />
-          </div>
-        );
+        return <ReferAndEarn />;
       case "xplore":
         return <div>Xplore Content</div>;
       default:
@@ -93,6 +82,7 @@ const Stepper: React.FC = () => {
 
       {/* Content Area */}
       <div className="w-5/6 p-6">
+        {/* Render content based on active step */}
         <div className="text-lg">{renderContent()}</div>
       </div>
     </div>

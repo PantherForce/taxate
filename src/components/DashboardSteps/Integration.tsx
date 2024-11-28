@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import React, { useState, useEffect } from "react";
 import Heading from "../Layout/Heading/Heading";
 import Papa from "papaparse";
@@ -24,9 +23,16 @@ const Integration: React.FC = () => {
   // Fetch the exchange data when the component mounts
   useEffect(() => {
     axios
-      .get("https://testdata-bh0z.onrender.com/get_images")
+      .get("https://testdata-bh0z.onrender.com/get_exchanges")
       .then((response) => {
-        setExchanges(response.data.images); // Assuming the response structure is { images: [...] }
+        console.log("API Response:", response.data); // Log the entire response to check structure
+
+        // The data now has the 'exchanges' key, so we need to update how we access it
+        if (response.data && Array.isArray(response.data.exchanges)) {
+          setExchanges(response.data.exchanges); // Set the 'exchanges' array
+        } else {
+          toast.error("Invalid data structure received from the API.");
+        }
       })
       .catch((error) => {
         console.error("Error fetching exchange data:", error);
@@ -34,6 +40,7 @@ const Integration: React.FC = () => {
       });
   }, []);
 
+  // Filter exchanges based on selected category and search term
   const filteredExchanges = exchanges.filter(
     (exchange) =>
       (selectedCategory === "All integrations" ||
@@ -41,24 +48,34 @@ const Integration: React.FC = () => {
       exchange.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Handle CSV file upload
   const handleCsvUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
-    if (file && file.type === "text/csv") {
-      setCsvFile(file);
-      setUploadStatus("Uploading...");
-      Papa.parse(file, {
-        complete: (result) => {
-          localStorage.setItem("csvData", JSON.stringify(result.data));
-          setUploadStatus("CSV file uploaded successfully!");
-          // Display success toast
-          toast.success("CSV file uploaded successfully!");
-        },
-        header: true,
-        skipEmptyLines: true,
-      });
+    if (file) {
+      if (file.type === "text/csv") {
+        setCsvFile(file);
+        setUploadStatus("Uploading...");
+
+        Papa.parse(file, {
+          complete: (result) => {
+            localStorage.setItem("csvData", JSON.stringify(result.data));
+            setUploadStatus("CSV file uploaded successfully!");
+            toast.success("CSV file uploaded successfully!");
+          },
+          header: true,
+          skipEmptyLines: true,
+          error: (error) => {
+            setUploadStatus("Error parsing CSV file.");
+            toast.error("Error parsing CSV file.");
+          },
+        });
+      } else {
+        setUploadStatus("Please upload a valid CSV file.");
+        toast.error("Please upload a valid CSV file.");
+      }
     } else {
-      setUploadStatus("Please upload a valid CSV file.");
-      toast.error("Please upload a valid CSV file.");
+      setUploadStatus("No file selected.");
+      toast.error("No file selected.");
     }
   };
 
