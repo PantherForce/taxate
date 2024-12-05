@@ -9,7 +9,7 @@ interface CsvUploadProps {
   setActiveStep: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const CsvUpload: React.FC<CsvUploadProps> = ({ setActiveStep }) => {
+const Overview: React.FC<CsvUploadProps> = ({ setActiveStep }) => {
   const [csvFile, setCsvFile] = useState<File | null>(null);
 
   // Toastify notifications
@@ -74,4 +74,4 @@ const CsvUpload: React.FC<CsvUploadProps> = ({ setActiveStep }) => {
   );
 };
 
-export default CsvUpload;
+export default Overview;

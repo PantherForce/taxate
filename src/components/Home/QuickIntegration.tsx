@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from "react";
 import { FaCheckCircle, FaCircle } from "react-icons/fa";
 import { motion } from "framer-motion"; // Import Framer Motion
@@ -8,7 +10,7 @@ import Heading from "../Layout/Heading/Heading";
 const QuickIntegration: React.FC = () => {
   return (
     <ContentContainer>
-      <div className="flex flex-col items-center bg-primary h-auto md:h-[56vh] rounded-lg text-black p-8">
+      <div className="flex flex-col items-center bg-primary h-auto md:h-[52vh] rounded-lg text-black p-8">
         <div className="flex mt-6 flex-col w-full">
           <Heading
             fontSize="xl"
@@ -25,12 +27,12 @@ const QuickIntegration: React.FC = () => {
         <div className="w-full mt-8 flex flex-col items-center space-y-6">
           <div className="flex items-center space-x-4">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/57/Binance_Logo.png"
+              src="/images/Background/csv.png"
               alt="Binance"
               className="w-12 h-12 md:w-16 md:h-16"
             />
             <Heading fontSize="xl" className="font-semibold text-white">
-              Binance
+              CSV
             </Heading>
           </div>
 

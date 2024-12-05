@@ -2,32 +2,13 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-import { Pie, Bar } from "react-chartjs-2";
-import { FaFileAlt, FaFileInvoiceDollar, FaClipboardCheck } from 'react-icons/fa';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-} from "chart.js";
-import html2pdf from 'html2pdf.js';
+import { FaFileAlt, FaFileInvoiceDollar, FaClipboardCheck, FaShoppingCart, FaMoneyBillWave, FaRegCreditCard, FaBalanceScale } from "react-icons/fa";
 import Heading from "../Layout/Heading/Heading";
+import ContentContainer from "../Layout/ContentContainer/ContentContainer";
+import html2pdf from 'html2pdf.js';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement
-);
 
-const TransactionsContent: React.FC = () => {
+const Taxes: React.FC = () => {
   const [transactions, setTransactions] = useState<any[]>([]);
 
   const fetchTransactions = async () => {
@@ -45,37 +26,24 @@ const TransactionsContent: React.FC = () => {
     (acc, transaction) => {
       if (transaction.transaction_type === "Buy") acc.buy += 1;
       if (transaction.transaction_type === "Sell") acc.sell += 1;
+      if (transaction.transaction_type === "Spot") acc.spot += 1;
       return acc;
     },
-    { buy: 0, sell: 0 }
+    { buy: 0, sell: 0, spot: 0 }
   );
 
-  const buySellChartData = {
-    labels: ["Buy", "Sell"],
-    datasets: [
-      {
-        data: [buySellData.buy, buySellData.sell],
-        backgroundColor: ["#1C3F3A", "#F4F1E6"],
-        hoverBackgroundColor: ["#4E8BE0", "#FF4D6E"],
-      },
-    ],
-  };
-
-  const dateAmountData = transactions.reduce((acc, transaction) => {
-    const date = transaction.date;
-    const amount = parseFloat(transaction.amount_in_crypto);
-    if (!acc[date]) acc[date] = { buy: 0, sell: 0 };
-    if (transaction.transaction_type === "Buy") acc[date].buy += amount;
-    if (transaction.transaction_type === "Sell") acc[date].sell += amount;
-    return acc;
-  }, {});
+  const transactionSummary = [
+    { type: "Buy", count: buySellData.buy, icon: <FaShoppingCart /> },
+    { type: "Sell", count: buySellData.sell, icon: <FaMoneyBillWave /> },
+    { type: "Spot", count: buySellData.spot, icon: <FaRegCreditCard /> },
+  ];
 
   const dateCapitalGainData = transactions.reduce((acc, transaction) => {
     const date = new Date(transaction.date);
     const monthYear = `${date.getMonth() + 1}-${date.getFullYear()}`;
     const capitalGain = parseFloat(transaction.capital_gain_usd || "0");
 
-    if (capitalGain > 0) {
+    if (capitalGain !== 0) {
       if (!acc[monthYear]) acc[monthYear] = 0;
       acc[monthYear] += capitalGain;
     }
@@ -83,20 +51,11 @@ const TransactionsContent: React.FC = () => {
   }, {});
 
   const months = Object.keys(dateCapitalGainData);
-  const capitalGains = months.map((month) => dateCapitalGainData[month]);
-
-  const dateCapitalGainChartData = {
-    labels: months,
-    datasets: [
-      {
-        label: "Capital Gain (USD)",
-        data: capitalGains,
-        backgroundColor: "#36A2EB",
-        borderColor: "#36A2EB",
-        borderWidth: 1,
-      },
-    ],
-  };
+  const monthClasses = months.map((month) => {
+    return dateCapitalGainData[month] < 0
+      ? "bg-red-500 text-white"
+      : "bg-green-500 text-white";
+  });
 
   const totalTds = transactions.reduce(
     (acc, transaction) => acc + parseFloat(transaction.tds_deducted_usd || "0"),
@@ -111,8 +70,8 @@ const TransactionsContent: React.FC = () => {
     0
   );
 
-  const cryptoTaxRate = 0.30;
-  const cryptoTax = totalTaxableAmount * cryptoTaxRate;
+  const capitalGains = months.map((month) => dateCapitalGainData[month]);
+
 
   const generatePDF = () => {
     const reportHTML = `
@@ -186,15 +145,19 @@ const TransactionsContent: React.FC = () => {
       .save("crypto_transaction_reports.pdf")
       .then(() => document.body.removeChild(element));
   };
-  
-  
-  
+
+  const cryptoTaxRate = 0.15;
+  const cryptoTax = totalTaxableAmount * cryptoTaxRate;
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6">
+    <>
+   
+    <div className="px-4 bg-gray-50 sm:px-6 lg:px-8 py-6">
       <Heading fontSize="xl" className="font-semibold text-left mb-8">
-        Transactions
+        Taxes
       </Heading>
+
+      <ContentContainer>
 
       <div className="flex justify-center mb-6">
         <button
@@ -205,42 +168,26 @@ const TransactionsContent: React.FC = () => {
         </button>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white text-black p-6 border-2 border-primary text-center">
-          <h4 className="text-xl font-semibold text-primary mb-4">Total TDS Deducted</h4>
-          <p className="text-2xl text-primary font-bold">₹{totalTds.toFixed(2)}</p>
+      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+        <div className="bg-white  text-black p-6  text-center">
+          <div className="flex flex-row justify-between">
+            <p className="text-2xl font-bold text-primary">₹{totalTaxableAmount.toFixed(2)}</p>
+            <h4 className="text-xl font-semibold text-primary mb-4">Total Taxable Capital Gain</h4>
+          </div>
+          <div className="flex flex-row justify-between">
+            <p className="text-2xl font-bold text-primary">₹{cryptoTax.toFixed(2)}</p>
+            <h4 className="text-xl font-semibold text-primary mb-4">Estimated Crypto Tax (30%)</h4>
+          </div>
 
-          <div className="mt-4">
-          <p className="text-base text-gray-600">
-            The total TDS deducted on your crypto transactions for the period. This value reflects the total amount of tax withheld at source and is applicable to your tax filing.
-          </p>
-        </div>
-
-        </div>
-
-        <div className="bg-white text-black p-6 border-2 border-primary text-center">
-          <h4 className="text-xl font-semibold text-primary mb-4">Total Taxable Capital Gain</h4>
-          <p className="text-2xl font-bold text-primary">₹{totalTaxableAmount.toFixed(2)}</p>
-          <div className="mt-4">
-          <p className="text-base text-gray-600">
-            This represents the total taxable capital gain from your cryptocurrency holdings, which will be used to calculate the overall tax liability.
-          </p>
-        </div>
-        </div>
-
-        <div className="bg-white text-black p-6 border-2 border-primary text-center">
-          <h4 className="text-xl font-semibold text-primary mb-4">Estimated Crypto Tax (15%)</h4>
-          <p className="text-2xl font-bold text-primary">₹{cryptoTax.toFixed(2)}</p>
-          <div className="mt-4">
-          <p className="text-base text-gray-600">
-            This is the estimated crypto tax at a rate of 30%. It is an approximation based on your taxable gains and will give you a rough idea of your tax obligation.
-          </p>
-        </div>
+          <div className="flex flex-row justify-between">
+            <p className="text-2xl text-primary font-bold">₹{totalTds.toFixed(2)}</p>
+            <h4 className="text-xl font-semibold text-primary mb-4">Total TDS Deducted</h4>
+          </div>
         </div>
 
         <div className="bg-primary text-white p-6 rounded-lg space-y-6 flex flex-col">
           <div className="flex items-center space-x-2">
-            <FaFileAlt className="text-xl" />
+            <FaFileAlt color="white" className="text-xl" />
             <span className="text-lg font-medium">Crypto Tax Summary</span>
           </div>
           <div className="flex items-center space-x-2">
@@ -257,27 +204,80 @@ const TransactionsContent: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-row gap-4 mt-8">
-        <div className="w-full sm:w-1/2 flex flex-col justify-center lg:w-1/2">
-          <Heading fontSize="lg" className="font-semibold text-center p-4 mt-4">
-            Buy/Sell Transaction Percentage
+      <div className="mt-8">
+        <Heading fontSize="lg" className="font-semibold text-center mb-4">
+          Transaction Type Summary
+        </Heading>
+        <div className="grid grid-cols-3 gap-4">
+          {transactionSummary.map((transaction, index) => (
+            <div
+              key={index}
+              className="bg-primary text-white p-4 text-center rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+            >
+              <div className="text-4xl ">{transaction.icon}</div>
+              <p className="text-xl font-semibold">{transaction.type}</p>
+              <p className="text-2xl font-medium">{transaction.count}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+          <Heading fontSize="md" className="font-semibold text-center mb-4">
+            Realized Gains
           </Heading>
-          <div className="max-w-xs mx-auto">
-            <Pie data={buySellChartData} />
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
+            {months.map((month, index) => {
+              const capitalGain = dateCapitalGainData[month];
+              const isGain = capitalGain > 0;
+              return (
+                isGain && (
+                  <div
+                    key={index}
+                    className="text-center p-4 transition-all duration-300 transform hover:scale-105"
+                  >
+                    <p className="text-lg">{month}</p>
+                    <p className="text-xl font-semibold text-green-500">
+                      ₹{capitalGain?.toFixed(2)}
+                    </p>
+                  </div>
+                )
+              );
+            })}
           </div>
         </div>
 
-        <div className="w-full sm:w-1/2 flex flex-col justify-center lg:w-3/4">
-          <Heading fontSize="lg" className="font-semibold text-center p-4 mt-4">
-            Transaction Amounts by Date
+        <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+          <Heading fontSize="md" className="font-semibold text-center mb-4">
+            Realized Losses
           </Heading>
-          <div className="">
-            <Bar data={dateCapitalGainChartData} />
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+            {months.map((month, index) => {
+              const capitalGain = dateCapitalGainData[month];
+              const isLoss = capitalGain <= 0;
+              return (
+                isLoss && (
+                  <div
+                    key={index}
+                    className="text-center p-4 transition-all duration-300 transform hover:scale-105"
+                  >
+                    <p className="text-lg">{month}</p>
+                    <p className="text-xl font-semibold text-red-500">
+                      {capitalGain === 0 ? "N/A" : `₹${capitalGain?.toFixed(2)}`}
+                    </p>
+                  </div>
+                )
+              );
+            })}
           </div>
         </div>
       </div>
+      </ContentContainer>
     </div>
+ 
+    </>
   );
 };
 
-export default TransactionsContent;
+export default Taxes;

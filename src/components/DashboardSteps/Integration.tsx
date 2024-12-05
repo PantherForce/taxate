@@ -1,10 +1,8 @@
-// @ts-nocheck
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Heading from "../Layout/Heading/Heading";
 import Papa from "papaparse";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios"; // Import axios for API requests
 
 type Exchange = {
   id: number;
@@ -13,34 +11,69 @@ type Exchange = {
   logo: string;
 };
 
+const exchanges: Exchange[] = [
+  {
+    id: 1,
+    name: "BitBNS",
+    category: "Partners",
+    logo: "https://via.placeholder.com/40",
+  },
+  {
+    id: 2,
+    name: "CoinDCX",
+    category: "Partners",
+    logo: "https://via.placeholder.com/40",
+  },
+  {
+    id: 3,
+    name: "Flitpay",
+    category: "Partners",
+    logo: "https://via.placeholder.com/40",
+  },
+  {
+    id: 4,
+    name: "Giottus",
+    category: "Partners",
+    logo: "https://via.placeholder.com/40",
+  },
+  {
+    id: 5,
+    name: "Mudrex",
+    category: "Partners",
+    logo: "https://via.placeholder.com/40",
+  },
+  {
+    id: 6,
+    name: "SunCrypto",
+    category: "Partners",
+    logo: "https://via.placeholder.com/40",
+  },
+  {
+    id: 7,
+    name: "Binance",
+    category: "Popular",
+    logo: "https://via.placeholder.com/40",
+  },
+  {
+    id: 8,
+    name: "Ethereum",
+    category: "Popular",
+    logo: "https://via.placeholder.com/40",
+  },
+  {
+    id: 9,
+    name: "Optimism",
+    category: "Popular",
+    logo: "https://via.placeholder.com/40",
+  },
+];
+
 const Integration: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("All integrations");
   const [searchTerm, setSearchTerm] = useState("");
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>("");
-  const [exchanges, setExchanges] = useState<Exchange[]>([]); // State to store fetched exchanges
 
-  // Fetch the exchange data when the component mounts
-  useEffect(() => {
-    axios
-      .get("https://testdata-bh0z.onrender.com/get_exchanges")
-      .then((response) => {
-        console.log("API Response:", response.data); // Log the entire response to check structure
-
-        // The data now has the 'exchanges' key, so we need to update how we access it
-        if (response.data && Array.isArray(response.data.exchanges)) {
-          setExchanges(response.data.exchanges); // Set the 'exchanges' array
-        } else {
-          toast.error("Invalid data structure received from the API.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching exchange data:", error);
-        toast.error("Failed to fetch exchange data.");
-      });
-  }, []);
-
-  // Filter exchanges based on selected category and search term
   const filteredExchanges = exchanges.filter(
     (exchange) =>
       (selectedCategory === "All integrations" ||
@@ -48,34 +81,24 @@ const Integration: React.FC = () => {
       exchange.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Handle CSV file upload
   const handleCsvUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
-    if (file) {
-      if (file.type === "text/csv") {
-        setCsvFile(file);
-        setUploadStatus("Uploading...");
-
-        Papa.parse(file, {
-          complete: (result) => {
-            localStorage.setItem("csvData", JSON.stringify(result.data));
-            setUploadStatus("CSV file uploaded successfully!");
-            toast.success("CSV file uploaded successfully!");
-          },
-          header: true,
-          skipEmptyLines: true,
-          error: (error) => {
-            setUploadStatus("Error parsing CSV file.");
-            toast.error("Error parsing CSV file.");
-          },
-        });
-      } else {
-        setUploadStatus("Please upload a valid CSV file.");
-        toast.error("Please upload a valid CSV file.");
-      }
+    if (file && file.type === "text/csv") {
+      setCsvFile(file);
+      setUploadStatus("Uploading...");
+      Papa.parse(file, {
+        complete: (result) => {
+          localStorage.setItem("csvData", JSON.stringify(result.data));
+          setUploadStatus("CSV file uploaded successfully!");
+          // Display success toast
+          toast.success("CSV file uploaded successfully!");
+        },
+        header: true,
+        skipEmptyLines: true,
+      });
     } else {
-      setUploadStatus("No file selected.");
-      toast.error("No file selected.");
+      setUploadStatus("Please upload a valid CSV file.");
+      toast.error("Please upload a valid CSV file.");
     }
   };
 
@@ -149,8 +172,8 @@ const Integration: React.FC = () => {
               onClick={() => setSelectedCategory(category)}
               className={`px-6 py-3 rounded-lg ${
                 selectedCategory === category
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-200 text-gray-700"
+                  ? "bg-primary text-white"
+                  : "bg-primary text-white"
               } focus:outline-none`}
             >
               {category}
@@ -162,14 +185,14 @@ const Integration: React.FC = () => {
           {filteredExchanges.map((exchange) => (
             <div
               key={exchange.id}
-              className="flex flex-col items-center p-4 bg-gray-100 rounded-lg shadow-sm"
+              className="flex flex-col items-center p-4  mt-6"
             >
               <img
                 src={exchange.logo}
                 alt={exchange.name}
                 className="w-10 h-10 mb-2"
               />
-              <p className="text-sm font-medium text-gray-800">
+              <p className="text-base font-medium text-gray-800">
                 {exchange.name}
               </p>
             </div>

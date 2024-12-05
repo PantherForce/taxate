@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { toast, ToastContainer } from "react-toastify"; // Correct import for toast
 import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
+import Navbar from "../Navbar/Navbar";
 
 interface LoginFormData {
   email: string;
@@ -50,7 +51,7 @@ const Login = () => {
       });
 
       // Redirect to the dashboard after successful login
-      navigate("/");
+      navigate("/dashboard");
     } catch (error: any) {
       const errorMessage = error.response?.data?.error || "Login failed";
 
@@ -59,6 +60,8 @@ const Login = () => {
         position: "top-center",
         autoClose: 3000,
       });
+      localStorage.setItem("email");
+      localStorage.setItem("full_name");
 
       setError(errorMessage);
     } finally {
@@ -67,52 +70,52 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-600">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-sm font-semibold text-gray-600">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Password"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-primary text-white py-2 rounded-lg"
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
+    <>
+    <Navbar/>
+    <div className="flex justify-center items-center h-[70vh]">
+    <div className="bg-white p-8 mx-4 rounded-lg shadow-lg max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-2xl xl:max-w-2xl w-full">
+    <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
+    {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+    <form onSubmit={handleSubmit}>
+      <div className="mb-4">
+        <label className="block text-sm font-semibold text-gray-600">Email</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Email"
+          required
+        />
       </div>
+      <div className="mb-6">
+        <label className="block text-sm font-semibold text-gray-600">Password</label>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Password"
+          required
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-primary text-white py-2 rounded-lg disabled:bg-gray-400"
+      >
+        {loading ? "Logging in..." : "Login"}
+      </button>
+    </form>
+  </div>
 
-      {/* ToastContainer to render the toast notifications */}
-      <ToastContainer />
-    </div>
+  {/* ToastContainer to render the toast notifications */}
+  <ToastContainer />
+</div>
+</>
+
   );
 };
 

@@ -9,12 +9,14 @@ import {
   FaDollarSign,
   FaGift,
   FaSearch,
+  FaUpload,
 } from "react-icons/fa";
 import Integration from "../DashboardSteps/Integration";
 import Overview from "../DashboardSteps/Overview";
 import ReferAndEarn from "../DashboardSteps/ReferAndEarn";
 import CsvUpload from "../DashboardSteps/CsvUpload";
 import TransactionsContent from "./TransactionsContent";
+import Taxes from "../DashboardSteps/Taxes";
 
 interface Step {
   label: string;
@@ -24,9 +26,8 @@ interface Step {
 
 const steps: Step[] = [
   { label: "Add Integration", value: "integrations", icon: <FaCogs /> },
-  { label: "Overview", value: "overview", icon: <FaChartLine /> },
+  { label: "CSV Upload", value: "overview", icon: <FaUpload /> },
   { label: "Portfolio", value: "portfolio", icon: <FaWallet /> },
-  { label: "Transactions", value: "transactions", icon: <FaExchangeAlt /> },
   { label: "Taxes", value: "taxes", icon: <FaDollarSign /> },
   { label: "Refer & Earn", value: "referEarn", icon: <FaGift /> },
   { label: "Xplore", value: "xplore", icon: <FaSearch /> },
@@ -50,7 +51,7 @@ const Stepper: React.FC = () => {
       case "transactions":
         return <div>transactions</div>;
       case "taxes":
-        return <div>Taxes Content</div>;
+        return <Taxes/>;
       case "referEarn":
         return <ReferAndEarn />;
       case "xplore":
