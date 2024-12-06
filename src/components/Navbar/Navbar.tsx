@@ -132,6 +132,13 @@ const Navbar: React.FC = () => {
               Sign up
             </button>
           </Link>
+
+          <Link to="/login">
+            <button className="bg-primary rounded-xl px-4 py-3 text-xl text-white hover:bg-primary-dark transition duration-300">
+              Login
+            </button>
+          </Link>
+
         </div>
 
         {/* Mobile Hamburger Menu */}

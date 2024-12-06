@@ -3,6 +3,7 @@
 import React from "react";
 import Button from "../Layout/Button/Button";
 import JoinWishlistButton from "../Layout/Button/JoinWishlistButton";
+import { Link } from "react-router-dom";
 
 const Basket: React.FC = () => {
   return (
@@ -24,10 +25,14 @@ const Basket: React.FC = () => {
 
         <div className="flex justify-center">
           {" "}
-          <JoinWishlistButton
-            bgColor=""
-            buttonText="Join the exclusive list!"
-          />
+          <Link to = "/coinsets">
+          <Button
+            fontSize="lg"
+            className={`px-8 bg-primary font-semibold py-3 bg--primary text-white`} // Use bgColor prop to set the background color
+          >
+            Go to coin-sets
+          </Button>
+          </Link>
         </div>
       </div>
     </div>
