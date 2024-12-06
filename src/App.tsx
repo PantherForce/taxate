@@ -19,6 +19,8 @@ import Naaskets from "./components/Pages/Baskets/Naaskets";
 import FileUpload from "./components/Dashboard/FileUpload";
 import Login from "./components/Login/Login";
 import Signup from "./components/Singup/Signup";
+import CoinSets from "./components/Pages/CoinSets/CoinSets";
+import BasketDetails from "./components/CoinSets/BasketDetails";
 
 const App: React.FC = () => {
   // const location = useLocation();
@@ -49,6 +51,8 @@ const App: React.FC = () => {
         <Route path="/add" element={<FileUpload />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/coinsets" element={<  CoinSets />} />
+        <Route path="/basket/:basketId" element={<BasketDetails />} />
         <Route
           path="/why-paying-taxes-on-crypto-matters"
           element={<Blogcontent />}
