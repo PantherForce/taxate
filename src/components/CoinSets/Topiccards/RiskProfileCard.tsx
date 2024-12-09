@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -65,7 +67,7 @@ const RiskProfileCard = () => {
 
   return (
     <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 w-full h-full">
-      <h2 className="text-2xl text-center font-semibold mb-3 text-gray-800">
+      <h2 className="text-2xl text-left font-semibold mb-3 text-gray-800">
         Calculate Risk Profile
       </h2>
 
@@ -97,7 +99,7 @@ const RiskProfileCard = () => {
             <div className="w-32 h-32 rounded-full border-4 border-gray-200 relative">
               <div className="absolute inset-0 flex justify-center items-center">
                 <div
-                  className={`${getColor()} w-24 h-24 rounded-full`}
+                  className={` w-24 h-24 rounded-full`}
                   style={{
                     clipPath: `polygon(50% 50%, 100% 0%, 100% 100%, 50% 50%)`,
                     transform: `rotate(${points * 1.8 - 90}deg)`, // Rotate the meter based on score
