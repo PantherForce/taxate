@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" style="margin: 0; padding: 0; text-indent: 0">
+  <head style="margin: 0; padding: 0; text-indent: 0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Tax Report - Page 1</title>
+    <style>
+      /* Resetting default styles */
+      @page {
+  size: A4;
+  margin: 1in;
+}
+
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f7fc;
+        color: #333;
+      }
+
+      /* Page styling */
+      .container {
+  max-width: 800px;
+  margin: auto;
+  height: 1123.6px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid black; /* Added border */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Keep it relative so child elements can position themselves relative to this */
+}
+
+
+      .inner-border {
+        padding: 1%;
+        height: 100%;
+      }
+
+      /* Header styles */
+      .page-title {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .section-title {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      .content {
+        font-size: 16px;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      .highlight {
+        font-weight: bold;
+        color: #1C3F3A;
+      }
+
+      /* Table styles */
+      .table {
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: collapse;
+      }
+
+      .table th,
+      .table td {
+        padding: 10px;
+        text-align: left;
+        font-size: 14px;
+      }
+
+      .table th {
+        background-color: #f4f4f4;
+      }
+
+      /* Footer and Signature section */
+      .footer-note,
+.signature-section {
+  position: absolute;
+  bottom: 20px; /* Push them towards the bottom */
+  right: 20px; /* Align to the right */
+  font-size: 12px;
+  text-align: right;
+}
+
+.signature-section {
+  margin-top: 10px; /* Add some spacing between footer and signature */
+}
+
+.signature-section {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .page {
+          padding: 0.5in; /* Reduce padding for smaller screens */
+        }
+
+        .page-title {
+          font-size: 18px;
+        }
+
+        .section-title {
+          font-size: 16px;
+        }
+
+        .content {
+          font-size: 14px;
+        }
+
+        .table th,
+        .table td {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container ">
+      <div class="inner-border">
+        <!-- Page Title -->
+        <div class="page-title">
+          Crypto Tax Report - Page 1
+        </div>
+
+        <!-- Total Taxable Amount Section -->
+        <div class="section-title">
+          Total Taxable Amount:
+        </div>
+        <div class="content">
+          <span class="highlight">₹{{totalTaxableAmount}}</span>
+          <p>
+            This represents the total taxable capital gain from your cryptocurrency transactions. It includes the profit you made from selling your crypto assets and will be used to calculate your tax liabilities for the period.
+          </p>
+        </div>
+
+        <!-- Total TDS Deducted Section -->
+        <div class="section-title">
+          Total TDS Deducted:
+        </div>
+        <div class="content">
+          <span class="highlight">₹{{totalTds}}</span>
+          <p>
+            This amount represents the Tax Deducted at Source (TDS) on your cryptocurrency transactions. This amount will reduce the final tax liability you owe and has already been deducted during the course of your trades.
+          </p>
+        </div>
+
+        <!-- Transaction Table -->
+     
+
+        <!-- Footer Note -->
+       <!-- Footer Note -->
+<div class="footer-note">
+  * The data above is calculated based on the transactions conducted during the relevant tax period  Page 3
+</div>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

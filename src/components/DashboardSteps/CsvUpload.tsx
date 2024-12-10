@@ -1,56 +1,55 @@
-// @ts-nocheck
+// @ts-nocheck 
+import React, { useState } from "react"; 
+import axios from "axios"; 
+import { toast, ToastContainer } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css"; 
 
-import React, { useState } from "react";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-interface CsvUploadProps {
-  setActiveStep: React.Dispatch<React.SetStateAction<string>>; // Function to change the step
+interface CsvUploadProps { 
+  setActiveStep: React.Dispatch<React.SetStateAction<string>>; // Function to change the step 
 }
 
-const CsvUpload: React.FC<CsvUploadProps> = ({ setActiveStep }) => {
-  const [csvFile, setCsvFile] = useState<File | null>(null);
+const CsvUpload: React.FC<CsvUploadProps> = ({ setActiveStep }) => { 
+  const [csvFile, setCsvFile] = useState<File | null>(null); 
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Toastify notifications
-  const notifySuccess = (message: string) => toast.success(message);
+  // Toastify notifications 
+  const notifySuccess = (message: string) => toast.success(message); 
   const notifyError = (message: string) => toast.error(message);
 
-  // Handle file change
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      setCsvFile(event.target.files[0]);
-    }
+  // Handle file change 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => { 
+    if (event.target.files) { 
+      setCsvFile(event.target.files[0]); 
+    } 
   };
 
-  // Handle file upload
-  const handleFileUpload = async () => {
-    if (!csvFile) {
-      notifyError("Please select a file first!");
-      return;
-    }
+  // Handle file upload 
+  const handleFileUpload = async () => { 
+    if (!csvFile) { 
+      notifyError("Please select a file first!"); 
+      return; 
+    } 
 
-    const formData = new FormData();
+    const formData = new FormData(); 
     formData.append("file", csvFile);
 
-    try {
-      setLoading(true);
-      const response = await axios.post(
-        "https://testdata-bh0z.onrender.com/upload_csv",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      notifySuccess(response.data.message); // Show success toast
-      setLoading(false);
-      // Once upload is successful, change the step to "portfolio"
-      setActiveStep("portfolio");
-    } catch (error) {
-      setLoading(false);
-      notifyError("Error uploading the file!");
-    }
+    try { 
+      setLoading(true); 
+      const response = await axios.post( 
+        "https://testdata-bh0z.onrender.com/upload_csv", 
+        formData, 
+        { 
+          headers: { "Content-Type": "multipart/form-data" }, 
+        } 
+      ); 
+      notifySuccess(response.data.message); // Show success toast 
+      setLoading(false); 
+      // Once upload is successful, change the step to "portfolio" 
+      setActiveStep("portfolio"); 
+    } catch (error) { 
+      setLoading(false); 
+      notifyError("Error uploading the file!"); 
+    } 
   };
 
   return (
@@ -76,7 +75,17 @@ const CsvUpload: React.FC<CsvUploadProps> = ({ setActiveStep }) => {
         </button>
       </div>
 
-      {/* Toast Container for notifications */}
+      <div className="mt-4 text-center">
+        <p>If you're unsure about the file format, download a sample CSV:</p>
+        <a
+          href="/File/deatils-1.csv" 
+          download
+          className="mt-2 inline-block border-2 border-black p-4 text-primary font-semibold"
+        >
+          Download Sample CSV
+        </a>
+      </div>
+
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
     </div>
   );

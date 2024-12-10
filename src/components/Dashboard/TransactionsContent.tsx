@@ -3,7 +3,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Pie, Bar } from "react-chartjs-2";
-import { FaFileAlt, FaFileInvoiceDollar, FaClipboardCheck } from 'react-icons/fa';
+import {
+  FaFileAlt,
+  FaFileInvoiceDollar,
+  FaClipboardCheck,
+  FaTimes,
+} from "react-icons/fa";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,8 +19,12 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import html2pdf from 'html2pdf.js';
+import html2pdf from "html2pdf.js";
 import Heading from "../Layout/Heading/Heading";
+import page1Template from "../../../public/Page1.html";
+import page2Template from "../../../public/page2.html";
+import intro from "../../../public/intro.html";
+import Blockchain from "../Pages/Blockchain/Blockchain";
 
 ChartJS.register(
   CategoryScale,
@@ -29,8 +38,12 @@ ChartJS.register(
 
 const TransactionsContent: React.FC = () => {
   const [transactions, setTransactions] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // Initially true to apply blur
+  const [showModal, setShowModal] = useState<boolean>(false);
+
 
   const fetchTransactions = async () => {
+    setLoading(true); // Keep loading true while fetching
     try {
       const response = await axios.get(
         "https://testdata-bh0z.onrender.com/get_transactions"
@@ -38,6 +51,8 @@ const TransactionsContent: React.FC = () => {
       setTransactions(response.data.transactions);
     } catch (error) {
       console.error("Error fetching transactions:", error);
+    } finally {
+      setLoading(false); // Set loading to false once data is fetched
     }
   };
 
@@ -111,92 +126,51 @@ const TransactionsContent: React.FC = () => {
     0
   );
 
-  const cryptoTaxRate = 0.30;
+  const cryptoTaxRate = 0.3;
   const cryptoTax = totalTaxableAmount * cryptoTaxRate;
 
   const generatePDF = () => {
-    const reportHTML = `
-      <div class="font-sans p-8 bg-white rounded-lg shadow-lg max-w-4xl mx-auto">
-        
-        <!-- Title Section -->
-        <div class="text-center mb-10">
-          <h1 class="text-4xl font-bold text-gray-800">Taxate Transaction Report</h1>
-        </div>
+    // Replace the placeholders in the templates with the actual dynamic data
+
+    const pagrintro = intro;
+    const page1Content = page1Template
+      .replace("{{totalTaxableAmount}}", `₹${totalTaxableAmount.toFixed(2)}`)
+      .replace("{{totalTds}}", `₹${totalTds.toFixed(2)}`);
+
+    const page2Content = page2Template
+      .replace("{{buy}}", buySellData.buy.toString())
+      .replace("{{sell}}", buySellData.sell.toString());
+
+    // Combine all pages into one HTML string
+    const fullReport = `
+ 
   
-        <!-- Total TDS Deducted Section -->
-        <div class="mb-8 p-6 rounded-xl">
-          <h2 class="text-2xl font-semibold text-primary mb-3">Total TDS Deducted</h2>
-          <p class="text-2xl text-gray-800 mb-3">₹${totalTds.toFixed(2)}</p>
-          <p class="text-sm text-black leading-relaxed">This is the total Tax Deducted at Source (TDS) deducted on your cryptocurrency transactions during the given period. This amount will be adjusted when filing your tax returns.</p>
-        </div>
+        <div>${pagrintro}</div>
+        <div>${page1Content}</div>
+        <div>${page2Content}</div>
   
-        <!-- Total Taxable Capital Gain Section -->
-        <div class="mb-8 p-6 rounded-xl">
-          <h2 class="text-2xl font-semibold text-primary  mb-3">Total Taxable Capital Gain</h2>
-          <p class="text-2xl text-gray-800 mb-3">₹${totalTaxableAmount.toFixed(2)}</p>
-          <p class="text-sm text-black leading-relaxed">This represents the total taxable capital gain derived from your cryptocurrency holdings for the specified period. It is the amount on which tax will be calculated.</p>
-        </div>
-  
-        <!-- Estimated Crypto Tax Section -->
-        <div class="mb-8 p-6 rounded-xl">
-          <h2 class="text-2xl font-semibold text-primary  mb-3">Estimated Crypto Tax (30%)</h2>
-          <p class="text-2xl text-gray-800 mb-3">₹${cryptoTax.toFixed(2)}</p>
-          <p class="text-sm text-black leading-relaxed">This is the estimated tax liability on your crypto capital gains, calculated at the rate of 30%. Please note that this is an approximation and may vary based on actual taxable income.</p>
-        </div>
-  
-        <!-- Buy/Sell Transactions Section -->
-        <div class="mb-8 p-6 rounded-xl">
-          <h2 class="text-2xl font-semibold text-primary  mb-3">Buy/Sell Transactions</h2>
-          <p class="text-xl text-gray-800 mb-3">Buy Transactions: <strong>${buySellData.buy}</strong> | Sell Transactions: <strong>${buySellData.sell}</strong></p>
-          <p class="text-sm text-black leading-relaxed">These are the total numbers of buy and sell transactions recorded during the period. This data is essential to calculate your capital gains and tax obligations.</p>
-        </div>
-  
-        <!-- Capital Gain by Date Section -->
-        <div class="mb-8 p-6  mt-60 rounded-xl">
-          <h2 class="text-2xl font-semibold text-primary  mb-3">Capital Gain by Date</h2>
-          <ul class="text-xl text-gray-800 space-y-3">
-            ${months.map((month, index) => {
-              return `
-                <li class="flex justify-between border-b pb-3">
-                  <span>${month}</span>
-                  <span>₹${capitalGains[index].toFixed(2)}</span>
-                </li>`;
-            }).join("")}
-          </ul>
-          <p class="text-sm text-gray-500 mt-4">This section breaks down the capital gains by each month. You can use this data to understand how your crypto holdings have appreciated over time.</p>
-        </div>
-  
-        <!-- Footer Section -->
-        <div class="text-center mt-12 text-lg text-gray-500 border-t pt-8">
-          <p><strong class="text-primary">Crypto Tax Summary</strong> | <strong class="text-primary">Crypto TDS Summary</strong> | <strong class="text-primary">Reports Needed to File ITR</strong></p>
-          <p class="text-sm text-gray-400">Please ensure all your crypto transactions are accounted for in the tax filing process.</p>
-        </div>
-        
-      </div>
     `;
-  
-    // Create the HTML element
-    const element = document.createElement('div');
-    element.innerHTML = reportHTML;
+
+    // Create an HTML element for the content
+    const element = document.createElement("div");
+    element.innerHTML = fullReport;
+
+    // Append the content to the DOM and generate the PDF using html2pdf
     document.body.appendChild(element);
-  
-    // Generate the PDF and remove the element from DOM after saving
+
     html2pdf()
-      .from(element)
-      .save("crypto_transaction_reports.pdf")
-      .then(() => document.body.removeChild(element));
+      .from(element) // Convert the content from the created div
+      .save("crypto_transaction_.pdf") // Download the PDF
+      .then(() => document.body.removeChild(element)); // Remove the element after download
   };
-  
-  
-  
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6">
+    <div className={`px-4 sm:px-6 lg:px-8 py-6 transition-all duration-500}`}>
       <Heading fontSize="xl" className="font-semibold text-left mb-8">
         Transactions
       </Heading>
 
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-6 blur-none">
         <button
           onClick={fetchTransactions}
           className="w-full max-w-xs bg-primary text-white px-6 py-3 rounded-lg"
@@ -204,78 +178,142 @@ const TransactionsContent: React.FC = () => {
           Fetch Transactions
         </button>
       </div>
+      <div
+        className={`px-4 sm:px-6 lg:px-8 py-6 transition-all duration-500 ${
+          loading ? "blur-sm" : ""
+        }`}
+      >
+        {/* Wrap the content inside this div and apply blur based on loading state */}
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 sm:px-6 lg:px-8">
+          <div className="bg-white text-black p-6 border-2 border-primary text-center">
+            <h4 className="text-xl font-semibold text-primary mb-4">
+              Total TDS Deducted
+            </h4>
+            <p className="text-2xl text-primary font-bold">
+              ₹{totalTds.toFixed(2)}
+            </p>
 
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white text-black p-6 border-2 border-primary text-center">
-          <h4 className="text-xl font-semibold text-primary mb-4">Total TDS Deducted</h4>
-          <p className="text-2xl text-primary font-bold">₹{totalTds.toFixed(2)}</p>
-
-          <div className="mt-4">
-          <p className="text-base text-gray-600">
-            The total TDS deducted on your crypto transactions for the period. This value reflects the total amount of tax withheld at source and is applicable to your tax filing.
-          </p>
-        </div>
-
-        </div>
-
-        <div className="bg-white text-black p-6 border-2 border-primary text-center">
-          <h4 className="text-xl font-semibold text-primary mb-4">Total Taxable Capital Gain</h4>
-          <p className="text-2xl font-bold text-primary">₹{totalTaxableAmount.toFixed(2)}</p>
-          <div className="mt-4">
-          <p className="text-base text-gray-600">
-            This represents the total taxable capital gain from your cryptocurrency holdings, which will be used to calculate the overall tax liability.
-          </p>
-        </div>
-        </div>
-
-        <div className="bg-white text-black p-6 border-2 border-primary text-center">
-          <h4 className="text-xl font-semibold text-primary mb-4">Estimated Crypto Tax (15%)</h4>
-          <p className="text-2xl font-bold text-primary">₹{cryptoTax.toFixed(2)}</p>
-          <div className="mt-4">
-          <p className="text-base text-gray-600">
-            This is the estimated crypto tax at a rate of 30%. It is an approximation based on your taxable gains and will give you a rough idea of your tax obligation.
-          </p>
-        </div>
-        </div>
-
-        <div className="bg-primary text-white p-6 rounded-lg space-y-6 flex flex-col">
-          <div className="flex items-center space-x-2">
-            <FaFileAlt className="text-xl" />
-            <span className="text-lg font-medium">Crypto Tax Summary</span>
+            <div className="mt-4">
+              <p className="text-base text-gray-600">
+                The total TDS deducted on your crypto transactions for the
+                period. This value reflects the total amount of tax withheld at
+                source and is applicable to your tax filing.
+              </p>
+            </div>
           </div>
-          <div className="flex items-center space-x-2">
-            <FaFileInvoiceDollar className="text-xl" />
-            <span className="text-lg font-medium">Crypto TDS Summary</span>
+
+          <div className="bg-white text-black p-6 border-2 border-primary text-center">
+            <h4 className="text-xl font-semibold text-primary mb-4">
+              Total Taxable Capital Gain
+            </h4>
+            <p className="text-2xl font-bold text-primary">
+              ₹{totalTaxableAmount.toFixed(2)}
+            </p>
+            <div className="mt-4">
+              <p className="text-base text-gray-600">
+                This represents the total taxable capital gain from your
+                cryptocurrency holdings, which will be used to calculate the
+                overall tax liability.
+              </p>
+            </div>
           </div>
-          <div className="flex items-center space-x-2">
-            <FaClipboardCheck className="text-xl" />
-            <span className="text-lg font-medium">Reports needed to file ITR</span>
+
+          <div className="bg-white text-black p-6 border-2 border-primary text-center">
+            <h4 className="text-xl font-semibold text-primary mb-4">
+              Estimated Crypto Tax (15%)
+            </h4>
+            <p className="text-2xl font-bold text-primary">
+              ₹{cryptoTax.toFixed(2)}
+            </p>
+            <div className="mt-4">
+              <p className="text-base text-gray-600">
+                This is the estimated crypto tax at a rate of 30%. It is an
+                approximation based on your taxable gains and will give you a
+                rough idea of your tax obligation.
+              </p>
+            </div>
           </div>
-          <button onClick={generatePDF} className="bg-white text-primary py-2 px-4 rounded-lg mt-4 hover:bg-gray-200">
-            Download Reports
-          </button>
+
+          <div className="bg-primary text-white p-6 rounded-lg space-y-6 flex flex-col">
+            <div className="flex items-center space-x-2">
+              <FaFileAlt className="text-xl" />
+              <span className="text-lg font-medium">Crypto Tax Summary</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FaFileInvoiceDollar className="text-xl" />
+              <span className="text-lg font-medium">Crypto TDS Summary</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FaClipboardCheck className="text-xl" />
+              <span className="text-lg font-medium">
+                Reports needed to file ITR
+              </span>
+            </div>
+            <button
+              onClick={() => setShowModal(true)} 
+              className="bg-white text-primary py-2 px-4 rounded-lg mt-4 hover:bg-gray-200"
+            >
+              
+              Pay for full tax report
+            </button>
+            <button
+              onClick={generatePDF}
+              className="bg-primary text-white border-2 border-white py-2 px-4 rounded-lg mt-4 "
+            >
+             Download Reports
+            </button>
+          </div>
+        </div>
+
+        <div className="flex flex-row gap-4 mt-8">
+          <div className="w-full sm:w-1/2 flex flex-col justify-center lg:w-1/2">
+            <Heading
+              fontSize="lg"
+              className="font-semibold text-center p-4 mt-4"
+            >
+              Buy/Sell Transaction Percentage
+            </Heading>
+            <div className="max-w-xs mx-auto">
+              <Pie data={buySellChartData} />
+            </div>
+          </div>
+
+          <div className="w-full sm:w-1/2 flex flex-col justify-center lg:w-3/4">
+            <Heading
+              fontSize="lg"
+              className="font-semibold text-center p-4 mt-4"
+            >
+              Transaction Amounts by Date
+            </Heading>
+            <div className="">
+              <Bar data={dateCapitalGainChartData} />
+            </div>
+          </div>
         </div>
       </div>
+      {showModal && (
+            <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+              <div className="bg-white p-8 rounded-lg w-4/5 sm:w-1/3">
+              <div className="flex flex-row justify-between">
+              <h1 className="text-2xl font-semibold text-primary">Crypto Tax Payment</h1>
+              <button
+                    className=""
+                    onClick={() => setShowModal(false)}
+                  >
+                    <FaTimes/>
+                  </button>
+</div>
 
-      <div className="flex flex-row gap-4 mt-8">
-        <div className="w-full sm:w-1/2 flex flex-col justify-center lg:w-1/2">
-          <Heading fontSize="lg" className="font-semibold text-center p-4 mt-4">
-            Buy/Sell Transaction Percentage
-          </Heading>
-          <div className="max-w-xs mx-auto">
-            <Pie data={buySellChartData} />
-          </div>
-        </div>
+                <Blockchain/>
 
-        <div className="w-full sm:w-1/2 flex flex-col justify-center lg:w-3/4">
-          <Heading fontSize="lg" className="font-semibold text-center p-4 mt-4">
-            Transaction Amounts by Date
-          </Heading>
-          <div className="">
-            <Bar data={dateCapitalGainChartData} />
-          </div>
-        </div>
-      </div>
+              
+                <div className="">
+                 
+                  
+                </div>
+              </div>
+            </div>
+          )}
     </div>
   );
 };

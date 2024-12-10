@@ -10,8 +10,11 @@ import html2pdf from 'html2pdf.js';
 
 const Taxes: React.FC = () => {
   const [transactions, setTransactions] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);  // Initially true to apply blur
+
 
   const fetchTransactions = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         "https://testdata-bh0z.onrender.com/get_transactions"
@@ -19,6 +22,7 @@ const Taxes: React.FC = () => {
       setTransactions(response.data.transactions);
     } catch (error) {
       console.error("Error fetching transactions:", error);
+      setLoading(false)
     }
   };
 

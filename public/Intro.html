@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complete Tax Report</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+
+
+@page {
+  size: A4;
+  margin: 1in;
+}
+
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f7fc;
+        color: #333;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: auto;
+      
+
+        background: #fff;
+        padding: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        border: 2px solid black; /* Added border */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .heading {
+        display: flex;
+        font-weight: 600;
+        font-size: xx-large;
+        justify-content: start;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        color: #000;
+      }
+
+      h2 {
+        font-size: 1.8em;
+        margin: 20px 0 10px 0;
+        color: #000;
+      }
+
+      .header-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .header-info p {
+        margin: 0;
+      }
+
+      .contents {
+        margin: 20px 0;
+      }
+
+      .content-table {
+        font-size: 0.9em;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+        font-size: 1em;
+        color: #000;
+      }
+
+      .notes {
+        margin-top: 20px;
+        font-size: 0.9em;
+        color: #000;
+      }
+
+      .notes ol {
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+        list-style-position: inside; /* Optional: Adjust list item bullet/number position */
+      }
+
+      .footer {
+        text-align: center;
+        font-size: 0.9em;
+        margin-top: 30px;
+        color: #777;
+      }
+
+      .watermark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 5em;
+        color: rgba(0, 0, 0, 0.1);
+        pointer-events: none;
+        user-select: none;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .footer-note,
+.signature-section {
+  position: absolute;
+  bottom: 20px; /* Push them towards the bottom */
+  right: 20px; /* Align to the right */
+  font-size: 12px;
+  text-align: right;
+}
+
+.signature-section {
+  margin-top: 10px; /* Add some spacing between footer and signature */
+}
+
+.signature-section {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p class="heading">Taxate Report</p>
+
+      <div class="header-info">
+        <p><strong>Name:</strong> <span id="user-name"></span></p>
+        <p>
+          <strong>Report Generated On:</strong> <span id="report-date"></span>
+        </p>
+        <p>
+          <strong>Period:</strong>
+          <span id="financial-year">Financial Year </span>
+        </p>
+        <p><strong>Calculation Method:</strong> First-in First-out (FIFO)</p>
+        <p><strong>Currency:</strong> INR</p>
+        <p><strong>Country:</strong> INDIA</p>
+      </div>
+
+      <div class="contents">
+        <h2 style="font-size: x-large">Contents of the report</h2>
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Description</th>
+              <th>Page no.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Capital Gains Summary</td>
+              <td>1-2</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Summary of Income from Crypto Derivatives</td>
+              <td>2-3</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Other Income and Expense Summary</td>
+              <td>3-4</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Asset wise Profit and Loss for the year</td>
+              <td>4-5</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Schedule VDA Report</td>
+              <td>5-6</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Capital Gains Transactions</td>
+              <td>6-7</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Schedule VDA - Derivatives</td>
+              <td>7-8</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>Crypto Derivatives Transactions</td>
+              <td>8-9</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Other Income Transactions</td>
+              <td>9</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Data Sources</td>
+              <td>10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="notes">
+        <h2 style="font-size: x-large">Notes and Disclaimers:</h2>
+        <ol>
+          <li>All values and prices are in INR.</li>
+          <li>
+            Calculations of profit and loss are as per First In First Out (FIFO)
+            method of accounting.
+          </li>
+          <li>
+            Trading between cryptocurrencies is treated as a taxable event as
+            per Income Tax Act, 1961.
+          </li>
+          <li>
+            Market prices are computed as per the Current Market Price at the
+            time of disposal unless price is provided by the trading platform or
+            it is manually overridden.
+          </li>
+          <li>
+            Tax-payer may be required to maintain books of accounts under
+            Section 44AA and get them audited under Section 44AB of the Income
+            Tax Act, 1961 if applicable.
+          </li>
+        </ol>
+      </div>
+
+      <div class="footer"></div>
+
+      <div class="footer-note">
+        * The data above is calculated based on the transactions conducted during the relevant tax period  Page 1
+      </div>
+
+    </div>
+
+    <script>
+      // Function to get today's date in the required format
+      function getFormattedDate() {
+        const today = new Date();
+        const options = {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+        };
+        return today.toLocaleString("en-GB", options);
+      }
+
+      // Function to get the current financial year
+      function getFinancialYear() {
+        const currentYear = new Date().getFullYear();
+        const startYear = currentYear - (new Date().getMonth() < 3 ? 1 : 0); // Adjust for April-March cycle
+        return `${startYear}-${startYear + 1}`;
+      }
+
+      // Fetch name from localStorage
+      const nameFromLocalStorage = localStorage.getItem("userName") || "Taxate"; // Default if not found
+
+      // Update the elements in the page with dynamic values
+      document.getElementById("user-name").textContent = nameFromLocalStorage;
+      document.getElementById("report-date").textContent = getFormattedDate();
+      document.getElementById(
+        "financial-year"
+      ).textContent = `Financial Year ${getFinancialYear()}`;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Tax Report - Page 2</title>
+    <style>
+      /* Universal styles */
+
+      @page {
+  size: A4;
+  margin: 1in;
+}
+
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f7fc;
+        color: #333;
+      }
+
+      /* Page styling */
+      .container {
+        max-width: 800px;
+        margin: auto;
+        height: 1123.6px;
+
+        background: #fff;
+        padding: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        border: 2px solid black; /* Added border */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      /* Title styling */
+      h1 {
+        text-align: center;
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #555;
+      }
+
+      /* Section styling */
+      .section {
+        margin-top: 30px;
+      }
+
+      .section p {
+        margin-top: 5px;
+      }
+
+      .highlight {
+        font-weight: bold;
+        color: #1c3f3a; /* Highlight color */
+      }
+
+      /* Table styling for transactions */
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+      }
+
+
+      .footer-note,
+.signature-section {
+  position: absolute;
+  bottom: 20px; /* Push them towards the bottom */
+  right: 20px; /* Align to the right */
+  font-size: 12px;
+  text-align: right;
+}
+
+.signature-section {
+  margin-top: 10px; /* Add some spacing between footer and signature */
+}
+
+.signature-section {
+  font-size: 14px;
+  font-weight: bold;
+}
+      
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f4f7fc;
+      }
+
+      td {
+        background-color: #fff;
+      }
+
+
+
+      
+      /* Responsive Design (for smaller screens) */
+      @media (max-width: 768px) {
+        .page {
+          padding: 1cm;
+        }
+
+        h1 {
+          font-size: 20px;
+        }
+
+        h3 {
+          font-size: 16px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+
+        table {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Crypto Tax Report - Page 1</h1>
+
+      <!-- Buy Transactions Section -->
+      <div class="section">
+        <h3>Buy Transactions:</h3>
+        <p id="buy-transactions">
+          <span class="highlight">Total Buy Transactions:</span>
+          ₹{{buy}}
+        </p>
+        <p>
+          This section outlines all the cryptocurrency purchases made during the
+          reporting period. Each "Buy" transaction contributes to the total
+          amount of cryptocurrency acquired, which can be used for calculating
+          potential capital gains when sold. Make sure to include transaction
+          fees and other associated costs.
+        </p>
+
+        <!-- Example table for Buy Transactions -->
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Cryptocurrency</th>
+              <th>Amount</th>
+              <th>Price (INR)</th>
+              <th>Total (INR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2024-01-15</td>
+              <td>Bitcoin (BTC)</td>
+              <td>0.5</td>
+              <td>₹2,000,000</td>
+              <td>₹1,000,000</td>
+            </tr>
+            <tr>
+              <td>2024-02-20</td>
+              <td>Ethereum (ETH)</td>
+              <td>2</td>
+              <td>₹150,000</td>
+              <td>₹300,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Sell Transactions Section -->
+      <div class="section">
+        <h3>Sell Transactions:</h3>
+        <p id="sell-transactions">
+          <span class="highlight">Total Sell Transactions:</span>
+          ₹{{sell}}
+        </p>
+        <p>
+          This section highlights the "Sell" transactions where you disposed of
+          your cryptocurrency. The total amount from "Sell" transactions helps
+          in calculating your capital gain, which is used for tax purposes.
+          Ensure that you include all sale details, such as the date, price, and
+          any fees paid during the transaction.
+        </p>
+
+        <!-- Example table for Sell Transactions -->
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Cryptocurrency</th>
+              <th>Amount</th>
+              <th>Price (INR)</th>
+              <th>Total (INR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2024-03-10</td>
+              <td>Bitcoin (BTC)</td>
+              <td>0.3</td>
+              <td>₹2,500,000</td>
+              <td>₹750,000</td>
+            </tr>
+            <tr>
+              <td>2024-04-05</td>
+              <td>Ethereum (ETH)</td>
+              <td>1.5</td>
+              <td>₹180,000</td>
+              <td>₹270,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="footer-note">
+        * The data above is calculated based on the transactions conducted during the relevant tax period  Page 2
+      </div>
+      
+    </div>
+  </body>
+</html>
