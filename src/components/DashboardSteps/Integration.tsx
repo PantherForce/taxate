@@ -5,6 +5,7 @@ import Heading from "../Layout/Heading/Heading";
 import Papa from "papaparse";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CsvUpload from "./CsvUpload";
 
 type Exchange = {
   id: number;
@@ -121,7 +122,9 @@ const Integration: React.FC = () => {
           />
         </div>
 
-        <div className="mb-6 border-dashed border-2 p-6 border-gray-300 rounded-lg flex justify-center items-center hover:bg-blue-50 hover:border-blue-300 transition duration-200 ease-in-out">
+        <CsvUpload/>
+
+        {/* <div className="mb-6 border-dashed border-2 p-6 border-gray-300 rounded-lg flex justify-center items-center hover:bg-blue-50 hover:border-blue-300 transition duration-200 ease-in-out">
           <div className="text-center space-y-3">
             <label
               htmlFor="csv-upload"
@@ -158,7 +161,7 @@ const Integration: React.FC = () => {
               <p className="mt-1 text-sm text-gray-500">{uploadStatus}</p>
             )}
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-wrap gap-2 mb-6">
           {[

@@ -21,9 +21,6 @@ import {
 } from "chart.js";
 import html2pdf from "html2pdf.js";
 import Heading from "../Layout/Heading/Heading";
-import page1Template from "../../../public/Page1.html";
-import page2Template from "../../../public/page2.html";
-import intro from "../../../public/intro.html";
 import Blockchain from "../Pages/Blockchain/Blockchain";
 
 ChartJS.register(
@@ -41,9 +38,8 @@ const TransactionsContent: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true); // Initially true to apply blur
   const [showModal, setShowModal] = useState<boolean>(false);
 
-
   const fetchTransactions = async () => {
-    setLoading(true); // Keep loading true while fetching
+    setLoading(true);
     try {
       const response = await axios.get(
         "https://testdata-bh0z.onrender.com/get_transactions"
@@ -52,7 +48,7 @@ const TransactionsContent: React.FC = () => {
     } catch (error) {
       console.error("Error fetching transactions:", error);
     } finally {
-      setLoading(false); // Set loading to false once data is fetched
+      setLoading(false);
     }
   };
 
@@ -129,40 +125,24 @@ const TransactionsContent: React.FC = () => {
   const cryptoTaxRate = 0.3;
   const cryptoTax = totalTaxableAmount * cryptoTaxRate;
 
-  const generatePDF = () => {
-    // Replace the placeholders in the templates with the actual dynamic data
-
-    const pagrintro = intro;
-    const page1Content = page1Template
-      .replace("{{totalTaxableAmount}}", `₹${totalTaxableAmount.toFixed(2)}`)
-      .replace("{{totalTds}}", `₹${totalTds.toFixed(2)}`);
-
-    const page2Content = page2Template
-      .replace("{{buy}}", buySellData.buy.toString())
-      .replace("{{sell}}", buySellData.sell.toString());
-
-    // Combine all pages into one HTML string
-    const fullReport = `
- 
+  const generatePDF = async () => {
+    try {
+      const response = await axios.get("https://testdata-bh0z.onrender.com/download_all_pages_pdf", {
+        responseType: "blob", // Important for downloading files
+      });
   
-        <div>${pagrintro}</div>
-        <div>${page1Content}</div>
-        <div>${page2Content}</div>
-  
-    `;
-
-    // Create an HTML element for the content
-    const element = document.createElement("div");
-    element.innerHTML = fullReport;
-
-    // Append the content to the DOM and generate the PDF using html2pdf
-    document.body.appendChild(element);
-
-    html2pdf()
-      .from(element) // Convert the content from the created div
-      .save("crypto_transaction_.pdf") // Download the PDF
-      .then(() => document.body.removeChild(element)); // Remove the element after download
+      // Create a download link and simulate a click to download the file
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "all_pages.pdf"; // Set the name for the downloaded file
+      a.click();
+      window.URL.revokeObjectURL(url); // Cleanup the object URL after download
+    } catch (error) {
+      console.error("Error downloading the PDF:", error);
+    }
   };
+  
 
   return (
     <div className={`px-4 sm:px-6 lg:px-8 py-6 transition-all duration-500}`}>
@@ -250,17 +230,16 @@ const TransactionsContent: React.FC = () => {
               </span>
             </div>
             <button
-              onClick={() => setShowModal(true)} 
+              onClick={() => setShowModal(true)}
               className="bg-white text-primary py-2 px-4 rounded-lg mt-4 hover:bg-gray-200"
             >
-              
               Pay for full tax report
             </button>
             <button
               onClick={generatePDF}
               className="bg-primary text-white border-2 border-white py-2 px-4 rounded-lg mt-4 "
             >
-             Download Reports
+              Download Reports
             </button>
           </div>
         </div>
@@ -292,28 +271,23 @@ const TransactionsContent: React.FC = () => {
         </div>
       </div>
       {showModal && (
-            <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-              <div className="bg-white p-8 rounded-lg w-4/5 sm:w-1/3">
-              <div className="flex flex-row justify-between">
-              <h1 className="text-2xl font-semibold text-primary">Crypto Tax Payment</h1>
-              <button
-                    className=""
-                    onClick={() => setShowModal(false)}
-                  >
-                    <FaTimes/>
-                  </button>
-</div>
-
-                <Blockchain/>
-
-              
-                <div className="">
-                 
-                  
-                </div>
-              </div>
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-8 rounded-lg w-4/5 sm:w-1/3">
+            <div className="flex flex-row justify-between">
+              <h1 className="text-2xl font-semibold text-primary">
+                Crypto Tax Payment
+              </h1>
+              <button className="" onClick={() => setShowModal(false)}>
+                <FaTimes />
+              </button>
             </div>
-          )}
+
+            <Blockchain />
+
+            <div className=""></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

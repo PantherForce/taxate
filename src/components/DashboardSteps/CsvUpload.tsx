@@ -66,6 +66,30 @@ const CsvUpload: React.FC<CsvUploadProps> = ({ setActiveStep }) => {
           onChange={handleFileChange}
           className="w-full max-w-md p-3 bg-gray-50 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
         />
+        <label
+            
+              className="cursor-pointer flex flex-col items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                className="text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+              <p className="text-lg text-gray-700 mt-2 font-semibold">
+                Upload CSV
+              </p>
+            </label>
         <button
           onClick={handleFileUpload}
           className="w-full max-w-md bg-primary text-white px-6 py-3 rounded-lg shadow-md"
