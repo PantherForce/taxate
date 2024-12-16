@@ -22,6 +22,8 @@ import Signup from "./components/Singup/Signup";
 import CoinSets from "./components/Pages/CoinSets/CoinSets";
 import BasketDetails from "./components/CoinSets/BasketDetails";
 import Blockchain from "./components/Pages/Blockchain/Blockchain";
+import Analysis from "./components/Pages/Analysis/Analysis";
+import AnalysisPage from "./components/Pages/AnalysisPage/AnalysisPage";
 
 const App: React.FC = () => {
   // const location = useLocation();
@@ -52,10 +54,11 @@ const App: React.FC = () => {
         <Route path="/add" element={<FileUpload />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/coinsets" element={<  CoinSets />} />
+        <Route path="/coinsets" element={<CoinSets />} />
         <Route path="/basket/:basketId" element={<BasketDetails />} />
         <Route path="/blockchain" element={<Blockchain />} />
-
+        <Route path="/analysis" element={<Analysis />} />/
+        <Route path="/ai-analysis" element={<AnalysisPage />} />
         <Route
           path="/why-paying-taxes-on-crypto-matters"
           element={<Blogcontent />}

@@ -121,8 +121,9 @@ const Integration: React.FC = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-
+<div className="mb-2">
         <CsvUpload/>
+        </div>
 
         {/* <div className="mb-6 border-dashed border-2 p-6 border-gray-300 rounded-lg flex justify-center items-center hover:bg-blue-50 hover:border-blue-300 transition duration-200 ease-in-out">
           <div className="text-center space-y-3">

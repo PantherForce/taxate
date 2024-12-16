@@ -124,17 +124,23 @@ const Navbar: React.FC = () => {
           >
             Baskets
           </a>
+          <a
+            href="/ai-analysis"
+            className="text-xl hover:text-primary transition duration-300"
+          >
+            AI-Analytics
+          </a>
         </div>
 
         <div className="hidden md:flex gap-8">
           <Link to="/signup">
-            <button className="bg-primary rounded-xl px-4 py-3 text-xl text-white hover:bg-primary-dark transition duration-300">
+            <button className="bg-primary rounded-xl px-4 py-2 text-lg text-white hover:bg-primary-dark transition duration-300">
               Sign up
             </button>
           </Link>
 
           <Link to="/login">
-            <button className="bg-primary rounded-xl px-4 py-3 text-xl text-white hover:bg-primary-dark transition duration-300">
+            <button className="bg-primary rounded-xl px-4 py-2 text-lg text-white hover:bg-primary-dark transition duration-300">
               Login
             </button>
           </Link>
