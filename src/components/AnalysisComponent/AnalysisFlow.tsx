@@ -1,10 +1,9 @@
 import React from "react";
 import SectionLayout from "../Home/SectionLayout";
-import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 
 const AnalysisFlow: React.FC = () => {
   return (
-    <ContentContainer>
+    <div className="container mx-auto p-8">
       <SectionLayout
         title="Seamlessly import your crypto trades and investments"
         description="Say goodbye to complex spreadsheets! Taxate AI analytics can automatically import your crypto transactions at no cost."
@@ -24,7 +23,7 @@ const AnalysisFlow: React.FC = () => {
         imageSrc="/images/Imagegalery/second.svg"
         blur={true} // Add blur prop here
       />
-    </ContentContainer>
+    </div>
   );
 };
 
