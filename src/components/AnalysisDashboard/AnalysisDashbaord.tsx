@@ -1,4 +1,4 @@
-// @ts-nocheck 
+// @ts-nocheck
 
 import React, { useEffect, useState } from "react";
 import { fetchTradingData } from "../../services/api";
@@ -269,12 +269,13 @@ const AnalysisDashboard: React.FC = () => {
                       ))}
                   </ul>
                 ) : (
-                  <p>Loading AI-generated insights...</p>
+                  <p>
+                    <LoadingSpinner />
+                  </p>
                 )}
               </div>
             </div>
 
-            {/* Grid Display for Portfolio Summary */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
               {/* Current Balance */}
 
@@ -307,20 +308,26 @@ const AnalysisDashboard: React.FC = () => {
               </div>
             </div>
 
-            {/* Mistakes Analysis Section */}
             <div className="mb-6">
               <h2 className="text-lg font-semibold mb-2">
                 Trading Mistakes Analysis
               </h2>
               <div className="bg-white border rounded-md shadow-md p-4">
-                <ul className="list-disc pl-5 space-y-2 text-sm text-gray-700">
-                  {mistakesSummary
-                    .split(". ")
-                    .filter((item) => item.trim())
-                    .map((item, index) => (
-                      <li key={index}>{item}.</li>
-                    ))}
-                </ul>
+                {/* Conditional rendering to check if mistakesSummary is available */}
+                {mistakesSummary ? (
+                  <ul className="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                    {mistakesSummary
+                      .split(". ")
+                      .filter((item) => item.trim())
+                      .map((item, index) => (
+                        <li key={index}>{item}.</li>
+                      ))}
+                  </ul>
+                ) : (
+                  <p>
+                    <LoadingSpinner />
+                  </p>
+                )}
               </div>
             </div>
 
@@ -424,11 +431,11 @@ const AnalysisDashboard: React.FC = () => {
                 )}
 
                 {activeTab === "bar" && (
-                  <div className="mb-6 flex-col flex justify-center items-center">
+                  <div className="mb-6 flex-col flex justify-center items-center mx-auto w-1/2 h-1/2">
                     <h2 className="text-lg font-semibold mb-2 text-center">
                       Trading Activity Bar Chart
                     </h2>
-                    <div className="overflow-hidden h-64">
+                    <div className="overflow-hidden w-full h-full">
                       <Bar data={barChartData} />
                     </div>
                   </div>

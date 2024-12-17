@@ -244,7 +244,7 @@ const BasketDetails: React.FC = () => {
                   <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">
                     Asset Allocation
                   </h3>
-                  <div className="flex h-[40vh] justify-center mt-4">
+                  <div className="mb-6 flex-col flex justify-center items-center mx-auto w-1/2 h-1/2">
                     <Pie data={pieChartData} options={{ responsive: true }} />
                   </div>
                 </div>
@@ -255,7 +255,7 @@ const BasketDetails: React.FC = () => {
                   <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">
                     Asset Performance Comparison
                   </h3>
-                  <div className="flex h-[40vh] justify-center mt-4">
+                  <div className="mb-6 flex-col flex justify-center items-center mx-auto w-1/2 h-1/2">
                     <Bar data={barChartData} options={{ responsive: true }} />
                   </div>
                 </div>

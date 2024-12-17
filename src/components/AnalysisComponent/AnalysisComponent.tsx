@@ -10,7 +10,7 @@ const AnalysisComponent: React.FC = () => {
     <div className="flex  items-center justify-center">
       <div className="flex flex-col items-center justify-center p-8 max-w-lg mx-4 md:max-w-4xl">
         <img
-          src="/images/Baskets/baskets.png"
+          src="/images/analysis/ai.png"
           alt="Placeholder"
           className="w-32 h-32 sm:w-48 sm:h-48 md:w-1/2 md:h-1/2 rounded-full"
         />
