@@ -15,7 +15,7 @@ const ImageSection: React.FC = () => {
       <SectionLayout
         title="Download your crypto tax report"
         description="Your crypto tax calculations are ready to download as a comprehensive report. Simply sign up for an affordable plan, download your report, and file with the Income Tax Department!."
-        imageSrc="/images/Imagegalery/second.svg"
+        imageSrc="/images/products/22.png"
         reverse={true}
       />
 

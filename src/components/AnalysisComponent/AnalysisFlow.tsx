@@ -13,14 +13,14 @@ const AnalysisFlow: React.FC = () => {
       <SectionLayout
         title="Gain insights into all your metrics with AI"
         description="Taxate Analytics AI provides a clear overview of all your trades, helping you understand them in one place."
-        imageSrc="/images/Imagegalery/second.svg"
+        imageSrc="/images/products/33.png"
         reverse={true}
       />
 
       <SectionLayout
         title="Uncover and improve like never before"
         description="Discover areas for improvement and better understand how to optimize your crypto strategy."
-        imageSrc="/images/Imagegalery/second.svg"
+        imageSrc="/images/products/33.png"
         blur={true} // Add blur prop here
       />
     </div>
