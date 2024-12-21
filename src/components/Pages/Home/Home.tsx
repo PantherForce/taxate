@@ -18,7 +18,7 @@ const Home = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>
-          Crypto Tax Simplified | Taxate - Seamless Crypto Accounting
+          Crypto Tax Simplified | Taxate - Seamless Crypto Accounting |
         </title>
         <meta
           name="description"
@@ -28,7 +28,7 @@ const Home = () => {
           name="keywords"
           content="crypto tax, cryptocurrency accounting, crypto compliance, tax software, crypto tax management, simplify crypto taxes, blockchain taxes"
         />
-        <meta name="author" content="Taxate" />
+        <meta name="author" content="Likhith Reddy" />
         <link rel="canonical" href="https://www.taxate.in/" />
       </Helmet>
 
