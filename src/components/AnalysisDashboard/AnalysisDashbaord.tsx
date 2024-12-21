@@ -91,6 +91,7 @@ const AnalysisDashboard: React.FC = () => {
 
     const prompt = `
     Analyze the following trading history and identify mistakes or patterns indicating risky behavior, such as over-leveraging, asset concentration, high frequency of loss trades, or excessive risk exposure. Summarize in 100 words with 3 concise bullet points:
+    
     Total trades: ${tradingHistory.length}.
     Profitable trades: ${
       tradingHistory.filter((trade) => trade.profit_loss > 0).length
@@ -201,32 +202,28 @@ const AnalysisDashboard: React.FC = () => {
   };
 
   return (
-    <>
-      <Navbar />
+    <div className="max-w-full h-full px-4 py-8 mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center">
+        Analytics Dashboard of Your Crypto
+      </h1>
 
-      <div className="mx-auto max-w-[90vw]">
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          Analytics Dashboard of your crypto
-        </h1>
-
-        <div className="bg-[#F4F1E6] p-4 rounded-md shadow-md text-sm text-gray-700 border flex flex-col items-start justify-between">
-          <p className="font-semibold mb-2">Open positions</p>
-          {data?.portfolio?.open_positions?.length ? (
-            data?.portfolio.open_positions.map((position, index) => (
-              <div
-                key={index}
-                className="text-sm md:text-base text-gray-700 border gap-8 flex flex-row"
-              >
-                <h3 className="font-semibold mb-1">{position.asset}</h3>
-                <p className="mb-1">
+      {/* Open Positions Section */}
+      <div className="bg-[#F4F1E6] p-6 rounded-md shadow-md mb-8">
+        <h2 className="text-lg font-semibold mb-4">Open Positions</h2>
+        {data?.portfolio?.open_positions?.length ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+            {data?.portfolio.open_positions.map((position, index) => (
+              <div key={index} className="border p-4 rounded-md">
+                <h3 className="text-lg font-semibold mb-2">{position.asset}</h3>
+                <p>
                   <span className="font-semibold">Entry Price:</span> $
                   {position.entry_price?.toFixed(2) || 0}
                 </p>
-                <p className="mb-1 ">
+                <p>
                   <span className="font-semibold">Current Price:</span> $
                   {position.current_price?.toFixed(2) || 0}
                 </p>
-                <p className="mb-1">
+                <p>
                   <span className="font-semibold">Leverage:</span>{" "}
                   {position.leverage}x
                 </p>
@@ -241,81 +238,77 @@ const AnalysisDashboard: React.FC = () => {
                   {position.unrealized_profit_loss?.toFixed(2) || 0}
                 </p>
               </div>
-            ))
-          ) : (
-            <div className="text-center">No open positions</div>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center">No open positions</div>
+        )}
+      </div>
 
-        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+      {/* Error Message */}
+      {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 
-        {/* AI Summary Section */}
-        {data ? (
-          <>
-            {/* AI Insights Summary */}
-            <div className="mb-6">
-              <h2 className="text-lg mt-4 md:text-xl font-semibold mb-2">
-                Your trading summary
-              </h2>
-              <div className="bg-primary p-4 rounded-md shadow-md text-base text-white">
-                {aiSummary ? (
-                  <ul className="list-disc pl-5 space-y-2">
-                    {aiSummary
-                      .split(". ")
-                      .filter(Boolean)
-                      .slice(0, 3)
-                      .map((item, index) => (
-                        <li key={index}>{item}.</li>
-                      ))}
-                  </ul>
-                ) : (
-                  <p>
-                    <LoadingSpinner />
-                  </p>
-                )}
-              </div>
+      {/* AI Summary Section */}
+      {data ? (
+        <>
+          <div className="mb-8">
+            <h2 className="text-lg font-semibold mb-2">Your Trading Summary</h2>
+            <div className="bg-primary p-6 rounded-md shadow-md text-white">
+              {aiSummary ? (
+                <ul className="list-disc pl-6 space-y-2">
+                  {aiSummary
+                    .split(". ")
+                    .filter(Boolean)
+                    .slice(0, 3)
+                    .map((item, index) => (
+                      <li key={index}>{item}.</li>
+                    ))}
+                </ul>
+              ) : (
+                <LoadingSpinner />
+              )}
+            </div>
+          </div>
+
+          {/* Portfolio Summary */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="bg-[#F4F1E6] p-6 rounded-md shadow-md">
+              <h3 className="font-semibold mb-2">Initial Balance</h3>
+              <p className="text-xl font-bold">
+                ${data?.portfolio.initial_balance?.toFixed(2) || 0}
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
-              {/* Current Balance */}
-
-              <div className="bg-[#F4F1E6] p-4 rounded-md shadow-md text-sm text-gray-700 border flex flex-col items-start justify-between">
-                <h3 className="font-semibold mb-2">Initial Balance</h3>
-                <p className="text-xl font-bold">
-                  ${data?.portfolio.initial_balance?.toFixed(2) || 0}
-                </p>
-              </div>
-
-              <div className="bg-[#F4F1E6] p-4 rounded-md shadow-md text-sm text-gray-700 border flex flex-col items-start justify-between">
-                <h3 className="font-semibold mb-2">Current Balance</h3>
-                <p className="text-xl font-bold">
-                  ${data?.portfolio.current_balance?.toFixed(2) || 0}
-                </p>
-              </div>
-
-              <div className="bg-[#F4F1E6] p-4 rounded-md shadow-md text-sm text-gray-700 border flex flex-col items-start justify-between">
-                <h3 className="font-semibold mb-2">Average Leverage </h3>
-                <p className="text-xl font-bold">
-                  {data?.trading_patterns.average_leverage || 0}x
-                </p>
-              </div>
-
-              <div className="bg-[#F4F1E6] p-4 rounded-md shadow-md text-sm text-gray-700 border flex flex-col items-start justify-between">
-                <h3 className="font-semibold mb-2">Profitable trade type </h3>
-                <p className="text-xl font-bold">
-                  {data?.trading_patterns.most_profitable_trade_type || 0}
-                </p>
-              </div>
+            <div className="bg-[#F4F1E6] p-6 rounded-md shadow-md">
+              <h3 className="font-semibold mb-2">Current Balance</h3>
+              <p className="text-xl font-bold">
+                ${data?.portfolio.current_balance?.toFixed(2) || 0}
+              </p>
             </div>
 
-            <div className="mb-6">
+            <div className="bg-[#F4F1E6] p-6 rounded-md shadow-md">
+              <h3 className="font-semibold mb-2">Average Leverage</h3>
+              <p className="text-xl font-bold">
+                {data?.trading_patterns.average_leverage || 0}x
+              </p>
+            </div>
+
+            <div className="bg-[#F4F1E6] p-6 rounded-md shadow-md">
+              <h3 className="font-semibold mb-2">Profitable Trade Type</h3>
+              <p className="text-xl font-bold">
+                {data?.trading_patterns.most_profitable_trade_type || 0}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-row gap-8">
+            <div className="mb-8 border-2 border-black  p-4  w-full md:w-1/4">
               <h2 className="text-lg font-semibold mb-2">
                 Trading Mistakes Analysis
               </h2>
-              <div className="bg-white border rounded-md shadow-md p-4">
-                {/* Conditional rendering to check if mistakesSummary is available */}
+              <div className="bg-white border rounded-md shadow-md p-6">
                 {mistakesSummary ? (
-                  <ul className="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                  <ul className="list-disc pl-6 space-y-2 text-sm text-gray-700">
                     {mistakesSummary
                       .split(". ")
                       .filter((item) => item.trim())
@@ -324,80 +317,74 @@ const AnalysisDashboard: React.FC = () => {
                       ))}
                   </ul>
                 ) : (
-                  <p>
-                    <LoadingSpinner />
-                  </p>
+                  <LoadingSpinner />
                 )}
               </div>
             </div>
 
-            <div className="flex justify-center mb-4 space-x-4">
-              <button
-                className={`px-4 py-2 border rounded-lg ${
-                  activeTab === "table"
-                    ? "bg-primary text-white"
-                    : "bg-white text-primary"
-                }`}
-                onClick={() => handleTabClick("table")}
-              >
-                Trading Activity table
-              </button>
+            <div className="flex w-full md:w-3/4 flex-col">
+              <div className="w-full flex justify-center mb-6 space-x-6">
+                <button
+                  className={`px-4 py-2 border rounded-lg ${
+                    activeTab === "table"
+                      ? "bg-primary text-white"
+                      : "bg-white text-primary"
+                  }`}
+                  onClick={() => handleTabClick("table")}
+                >
+                  Trading Activity Table
+                </button>
 
-              <button
-                className={`px-4 py-2 border rounded-lg ${
-                  activeTab === "pie"
-                    ? "bg-primary text-white"
-                    : "bg-white text-primary"
-                }`}
-                onClick={() => handleTabClick("pie")}
-              >
-                Profit/Loss Pie Chart
-              </button>
-              <button
-                className={`px-4 py-2 border rounded-lg ${
-                  activeTab === "bar"
-                    ? "bg-primary text-white"
-                    : "bg-white text-primary"
-                }`}
-                onClick={() => handleTabClick("bar")}
-              >
-                Trading Activity Bar Chart
-              </button>
-            </div>
+                <button
+                  className={`px-4 py-2 border rounded-lg ${
+                    activeTab === "pie"
+                      ? "bg-primary text-white"
+                      : "bg-white text-primary"
+                  }`}
+                  onClick={() => handleTabClick("pie")}
+                >
+                  Profit/Loss Pie Chart
+                </button>
 
-            {data ? (
-              <>
-                {activeTab === "table" && (
-                  <div className="mb-6">
-                    <h2 className="text-lg font-semibold mb-2 text-center">
-                      Trading Activity Bar Chart
-                    </h2>
-                    <div className="mb-6">
+                <button
+                  className={`px-4 py-2 border rounded-lg ${
+                    activeTab === "bar"
+                      ? "bg-primary text-white"
+                      : "bg-white text-primary"
+                  }`}
+                  onClick={() => handleTabClick("bar")}
+                >
+                  Trading Activity Bar Chart
+                </button>
+              </div>
+              {data ? (
+                <div className="p-4 border-2 border-black">
+                  {activeTab === "table" && (
+                    <div className="mb-8 h-[50vh] overflow-auto">
+                      <h2 className="text-lg font-semibold mb-4 text-center">
+                        Trading Activity Table
+                      </h2>
                       <div className="overflow-x-auto">
                         <table className="table-auto w-full bg-white border border-gray-500 shadow-xl">
                           <thead className="bg-primary text-white">
                             <tr className="text-center">
-                              <th className="border px-4 py-2">Trade ID</th>
-                              <th className="border px-4 py-2">Asset</th>
-                              <th className="border px-4 py-2">Trade Type</th>
-                              <th className="border px-4 py-2">Profit/Loss</th>
-                              <th className="border px-4 py-2">Date</th>
+                              <th className="px-4 py-2">Trade ID</th>
+                              <th className="px-4 py-2">Asset</th>
+                              <th className="px-4 py-2">Trade Type</th>
+                              <th className="px-4 py-2">Profit/Loss</th>
+                              <th className="px-4 py-2">Date</th>
                             </tr>
                           </thead>
                           <tbody>
                             {data.trading_history.map((trade) => (
                               <tr key={trade.trade_id} className="text-center">
-                                <td className="border px-4 py-2">
-                                  {trade.trade_id}
-                                </td>
-                                <td className="border px-4 py-2">
-                                  {trade.asset}
-                                </td>
-                                <td className="border px-4 py-2">
+                                <td className="px-4 py-2">{trade.trade_id}</td>
+                                <td className="px-4 py-2">{trade.asset}</td>
+                                <td className="px-4 py-2">
                                   {trade.trade_type}
                                 </td>
                                 <td
-                                  className={`border px-4 py-2 ${
+                                  className={`px-4 py-2 ${
                                     trade.profit_loss < 0
                                       ? "text-red-500"
                                       : "text-green-500"
@@ -405,7 +392,7 @@ const AnalysisDashboard: React.FC = () => {
                                 >
                                   ${trade.profit_loss.toFixed(2)}
                                 </td>
-                                <td className="border px-4 py-2">
+                                <td className="px-4 py-2">
                                   {new Date(trade.date_time).toLocaleString()}
                                 </td>
                               </tr>
@@ -414,46 +401,44 @@ const AnalysisDashboard: React.FC = () => {
                         </table>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {activeTab === "pie" && (
-                  <div className="mb-6 flex-col flex justify-center items-center">
-                    <h2 className="text-lg font-semibold mb-2 text-center">
-                      Profit vs Loss Pie Chart
-                    </h2>
-                    <div className="overflow-hidden h-64">
-                      {" "}
-                      {/* Set a fixed height here */}
-                      <Pie data={pieData} />
+                  {activeTab === "pie" && (
+                    <div className="mb-8  justify-center text-center">
+                      <h2 className="text-lg font-semibold mb-4">
+                        Profit vs Loss Pie Chart
+                      </h2>
+                      <div className="overflow-hidden h-64">
+                        <Pie data={pieData} />
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {activeTab === "bar" && (
-                  <div className="mb-6 flex-col flex justify-center items-center mx-auto w-1/2 h-1/2">
-                    <h2 className="text-lg font-semibold mb-2 text-center">
-                      Trading Activity Bar Chart
-                    </h2>
-                    <div className="overflow-hidden w-full h-full">
-                      <Bar data={barChartData} />
+                  {activeTab === "bar" && (
+                    <div className="mb-8 text-center">
+                      <h2 className="text-lg font-semibold mb-4">
+                        Trading Activity Bar Chart
+                      </h2>
+                      <div className="overflow-hidden w-full h-full">
+                        <Bar data={barChartData} />
+                      </div>
                     </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="text-center mt-4">
-                <LoadingSpinner />
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="text-center mt-4">
-            <LoadingSpinner />
+                  )}
+                </div>
+              ) : (
+                <div className="text-center mt-4">
+                  <LoadingSpinner />
+                </div>
+              )}
+            </div>
           </div>
-        )}
-      </div>
-    </>
+        </>
+      ) : (
+        <div className="text-center mt-4">
+          <LoadingSpinner />
+        </div>
+      )}
+    </div>
   );
 };
 

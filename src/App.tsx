@@ -27,7 +27,6 @@ import AnalysisPage from "./components/Pages/AnalysisPage/AnalysisPage";
 
 const App: React.FC = () => {
 
-
   useEffect(() => {
     ReactGA.initialize("G-5ZV7QG0229");
 

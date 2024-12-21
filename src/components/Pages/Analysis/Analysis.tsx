@@ -1,10 +1,9 @@
-import AnalysisDashboard from "../../AnalysisDashboard/AnalysisDashbaord";
+import DashboardA from "../../AnalysisDashboard/DashboardA";
 
 const Analysis = () => {
   return (
     <>
-
-      <AnalysisDashboard />
+<DashboardA/>
     </>
   );
 };
