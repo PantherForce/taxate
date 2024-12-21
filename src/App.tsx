@@ -25,6 +25,7 @@ import Blockchain from "./components/Pages/Blockchain/Blockchain";
 import Analysis from "./components/Pages/Analysis/Analysis";
 import AnalysisPage from "./components/Pages/AnalysisPage/AnalysisPage";
 import GstContent from "./components/Blogs/GstContent";
+import CryptoTaxUpdate from "./components/Blogs/CryptoTaxUpdate";
 
 const App: React.FC = () => {
 
@@ -63,7 +64,8 @@ const App: React.FC = () => {
           path="/why-paying-taxes-on-crypto-matters"
           element={<Blogcontent />}
         />
-        <Route path="/GST-news" element={<GstContent/>}/>
+        <Route path="/crypto-tax-update" element={<CryptoTaxUpdate/>}/>
+        <Route path="/gst-news" element={<GstContent/>}/>
       </Routes>
       <Analytics />
     </Router>

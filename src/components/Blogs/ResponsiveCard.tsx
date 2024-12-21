@@ -46,6 +46,24 @@ const ResponsiveCard: React.FC = () => {
        </div>
      </div>
      </Link>
+
+     <Link to='/tax-update'>
+
+<div className="max-w-sm w-full bg-white shadow-lg rounded-lg overflow-hidden">
+ 
+ <img
+   src="/images/Features/Chasing Money 2.png"
+   alt="Beautiful Nature"
+   className="w-full h-60 object-cover"
+ />
+ 
+ {/* Card Content */}
+ <div className="p-4">
+   <h3 className="text-base md:text-xl font-semibold text-gray-800">How to Avoid 30% Capital Gains Tax on Cryptos: ITAT Ruling Explained</h3>
+   <p className="text-gray-600 mt-2 text-base">
+   Learn how the recent ITAT ruling can help cryptocurrency investors save on taxes by treating gains as capital gains instead of income. Discover how this affects crypto sales before and after April 2022</p> </div>
+</div>
+</Link>
     </div>
   
     </ContentContainer>
