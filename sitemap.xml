@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.taxate.in/</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Blogs Page -->
+  <url>
+    <loc>https://www.taxate.in/blogs</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Loive prices page -->
+  <url>
+    <loc>https://www.taxate.in/crypto-prices</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- crypto-tax-calculator Page -->
+  <url>
+    <loc>https://www.taxate.in/crypto-tax-calculator</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- crypto-caonverter page -->
+  <url>
+    <loc>https://www.taxate.in/crypto-caonverter</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Games Page -->
+  <url>
+    <loc>https://www.taxate.in/games</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+<!-- signup page -->
+  <url>
+    <loc>https://www.taxate.in/signup</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+
+   <!-- Baskets page -->
+  <url>
+    <loc>https://www.taxate.in/baskets</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+   <!-- ai-analysis page -->
+  <url>
+    <loc>https://www.taxate.in/ai-analysis</loc>
+    <lastmod>2024-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+
+</urlset>
