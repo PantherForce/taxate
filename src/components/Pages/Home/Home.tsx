@@ -24,6 +24,7 @@ const Home = () => {
           name="description"
           content="Simplify crypto tax compliance and accounting with Taxate. Our innovative technology ensures seamless crypto tax management, saving you time and effort."
         />
+        <meta name="twitter:site" content="@taxatehq" />
         <meta
           name="keywords"
           content="crypto tax, cryptocurrency accounting, crypto compliance, tax software, crypto tax management, simplify crypto taxes, blockchain taxes"

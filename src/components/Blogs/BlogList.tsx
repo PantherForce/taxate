@@ -41,7 +41,7 @@ const BlogList: React.FC = () => {
         <meta property="og:image" content="URL_TO_IMAGE" />
         <meta property="og:url" content="https://www.taxate.com/blogs" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@taxate" />
+        <meta name="twitter:site" content="@taxatehq" />
         <meta name="twitter:title" content="Taxate Blogs - Stay Updated on Crypto, Tax Optimization & Wealth Management" />
         <meta name="twitter:description" content="Explore the latest insights and articles on cryptocurrency, tax optimization, wealth management, and investment strategies at Taxate. Stay updated with expert advice to grow your wealth and optimize taxes." />
         <meta name="twitter:image" content="URL_TO_IMAGE" />

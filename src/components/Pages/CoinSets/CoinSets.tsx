@@ -21,7 +21,7 @@ const CoinSets = () => {
         <meta property="og:image" content="E" />
         <meta property="og:url" content="https://www.taxate.com/coinsets" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@taxate" />
+        <meta name="twitter:site" content="@taxatehq" />
         <meta name="twitter:title" content="Taxate Coin Sets - Optimize Your Taxes and Grow Your Wealth" />
         <meta name="twitter:description" content="Invest smartly with theme-based crypto baskets, designed to maximize growth and minimize risk." />
         <meta name="twitter:image" content="URL_TO_IMAGE" />

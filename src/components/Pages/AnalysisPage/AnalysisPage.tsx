@@ -21,7 +21,7 @@ const AnalysisPage = () => {
         <meta property="og:image" content="URL_TO_IMAGE" />
         <meta property="og:url" content="https://www.taxate.com/ai-analysis" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@taxate" />
+        <meta name="twitter:site" content="@taxatehq" />
         <meta name="twitter:title" content="AI-Powered Trading Analytics Dashboard - Unlock Actionable Insights" />
         <meta name="twitter:description" content="Unlock actionable insights into your trading strategy with the AI-Powered Trading Analytics Dashboard. Leveraging advanced AI, this tool analyzes your trading history to identify patterns, evaluate risk exposure, and uncover opportunities for performance improvement." />
         <meta name="twitter:image" content="URL_TO_IMAGE" />
