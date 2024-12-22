@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; // If you're using React Router
+import { useParams } from "react-router-dom";
+
+interface Post {
+  title: string;
+  summary: string;
+  content: string;
+  featured_image: string;
+}
 
 const PostPage: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>(); // Get slug from the URL
-  const [post, setPost] = useState<any>(null);
+  const { slug } = useParams<{ slug: string }>();
+  const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,17 +34,24 @@ const PostPage: React.FC = () => {
     };
 
     fetchPost();
-  }, [slug]); // Run fetch on slug change
+  }, [slug]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div className="text-center text-lg text-gray-600">Loading...</div>;
+  if (error) return <div className="text-center text-lg text-red-600">{error}</div>;
 
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-semibold mb-4">{post?.title}</h1>
-      <div className="prose">
-        <p>{post?.summary}</p>
-        {/* Render full content of the post, if available */}
+    <div className="container mx-auto px-6 py-8 max-w-4xl">
+      <div className="mb-6">
+        <img
+          src={post?.featured_image || "/path/to/placeholder.jpg"}
+          alt={post?.title}
+          className="w-full h-72 object-cover rounded-lg shadow-md mb-4"
+        />
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">{post?.title}</h1>
+        <p className="text-xl text-gray-700 mb-6">{post?.summary}</p>
+      </div>
+      <div className="prose lg:prose-xl text-gray-800">
+        <div dangerouslySetInnerHTML={{ __html: post?.content || "" }} />
       </div>
     </div>
   );
