@@ -73,7 +73,7 @@ const PostPage: React.FC = () => {
           <div
             className="prose lg:prose-xl text-gray-800"
             dangerouslySetInnerHTML={{
-              __html: sanitizeHTML(post?.content || ""),
+              __html: sanitizeHTML(post?.content || "KJKJ"),
             }}
           />
         </div>
