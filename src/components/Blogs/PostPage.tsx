@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Navbar from "../Navbar/Navbar";
 import Faqs from "../Pages/Faqs/Faqs";
+import parse from "html-react-parser"; // Import html-react-parser
 
 interface Post {
   title: string;
@@ -44,26 +45,27 @@ const PostPage: React.FC = () => {
 
   return (
     <>
-    <Navbar/>
-    <ContentContainer>
-    <div className="mx-auto px-6 py-8 w-full">
-      <div className="mb-6">
-        <div className="w-1/2">
-        <img
-          src={post?.featured_image || "/path/to/placeholder.jpg"}
-          alt={post?.title}
-          className="w-full h-72 object-cover rounded-lg shadow-md mb-4"
-        />
+      <Navbar />
+      <ContentContainer>
+        <div className="mx-auto px-6 py-8 w-full">
+          <div className="mb-6">
+            <div className="w-full flex justify-center items-center lg:w-1/2">
+              <img
+                src={post?.featured_image || "/default-image.jpg"} // Ensure default image exists
+                alt={post?.title || "Default Post Image"}
+                className="w-full h-72 object-cover rounded-lg shadow-md mb-4"
+              />
+            </div>
+            <h1 className="text-3xl font-extrabold text-gray-900 mb-4">{post?.title}</h1>
+            {/* <p className="text-xl text-gray-700 mb-6">{post?.summary}</p> */}
+          </div>
+          <div className="prose lg:prose-xl text-gray-800">
+            {/* Use html-react-parser to safely parse and render HTML content */}
+            {parse(post?.content || "")}
+          </div>
         </div>
-        <h1 className="text-2xl font-extrabold text-gray-900 mb-4">{post?.title}</h1>
-        <p className="text-xl text-gray-700 mb-6">{post?.summary}</p>
-      </div>
-      <div className="prose lg:prose-xl text-gray-800">
-        <div dangerouslySetInnerHTML={{ __html: post?.content || "" }} />
-      </div>
-    </div>
-    </ContentContainer>
-    <Faqs/>
+      </ContentContainer>
+      <Faqs />
     </>
   );
 };
