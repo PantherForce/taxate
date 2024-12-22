@@ -70,7 +70,7 @@ const PostPage: React.FC = () => {
     <>
       <Navbar />
       <ContentContainer>
-        <div className="mx-auto px-6 py-8 w-full max-w-4xl">
+        <div className="mx-auto px-6 py-8 w-full">
           {/* Image Container */}
           <div className="w-full flex justify-center items-center mb-6">
             <img
