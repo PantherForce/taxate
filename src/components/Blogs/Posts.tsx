@@ -5,7 +5,7 @@ interface Post {
   title: string;
   slug: string;
   summary: string;
-  featured_image: string; // Assuming the API returns an image URL
+  featured_image: string;
 }
 
 const Posts: React.FC = () => {
@@ -37,6 +37,13 @@ const Posts: React.FC = () => {
     fetchPosts();
   }, []);
 
+  // Helper function to truncate the summary to 50 words
+  const truncateSummary = (summary: string, wordLimit: number) => {
+    const words = summary.split(" ");
+    if (words.length <= wordLimit) return summary;
+    return words.slice(0, wordLimit).join(" ") + "...";
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       {loading && (
@@ -51,19 +58,21 @@ const Posts: React.FC = () => {
         {posts.map((post) => (
           <div
             key={post.id}
-            className="border border-gray-300 p-6 rounded-lg shadow-md hover:shadow-xl transition-all bg-white"
+            className="border border-gray-300 p-6 rounded-lg shadow-md transition-all bg-white"
           >
             <div className="relative h-48 mb-4">
               <img
-                src={post.featured_image || "/path/to/placeholder.jpg"} // Use a default placeholder image if not available
+                src={post.featured_image || "/path/to/placeholder.jpg"}
                 alt={post.title}
                 className="object-cover w-full h-full rounded-lg"
               />
             </div>
-            <h2 className="text-2xl font-semibold text-blue-600 mb-2">
+            <h2 className="text-xl font-semibold text-blue-600 mb-2">
               {post.title}
             </h2>
-            <p className="text-gray-700 text-base mb-4">{post.summary}</p>
+            <p className="text-gray-700 text-base mb-4">
+              {truncateSummary(post.summary, 50)}
+            </p>
             <a
               href={`https://www.taxate.in/post/${post.slug}`}
               className="inline-block text-blue-500 hover:text-blue-700 font-medium"

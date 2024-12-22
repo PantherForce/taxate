@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Navbar from "../Navbar/Navbar";
 import Faqs from "../Pages/Faqs/Faqs";
-import parse from "html-react-parser"; // Import html-react-parser
+import parse from "html-react-parser"; 
 
 interface Post {
   title: string;
@@ -57,11 +57,9 @@ const PostPage: React.FC = () => {
               />
             </div>
             <h1 className="text-3xl font-extrabold text-gray-900 mb-4">{post?.title}</h1>
-            {/* <p className="text-xl text-gray-700 mb-6">{post?.summary}</p> */}
           </div>
           <div className="prose lg:prose-xl text-gray-800">
-            {/* Use html-react-parser to safely parse and render HTML content */}
-            {parse(post?.content || "")}
+            {parse(post?.content || "nn")}
           </div>
         </div>
       </ContentContainer>

@@ -55,7 +55,7 @@ const BlogList: React.FC = () => {
          <Posts/>
         </div>
 
-        <ResponsiveCard />
+ 
       </ContentContainer>
     </>
   );
