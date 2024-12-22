@@ -17,7 +17,9 @@ const Posts: React.FC = () => {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          `https://api.buttercms.com/v2/posts/?auth_token=${import.meta.env.VITE_BUTTERCMS_API_TOKEN}`
+          `https://api.buttercms.com/v2/posts/?auth_token=${
+            import.meta.env.VITE_BUTTERCMS_API_TOKEN
+          }`
         );
         const data = await response.json();
         if (response.ok) {
@@ -58,14 +60,17 @@ const Posts: React.FC = () => {
                 className="object-cover w-full h-full rounded-lg"
               />
             </div>
-            <h2 className="text-2xl font-semibold text-blue-600 mb-2">{post.title}</h2>
+            <h2 className="text-2xl font-semibold text-blue-600 mb-2">
+              {post.title}
+            </h2>
             <p className="text-gray-700 text-base mb-4">{post.summary}</p>
             <a
-              href={`/${post.slug}`}
-              className="inline-block text-blue-500 hover:text-blue-700 font-medium"
-            >
-              Read more
-            </a>
+  href={`https://www.taxate.in/post/${post.slug}`}
+  className="inline-block text-blue-500 hover:text-blue-700 font-medium"
+>
+  Read more
+</a>
+
           </div>
         ))}
       </div>

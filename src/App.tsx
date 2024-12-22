@@ -27,6 +27,7 @@ import AnalysisPage from "./components/Pages/AnalysisPage/AnalysisPage";
 import GstContent from "./components/Blogs/GstContent";
 import CryptoTaxUpdate from "./components/Blogs/CryptoTaxUpdate";
 import Posts from "./components/Blogs/Posts";
+import PostPage from "./components/Blogs/PostPage";
 
 const App: React.FC = () => {
 
@@ -69,6 +70,8 @@ const App: React.FC = () => {
         <Route path="/crypto-tax-update" element={<CryptoTaxUpdate/>}/>
         <Route path="/gst-news" element={<GstContent/>}/>
         <Route path="/post" element={<Posts/>}/>
+        <Route path="/post/:slug" element={<PostPage/>} />
+
       </Routes>
       <Analytics />
     </Router>
