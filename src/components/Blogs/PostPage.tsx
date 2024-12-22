@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ContentContainer from "../Layout/ContentContainer/ContentContainer";
+import Navbar from "../Navbar/Navbar";
+import Faqs from "../Pages/Faqs/Faqs";
 
 interface Post {
   title: string;
@@ -40,20 +43,26 @@ const PostPage: React.FC = () => {
   if (error) return <div className="text-center text-lg text-red-600">{error}</div>;
 
   return (
-    <div className="container mx-auto px-6 py-8 max-w-4xl">
+    <>
+    <Navbar/>
+    <ContentContainer>
+    <div className="mx-auto px-6 py-8 w-full">
       <div className="mb-6">
         <img
           src={post?.featured_image || "/path/to/placeholder.jpg"}
           alt={post?.title}
           className="w-full h-72 object-cover rounded-lg shadow-md mb-4"
         />
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">{post?.title}</h1>
+        <h1 className="text-2xl font-extrabold text-gray-900 mb-4">{post?.title}</h1>
         <p className="text-xl text-gray-700 mb-6">{post?.summary}</p>
       </div>
       <div className="prose lg:prose-xl text-gray-800">
         <div dangerouslySetInnerHTML={{ __html: post?.content || "" }} />
       </div>
     </div>
+    </ContentContainer>
+    <Faqs/>
+    </>
   );
 };
 
