@@ -65,12 +65,11 @@ const Posts: React.FC = () => {
             </h2>
             <p className="text-gray-700 text-base mb-4">{post.summary}</p>
             <a
-  href={`https://www.taxate.in/post/${post.slug}`}
-  className="inline-block text-blue-500 hover:text-blue-700 font-medium"
->
-  Read more
-</a>
-
+              href={`https://www.taxate.in/post/${post.slug}`}
+              className="inline-block text-blue-500 hover:text-blue-700 font-medium"
+            >
+              Read more
+            </a>
           </div>
         ))}
       </div>

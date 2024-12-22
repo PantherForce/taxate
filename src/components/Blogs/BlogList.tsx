@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import BlogCard from "./BlogCard";
 import AlphabetFilter from "./AlphabetFilter";
 import Navbar from "../Navbar/Navbar";
 import HeroBlogSection from "./HeroBlogSection";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
-import { Link } from "react-router-dom";
 import ResponsiveCard from "./ResponsiveCard";
+import Posts from "./Posts";
 
 interface Blog {
   id: string;
@@ -51,18 +50,7 @@ const BlogList: React.FC = () => {
       <ContentContainer>
         <div className="">
           <AlphabetFilter onSelectLetter={setFilteredLetter} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-6">
-            {filteredBlogs.map((blog) => (
-              <Link key={blog.id} to={`/blogs/${blog.id}`}>
-                <BlogCard
-                  id={blog.id}
-                  title={blog.title}
-                  description={blog.description}
-                  image={blog.image}
-                />
-              </Link>
-            ))}
-          </div>
+         <Posts/>
         </div>
 
         <ResponsiveCard />
