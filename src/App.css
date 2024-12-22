@@ -1,21 +1,45 @@
-/* Custom styles for prose class */
-.prose h1 {
-    font-size: 2.5rem;
+/* Custom styles for the prose class (tailwindcss/typography plugin) */
+.prose {
+    max-width: 100%;
+    color: #000000; /* Use black color for text */
+  }
+  
+  .prose h1 {
+    font-size: 2.5rem; /* Custom font size for heading */
     color: #2b6cb0; /* Custom color for headings */
     margin-bottom: 1.5rem;
+    font-weight: 700; /* Make heading bold */
+  }
+  
+  .prose h2 {
+    font-size: 2rem;
+    color: #2b6cb0;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .prose h3 {
+    font-size: 1.75rem;
+    color: #2b6cb0;
+    margin-bottom: 1rem;
+    font-weight: 500;
   }
   
   .prose p {
+    font-size: 1.125rem; /* Font size for paragraphs */
+    color: #000; /* Ensure text is black */
     margin-bottom: 1.5rem; /* Spacing between paragraphs */
+    line-height: 1.75; /* Better line height for readability */
   }
   
   .prose ul {
     padding-left: 1.5rem;
     margin-bottom: 1.5rem;
+    list-style-type: disc; /* Bullet points style */
   }
   
   .prose li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem; /* Spacing between list items */
   }
   
   .prose a {
@@ -25,5 +49,21 @@
   
   .prose a:hover {
     color: #2b6cb0; /* Hover color for links */
+  }
+  
+  /* Additional styling */
+  .prose img {
+    max-width: 100%; /* Make images responsive */
+    height: auto;
+    border-radius: 8px; /* Smooth rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for images */
+  }
+  
+  .prose blockquote {
+    border-left: 4px solid #3182ce;
+    padding-left: 1rem;
+    margin-left: 0;
+    font-style: italic;
+    color: #555;
   }
   
