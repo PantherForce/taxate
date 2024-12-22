@@ -48,11 +48,13 @@ const PostPage: React.FC = () => {
     <ContentContainer>
     <div className="mx-auto px-6 py-8 w-full">
       <div className="mb-6">
+        <div className="w-1/2">
         <img
           src={post?.featured_image || "/path/to/placeholder.jpg"}
           alt={post?.title}
           className="w-full h-72 object-cover rounded-lg shadow-md mb-4"
         />
+        </div>
         <h1 className="text-2xl font-extrabold text-gray-900 mb-4">{post?.title}</h1>
         <p className="text-xl text-gray-700 mb-6">{post?.summary}</p>
       </div>
