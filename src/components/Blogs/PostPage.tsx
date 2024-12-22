@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Navbar from "../Navbar/Navbar";
 import Faqs from "../Pages/Faqs/Faqs";
 import DOMPurify from "dompurify"; // Import DOMPurify
@@ -59,7 +60,7 @@ const PostPage: React.FC = () => {
   return (
     <>
       <Navbar />
-     
+      <ContentContainer>
         <div className="mx-auto px-6 py-8 w-full max-w-7xl">
           {/* Image Container */}
           <div className="w-full flex justify-center items-center mb-6">
@@ -83,7 +84,7 @@ const PostPage: React.FC = () => {
             }}
           />
         </div>
-      
+      </ContentContainer>
       <Faqs />
     </>
   );
