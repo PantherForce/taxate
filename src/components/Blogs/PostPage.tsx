@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Navbar from "../Navbar/Navbar";
 import Faqs from "../Pages/Faqs/Faqs";
+import DOMPurify from "dompurify"; // Import DOMPurify
 
 // Define the Post type with more precise properties
 interface Post {
@@ -51,26 +51,16 @@ const PostPage: React.FC = () => {
     return <div className="text-center text-lg text-red-600">{error}</div>;
   }
 
+  // Function to sanitize the HTML content using DOMPurify
   const sanitizeHTML = (html: string) => {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    const body = doc.body;
-    const allowedTags = ["p", "h1", "h2", "h3", "ul", "ol", "li", "a", "strong", "em"];
-
-    const elements = body.querySelectorAll("*");
-    elements.forEach((element) => {
-      if (!allowedTags.includes(element.tagName.toLowerCase())) {
-        element.remove();
-      }
-    });
-
-    return body.innerHTML;
+    return DOMPurify.sanitize(html); // DOMPurify automatically sanitizes the content
   };
 
   return (
     <>
       <Navbar />
-      <ContentContainer>
-        <div className="mx-auto px-6 py-8 w-full">
+     
+        <div className="mx-auto px-6 py-8 w-full max-w-7xl">
           {/* Image Container */}
           <div className="w-full flex justify-center items-center mb-6">
             <img
@@ -87,13 +77,13 @@ const PostPage: React.FC = () => {
 
           {/* Post Content */}
           <div
-            className="prose lg:prose-xl text-gray-800 mx-auto"
+            className="prose lg:prose-xl text-gray-800 mx-auto mb-12"
             dangerouslySetInnerHTML={{
               __html: sanitizeHTML(post?.body || "No content available"),
             }}
           />
         </div>
-      </ContentContainer>
+      
       <Faqs />
     </>
   );
