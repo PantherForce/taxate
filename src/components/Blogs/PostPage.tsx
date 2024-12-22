@@ -24,6 +24,7 @@ const PostPage: React.FC = () => {
           `https://api.buttercms.com/v2/posts/${slug}/?auth_token=bcd5aa56673a1a8cf6c11dd443b4a0e15486757f`
         );
         const data = await response.json();
+        console.log(data , "data")
         if (response.ok) {
           setPost(data.data);
         } else {
