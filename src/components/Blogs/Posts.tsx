@@ -5,6 +5,7 @@ interface Post {
   title: string;
   slug: string;
   summary: string;
+  featured_image: string; // Assuming the API returns an image URL
 }
 
 const Posts: React.FC = () => {
@@ -16,7 +17,7 @@ const Posts: React.FC = () => {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          `https://api.buttercms.com/v2/posts/?auth_token=${process.env.REACT_APP_BUTTERCMS_API_TOKEN}`
+          `https://api.buttercms.com/v2/posts/?auth_token=${import.meta.env.VITE_BUTTERCMS_API_TOKEN}`
         );
         const data = await response.json();
         if (response.ok) {
@@ -35,20 +36,33 @@ const Posts: React.FC = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
-      {loading && <div className="text-center">Loading...</div>}
+    <div className="container mx-auto px-4 py-8">
+      {loading && (
+        <div className="text-center text-xl text-blue-600">
+          <span className="animate-pulse">Loading...</span>
+        </div>
+      )}
+
       {error && <div className="text-center text-red-500">{error}</div>}
-      <div className="space-y-4">
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post) => (
           <div
             key={post.id}
-            className="border border-gray-300 p-4 rounded-lg shadow-md hover:shadow-xl transition-all"
+            className="border border-gray-300 p-6 rounded-lg shadow-md hover:shadow-xl transition-all bg-white"
           >
-            <h2 className="text-xl font-semibold text-blue-600">{post.title}</h2>
-            <p className="text-gray-700">{post.summary}</p>
+            <div className="relative h-48 mb-4">
+              <img
+                src={post.featured_image || "/path/to/placeholder.jpg"} // Use a default placeholder image if not available
+                alt={post.title}
+                className="object-cover w-full h-full rounded-lg"
+              />
+            </div>
+            <h2 className="text-2xl font-semibold text-blue-600 mb-2">{post.title}</h2>
+            <p className="text-gray-700 text-base mb-4">{post.summary}</p>
             <a
-              href={`https://your-domain.com/${post.slug}`}
-              className="text-blue-500 hover:text-blue-700"
+              href={`www.taxate.in/${post.slug}`}
+              className="inline-block text-blue-500 hover:text-blue-700 font-medium"
             >
               Read more
             </a>
