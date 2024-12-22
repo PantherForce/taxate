@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Navbar from "../Navbar/Navbar";
 import Faqs from "../Pages/Faqs/Faqs";
-import parse from "html-react-parser"; 
 
 interface Post {
   title: string;
@@ -43,6 +42,19 @@ const PostPage: React.FC = () => {
   if (loading) return <div className="text-center text-lg text-gray-600">Loading...</div>;
   if (error) return <div className="text-center text-lg text-red-600">{error}</div>;
 
+  const sanitizeHTML = (html: string) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const body = doc.body;
+    const allowedTags = ["p", "h1", "h2", "h3", "ul", "ol", "li", "a", "strong", "em"];
+    const elements = body.querySelectorAll("*");
+    elements.forEach(element => {
+      if (!allowedTags.includes(element.tagName.toLowerCase())) {
+        element.remove();
+      }
+    });
+    return body.innerHTML;
+  };
+
   return (
     <>
       <Navbar />
@@ -51,16 +63,19 @@ const PostPage: React.FC = () => {
           <div className="mb-6">
             <div className="w-full flex justify-center items-center lg:w-1/2">
               <img
-                src={post?.featured_image || "/default-image.jpg"} // Ensure default image exists
+                src={post?.featured_image || "/default-image.jpg"}
                 alt={post?.title || "Default Post Image"}
                 className="w-full h-72 object-cover rounded-lg shadow-md mb-4"
               />
             </div>
             <h1 className="text-3xl font-extrabold text-gray-900 mb-4">{post?.title}</h1>
           </div>
-          <div className="prose lg:prose-xl text-gray-800">
-            {parse(post?.content || "nn")}
-          </div>
+          <div
+            className="prose lg:prose-xl text-gray-800"
+            dangerouslySetInnerHTML={{
+              __html: sanitizeHTML(post?.content || ""),
+            }}
+          />
         </div>
       </ContentContainer>
       <Faqs />
