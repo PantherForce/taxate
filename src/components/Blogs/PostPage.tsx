@@ -72,7 +72,7 @@ const PostPage: React.FC = () => {
           </div>
 
           {/* Post Title */}
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-6 text-center">
+          <h1 className="text-2xl font-extrabold text-gray-900 mb-6 text-center">
             {post?.title || "Untitled Post"}
           </h1>
 

@@ -1,14 +1,15 @@
-/* Custom styles for the prose class (tailwindcss/typography plugin) */
+/* Global Styling for the prose class (tailwindcss/typography plugin) */
 .prose {
-    max-width: 100%;
-    color: #000000; /* Use black color for text */
+    color: #000000; /* Ensure all text is black */
+    max-width: 100%; /* Make sure it doesn't overflow */
   }
   
+  /* Headings (h1, h2, h3) */
   .prose h1 {
-    font-size: 2.5rem; /* Custom font size for heading */
+    font-size: 2.5rem; /* Larger text for h1 */
     color: #2b6cb0; /* Custom color for headings */
     margin-bottom: 1.5rem;
-    font-weight: 700; /* Make heading bold */
+    font-weight: 700;
   }
   
   .prose h2 {
@@ -51,7 +52,7 @@
     color: #2b6cb0; /* Hover color for links */
   }
   
-  /* Additional styling */
+  /* Image Styling */
   .prose img {
     max-width: 100%; /* Make images responsive */
     height: auto;
@@ -65,5 +66,110 @@
     margin-left: 0;
     font-style: italic;
     color: #555;
+  }
+  
+  /* Custom responsive breakpoints for smaller screens */
+  @media (max-width: 640px) {
+    /* For small screens (mobile) */
+    .prose h1 {
+      font-size: 2rem; /* Smaller h1 for mobile */
+    }
+  
+    .prose h2 {
+      font-size: 1.75rem; /* Adjust h2 font size */
+    }
+  
+    .prose h3 {
+      font-size: 1.5rem; /* Adjust h3 font size */
+    }
+  
+    .prose p {
+      font-size: 1rem; /* Smaller font for paragraphs */
+      margin-bottom: 1.25rem;
+    }
+  
+    .prose ul {
+      padding-left: 1rem; /* Adjust left padding for mobile */
+    }
+  
+    .prose li {
+      margin-bottom: 0.5rem; /* Adjust spacing between list items */
+    }
+  }
+  
+  /* Medium screen (tablet and small desktops) */
+  @media (min-width: 768px) {
+    /* Medium screen adjustments */
+    .prose h1 {
+      font-size: 2.25rem;
+    }
+  
+    .prose h2 {
+      font-size: 1.875rem;
+    }
+  
+    .prose h3 {
+      font-size: 1.625rem;
+    }
+  
+    .prose p {
+      font-size: 1.125rem; /* Adjust paragraph font size */
+    }
+  
+    .prose ul {
+      padding-left: 1.25rem;
+    }
+  
+    .prose img {
+      max-width: 90%; /* Smaller image for tablet */
+    }
+  }
+  
+  /* Large screen (desktops) */
+  @media (min-width: 1024px) {
+    /* Large screen adjustments */
+    .prose h1 {
+      font-size: 2.5rem;
+    }
+  
+    .prose h2 {
+      font-size: 2rem;
+    }
+  
+    .prose h3 {
+      font-size: 1.75rem;
+    }
+  
+    .prose p {
+      font-size: 1.125rem; /* Paragraph font for desktop */
+    }
+  
+    .prose img {
+      max-width: 80%; /* Larger image for desktops */
+    }
+  }
+  
+  /* Extra large screen (large desktops) */
+  @media (min-width: 1280px) {
+    /* Extra large screen adjustments */
+    .prose h1 {
+      font-size: 3rem;
+    }
+  
+    .prose h2 {
+      font-size: 2.25rem;
+    }
+  
+    .prose h3 {
+      font-size: 2rem;
+    }
+  
+    .prose p {
+      font-size: 1.25rem; /* Larger font for paragraphs */
+    }
+  
+    .prose img {
+      max-width: 70%; /* Even larger image for large desktops */
+    }
   }
   
