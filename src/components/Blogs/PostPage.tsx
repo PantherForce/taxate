@@ -54,18 +54,20 @@ const PostPage: React.FC = () => {
   }
 
   const sanitizeHTML = (html: string) => {
-    return DOMPurify.sanitize(html); 
+    return DOMPurify.sanitize(html);
   };
 
   return (
     <>
       <Navbar />
       <ContentContainer>
-        <div className=" px-6 py-8 w-full  flex">
-          <div className="w-full md:w-1/4 mr-6 hidden lg:block">
+        <div className="px-6 py-8 w-full flex">
+          {/* Sidebar: Table of Contents */}
+          <div className="hidden lg:block w-1/4 mr-6">
             <TableOfContents content={post?.body || ""} />
           </div>
 
+          {/* Main Content Area */}
           <div className="w-full lg:w-3/4">
             <div className="w-full flex justify-center items-center mb-6">
               <img
@@ -74,11 +76,9 @@ const PostPage: React.FC = () => {
                 className="w-full max-w-3xl h-auto object-cover rounded-lg shadow-md"
               />
             </div>
-
             <h1 className="text-2xl font-extrabold text-gray-900 mb-6 text-center">
               {post?.title || "Untitled Post"}
             </h1>
-
             <div
               className="prose lg:prose-xl text-gray-800 mx-auto mb-12"
               dangerouslySetInnerHTML={{
