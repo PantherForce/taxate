@@ -1,26 +1,32 @@
 // @ts-nocheck
-// 
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion"; // Import Framer Motion for animation
 
 interface TableOfContentsProps {
   content: string;
 }
 
 const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
-  const [headings, setHeadings] = useState<string[]>([]);
+  const [headings, setHeadings] = useState<{ text: string; id: string }[]>([]);
+  const [parsedContent, setParsedContent] = useState<string>(content);
 
   useEffect(() => {
     const parseHeadings = () => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(content, "text/html");
+
+      // Find all h2 elements and generate IDs
       const h2Elements = doc.querySelectorAll("h2");
       const headingsList = Array.from(h2Elements).map((h2, index) => {
-        // Generate unique IDs for each heading
         const id = `heading-${index + 1}`;
-        h2.id = id;
-        return { text: h2.textContent, id };
+        h2.id = id;  // Assign the ID to the h2 element
+        return { text: h2.textContent || "", id };
       });
+
       setHeadings(headingsList);
+
+      // Convert the modified document back to HTML string and set it
+      setParsedContent(doc.documentElement.innerHTML);
     };
 
     parseHeadings();
@@ -34,20 +40,35 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
   };
 
   return (
-    <div className="p-4 sticky top-16 max-h-[70vh] overflow-y-auto">
-      <h3 className="text-2xl font-bold mb-4">Table of Contents</h3>
+    <div className="p-4 sticky top-16 max-h-[70vh] overflow-y-auto z-10 bg-white shadow-lg rounded-lg md:max-h-[80vh]">
+      <motion.h3
+        className="text-2xl md:text-4xl font-bold mb-6 text-gray-800"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        Table of Contents
+      </motion.h3>
+
       <ul className="space-y-2 text-gray-600">
         {headings.map((heading) => (
-          <li key={heading.id}>
+          <motion.li
+            key={heading.id}
+            whileHover={{ scale: 1.1 }} // Animation for hover effect
+            transition={{ type: "spring", stiffness: 300 }}
+          >
             <button
               onClick={() => handleScrollTo(heading.id)}
-              className="text-primary  focus:outline-none"
+              className="text-primary text-lg md:text-2xl font-medium focus:outline-none hover:text-blue-600 transition-all"
             >
               {heading.text}
             </button>
-          </li>
+          </motion.li>
         ))}
       </ul>
+
+      {/* Render the parsed content (with IDs assigned) */}
+      <div dangerouslySetInnerHTML={{ __html: parsedContent }} />
     </div>
   );
 };
