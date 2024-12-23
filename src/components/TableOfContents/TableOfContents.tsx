@@ -35,13 +35,13 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
 
   return (
     <div className="p-4 sticky top-16 max-h-[70vh] overflow-y-auto">
-      <h3 className="text-xl font-semibold mb-4">Table of Contents</h3>
+      <h3 className="text-2xl font-bold mb-4">Table of Contents</h3>
       <ul className="space-y-2 text-gray-600">
         {headings.map((heading) => (
           <li key={heading.id}>
             <button
               onClick={() => handleScrollTo(heading.id)}
-              className="text-blue-600 hover:text-blue-800 focus:outline-none"
+              className="text-primary  focus:outline-none"
             >
               {heading.text}
             </button>

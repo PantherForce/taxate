@@ -53,22 +53,19 @@ const PostPage: React.FC = () => {
     return <div className="text-center text-lg text-red-600">{error}</div>;
   }
 
-  // Function to sanitize the HTML content using DOMPurify
   const sanitizeHTML = (html: string) => {
-    return DOMPurify.sanitize(html); // DOMPurify automatically sanitizes the content
+    return DOMPurify.sanitize(html); 
   };
 
   return (
     <>
       <Navbar />
       <ContentContainer>
-        <div className="mx-auto px-6 py-8 w-full max-w-7xl flex">
-          {/* Table of Contents */}
-          <div className="w-1/4 mr-6 hidden lg:block">
+        <div className=" px-6 py-8 w-full  flex">
+          <div className="w-full md:w-1/3 mr-6 hidden lg:block">
             <TableOfContents content={post?.body || ""} />
           </div>
 
-          {/* Post Content */}
           <div className="w-full lg:w-3/4">
             <div className="w-full flex justify-center items-center mb-6">
               <img
@@ -78,12 +75,10 @@ const PostPage: React.FC = () => {
               />
             </div>
 
-            {/* Post Title */}
             <h1 className="text-2xl font-extrabold text-gray-900 mb-6 text-center">
               {post?.title || "Untitled Post"}
             </h1>
 
-            {/* Post Content */}
             <div
               className="prose lg:prose-xl text-gray-800 mx-auto mb-12"
               dangerouslySetInnerHTML={{
