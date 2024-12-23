@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Navbar from "../Navbar/Navbar";
 import Faqs from "../Pages/Faqs/Faqs";
-import DOMPurify from "dompurify"; // Import DOMPurify
+import DOMPurify from "dompurify";
+import TableOfContents from "../TableOfContents/TableOfContents"; // Import the TableOfContents component
 
 // Define the Post type with more precise properties
 interface Post {
@@ -61,28 +62,35 @@ const PostPage: React.FC = () => {
     <>
       <Navbar />
       <ContentContainer>
-        <div className="mx-auto px-6 py-8 w-full max-w-7xl">
-          {/* Image Container */}
-          <div className="w-full flex justify-center items-center mb-6">
-            <img
-              src={post?.featured_image || "/default-image.jpg"}
-              alt={post?.title || "Default Post Image"}
-              className="w-full max-w-3xl h-auto object-cover rounded-lg shadow-md"
-            />
+        <div className="mx-auto px-6 py-8 w-full max-w-7xl flex">
+          {/* Table of Contents */}
+          <div className="w-1/4 mr-6 hidden lg:block">
+            <TableOfContents content={post?.body || ""} />
           </div>
 
-          {/* Post Title */}
-          <h1 className="text-2xl font-extrabold text-gray-900 mb-6 text-center">
-            {post?.title || "Untitled Post"}
-          </h1>
-
           {/* Post Content */}
-          <div
-            className="prose lg:prose-xl text-gray-800 mx-auto mb-12"
-            dangerouslySetInnerHTML={{
-              __html: sanitizeHTML(post?.body || "No content available"),
-            }}
-          />
+          <div className="w-full lg:w-3/4">
+            <div className="w-full flex justify-center items-center mb-6">
+              <img
+                src={post?.featured_image || "/default-image.jpg"}
+                alt={post?.title || "Default Post Image"}
+                className="w-full max-w-3xl h-auto object-cover rounded-lg shadow-md"
+              />
+            </div>
+
+            {/* Post Title */}
+            <h1 className="text-2xl font-extrabold text-gray-900 mb-6 text-center">
+              {post?.title || "Untitled Post"}
+            </h1>
+
+            {/* Post Content */}
+            <div
+              className="prose lg:prose-xl text-gray-800 mx-auto mb-12"
+              dangerouslySetInnerHTML={{
+                __html: sanitizeHTML(post?.body || "No content available"),
+              }}
+            />
+          </div>
         </div>
       </ContentContainer>
       <Faqs />

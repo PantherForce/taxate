@@ -4,7 +4,6 @@
 
 
 
-/* Global Styling for the prose class (tailwindcss/typography plugin) */
 .prose {
   color: #000000; /* Ensure all text is black */
   max-width: 100%; /* Make sure it doesn't overflow */
@@ -12,7 +11,7 @@
 
 /* Headings (h1, h2, h3) */
 .prose h1 {
-  font-size: 2.5rem; /* Larger text for h1 */
+  font-size: 2rem; /* Larger text for h1 */
   color: #2b6cb0; /* Custom color for headings */
   margin-bottom: 1.5rem;
   font-weight: 700;
@@ -58,7 +57,6 @@
   color: #2b6cb0; /* Hover color for links */
 }
 
-/* Image Styling */
 .prose img {
   max-width: 100%; /* Make images responsive */
   height: auto;
@@ -99,13 +97,11 @@
   }
 
   .prose li {
-    margin-bottom: 0.5rem; /* Adjust spacing between list items */
+    margin-bottom: 0.5rem;
   }
 }
 
-/* Medium screen (tablet and small desktops) */
 @media (min-width: 768px) {
-  /* Medium screen adjustments */
   .prose h1 {
     font-size: 2.25rem;
   }
@@ -119,7 +115,7 @@
   }
 
   .prose p {
-    font-size: 1.125rem; /* Adjust paragraph font size */
+    font-size: 1.125rem; 
   }
 
   .prose ul {
@@ -127,13 +123,11 @@
   }
 
   .prose img {
-    max-width: 90%; /* Smaller image for tablet */
+    max-width: 90%; 
   }
 }
 
-/* Large screen (desktops) */
 @media (min-width: 1024px) {
-  /* Large screen adjustments */
   .prose h1 {
     font-size: 2.5rem;
   }
@@ -147,17 +141,15 @@
   }
 
   .prose p {
-    font-size: 1.125rem; /* Paragraph font for desktop */
+    font-size: 1.125rem;
   }
 
   .prose img {
-    max-width: 80%; /* Larger image for desktops */
+    max-width: 80%;
   }
 }
 
-/* Extra large screen (large desktops) */
 @media (min-width: 1280px) {
-  /* Extra large screen adjustments */
   .prose h1 {
     font-size: 3rem;
   }
@@ -171,11 +163,11 @@
   }
 
   .prose p {
-    font-size: 1.25rem; /* Larger font for paragraphs */
+    font-size: 1.25rem; 
   }
 
   .prose img {
-    max-width: 70%; /* Even larger image for large desktops */
+    max-width: 70%;
   }
 }
 
