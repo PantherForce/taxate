@@ -6,16 +6,46 @@ import Faqs from "../Pages/Faqs/Faqs";
 import DOMPurify from "dompurify";
 import TableOfContents from "../TableOfContents/TableOfContents"; // Import the TableOfContents component
 
-// Define the Post type with more precise properties
 interface Post {
   title: string;
   summary: string;
   content: string;
   body: string;
   featured_image: string;
+  published: string;
 }
 
-// Define the PostPage component
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  const day = date.getDate();
+  const month = date.toLocaleString("en-US", { month: "long" });
+  const year = date.getFullYear();
+
+  const suffix = (day: number) => {
+    if (day >= 11 && day <= 13) {
+      return "th";
+    }
+    switch (day % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+
+  return `Published on ${month} ${day}${suffix(day)}, ${year}`;
+};
+
 const PostPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<Post | null>(null);
@@ -60,35 +90,51 @@ const PostPage: React.FC = () => {
   return (
     <>
       <Navbar />
-      <ContentContainer>
-        <div className="px-6 py-8 w-full flex">
-          {/* Sidebar: Table of Contents */}
-          <div className="hidden lg:block w-1/4 mr-6">
-            <TableOfContents content={post?.body || ""} />
-          </div>
 
-          {/* Main Content Area */}
-          <div className="w-full lg:w-3/4">
-            <div className="w-full flex justify-center items-center mb-6">
-              <img
-                src={post?.featured_image || "/default-image.jpg"}
-                alt={post?.title || "Default Post Image"}
-                className="w-full max-w-3xl h-auto object-cover rounded-lg shadow-md"
-              />
-            </div>
-            <h1 className="text-2xl font-extrabold text-gray-900 mb-6 text-center">
+      <div className="w-full bg-[#F4F1E6]">
+        <div className="h-[60vh]">
+          <ContentContainer>
+            <h1 className="text-3xl md:text-3xl font-semibold text-gray-900 mb-4 text-center">
               {post?.title || "Untitled Post"}
             </h1>
+
+            <p className="text-center text-lg text-gray-600">
+              {formatDate(post?.published || "")}
+            </p>
+          </ContentContainer>
+
+          <div className="w-full h-[30vh] flex justify-center mb-6">
+            <img
+              src={post?.featured_image || "/default-image.jpg"}
+              alt={post?.title || "Default Post Image"}
+              className="w-3/4 sm:w-3/4 md:w-2/3 lg:w-1/3 h-auto object-cover rounded-lg shadow-md"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 md:px-8 lg:px-16 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Table of Contents on larger screens */}
+          <div className="hidden w-full md:block">
+            <TableOfContents content={sanitizeHTML(post?.body || "")} />
+          </div>
+
+          {/* Post content */}
+          <div className="col-span-2">
             <div
-              className="prose lg:prose-xl text-gray-800 mx-auto mb-12"
+              className="prose  text-gray-800"
               dangerouslySetInnerHTML={{
                 __html: sanitizeHTML(post?.body || "No content available"),
               }}
             />
           </div>
         </div>
-      </ContentContainer>
-      <Faqs />
+      </div>
+
+      <div className="mt-12">
+        <Faqs />
+      </div>
     </>
   );
 };
