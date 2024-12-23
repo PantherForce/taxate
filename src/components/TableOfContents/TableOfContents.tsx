@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion"; // Import Framer Motion for animation
 
@@ -8,25 +7,19 @@ interface TableOfContentsProps {
 
 const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
   const [headings, setHeadings] = useState<{ text: string; id: string }[]>([]);
-  const [parsedContent, setParsedContent] = useState<string>(content);
 
   useEffect(() => {
     const parseHeadings = () => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(content, "text/html");
-
-      // Find all h2 elements and generate IDs
       const h2Elements = doc.querySelectorAll("h2");
       const headingsList = Array.from(h2Elements).map((h2, index) => {
+        // Generate unique IDs for each heading
         const id = `heading-${index + 1}`;
-        h2.id = id;  // Assign the ID to the h2 element
+        h2.id = id;
         return { text: h2.textContent || "", id };
       });
-
       setHeadings(headingsList);
-
-      // Convert the modified document back to HTML string and set it
-      setParsedContent(doc.documentElement.innerHTML);
     };
 
     parseHeadings();
@@ -49,8 +42,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
       >
         Table of Contents
       </motion.h3>
-
-      <ul className="space-y-2 text-gray-600">
+      <ul className="list-disc pl-6 space-y-2 text-gray-600">
         {headings.map((heading) => (
           <motion.li
             key={heading.id}
@@ -66,9 +58,6 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
           </motion.li>
         ))}
       </ul>
-
-      {/* Render the parsed content (with IDs assigned) */}
-      <div dangerouslySetInnerHTML={{ __html: parsedContent }} />
     </div>
   );
 };
