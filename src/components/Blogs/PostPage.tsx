@@ -62,7 +62,7 @@ const PostPage: React.FC = () => {
       <Navbar />
       <ContentContainer>
         <div className=" px-6 py-8 w-full  flex">
-          <div className="w-full md:w-1/3 mr-6 hidden lg:block">
+          <div className="w-full md:w-1/4 mr-6 hidden lg:block">
             <TableOfContents content={post?.body || ""} />
           </div>
 

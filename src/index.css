@@ -12,21 +12,21 @@
 /* Headings (h1, h2, h3) */
 .prose h1 {
   font-size: 2rem; /* Larger text for h1 */
-  color: #2b6cb0; /* Custom color for headings */
+  color: #1C3F3A; /* Custom color for headings */
   margin-bottom: 1.5rem;
   font-weight: 700;
 }
 
 .prose h2 {
   font-size: 2rem;
-  color: #2b6cb0;
+  color: #1C3F3A;
   margin-bottom: 1.25rem;
   font-weight: 600;
 }
 
 .prose h3 {
   font-size: 1.75rem;
-  color: #2b6cb0;
+  color: #1C3F3A;
   margin-bottom: 1rem;
   font-weight: 500;
 }
@@ -54,7 +54,7 @@
 }
 
 .prose a:hover {
-  color: #2b6cb0; /* Hover color for links */
+  color: #1C3F3A; /* Hover color for links */
 }
 
 .prose img {

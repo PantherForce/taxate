@@ -35,7 +35,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
   return (
     <div className="p-4 sticky top-16 max-h-[70vh] overflow-y-auto z-10 bg-white shadow-lg rounded-lg md:max-h-[80vh]">
       <motion.h3
-        className="text-2xl md:text-4xl font-bold mb-6 text-gray-800"
+        className="text-2xl md:text-4xl text-center font-bold mb-6 text-gray-800"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -51,7 +51,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
           >
             <button
               onClick={() => handleScrollTo(heading.id)}
-              className="text-primary text-lg md:text-2xl font-medium focus:outline-none hover:text-blue-600 transition-all"
+              className="text-black text-lg md:text-xl font-medium focus:outline-none hover:text-primary transition-all"
             >
               {heading.text}
             </button>
