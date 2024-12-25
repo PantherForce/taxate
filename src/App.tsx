@@ -30,6 +30,9 @@ import Posts from "./components/Blogs/Posts";
 import PostPage from "./components/Blogs/PostPage";
 import BinanceWallet from "./components/Wrap/BinanceWallet";
 import WalletBalance from "./components/Wrap/WalletBalance";
+import WalletConnect from "@walletconnect/client";
+import Smallcase from "./components/Pages/Smallcase/Smallcase";
+import PortfolioDetail from "./components/Smallcase/PortfolioDetail";
 
 const App: React.FC = () => {
 
@@ -74,6 +77,8 @@ const App: React.FC = () => {
         <Route path="/gst-news" element={<GstContent/>}/>
         <Route path="/post" element={<Posts/>}/>
         <Route path="/post/:slug" element={<PostPage/>} />
+        <Route path="/smallcase" element={<Smallcase/>} />
+        <Route path="/smallcase/:id" element={<PortfolioDetail />} />
 
       </Routes>
       <Analytics />
