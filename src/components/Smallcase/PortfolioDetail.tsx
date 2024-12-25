@@ -17,6 +17,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import LoadingSpinner from "../Loader/LoadingSpinner";
 
 // Registering the chart elements
 ChartJS.register(
@@ -80,7 +81,7 @@ const PortfolioDetail: React.FC = () => {
   }, [id]);
 
   if (!smallcase) {
-    return <div>Loading...</div>;
+    return <div className="mt-20"><LoadingSpinner/></div>;
   }
 
   // Prepare Pie Chart data for asset allocation
