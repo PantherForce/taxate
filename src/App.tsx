@@ -29,6 +29,7 @@ import CryptoTaxUpdate from "./components/Blogs/CryptoTaxUpdate";
 import Posts from "./components/Blogs/Posts";
 import PostPage from "./components/Blogs/PostPage";
 import BinanceWallet from "./components/Wrap/BinanceWallet";
+import WalletBalance from "./components/Wrap/WalletBalance";
 
 const App: React.FC = () => {
 
@@ -63,7 +64,7 @@ const App: React.FC = () => {
         <Route path="/blockchain" element={<Blockchain />} />
         <Route path="/analysis" element={<Analysis />} />/
         <Route path="/ai-analysis" element={<AnalysisPage />} />
-        <Route path="/binance-wallet" element={<BinanceWallet />} />
+        <Route path="/binance-wallet" element={<WalletBalance />} />
         <Route
           path="/why-paying-taxes-on-crypto-matters"
           element={<Blogcontent />}

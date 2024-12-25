@@ -5,14 +5,14 @@
 
 
 .prose {
-  color: #000000; /* Ensure all text is black */
-  max-width: 100%; /* Make sure it doesn't overflow */
+  color: #000000;
+  max-width: 100%;
 }
 
-/* Headings (h1, h2, h3) */
+
 .prose h1 {
-  font-size: 2rem; /* Larger text for h1 */
-  color: #1C3F3A; /* Custom color for headings */
+  font-size: 2rem;
+  color: #1C3F3A;
   margin-bottom: 1.5rem;
   font-weight: 700;
 }
@@ -32,36 +32,36 @@
 }
 
 .prose p {
-  font-size: 1.125rem; /* Font size for paragraphs */
-  color: #000; /* Ensure text is black */
-  margin-bottom: 1.5rem; /* Spacing between paragraphs */
-  line-height: 1.75; /* Better line height for readability */
+  font-size: 1.125rem;
+  color: #000;
+  margin-bottom: 1.5rem;
+  line-height: 1.75;
 }
 
 .prose ul {
   padding-left: 1.5rem;
   margin-bottom: 1.5rem;
-  list-style-type: disc; /* Bullet points style */
+  list-style-type: disc;
 }
 
 .prose li {
-  margin-bottom: 0.75rem; /* Spacing between list items */
+  margin-bottom: 0.75rem;
 }
 
 .prose a {
-  color: #3182ce; /* Link color */
+  color: #3182ce;
   text-decoration: underline;
 }
 
 .prose a:hover {
-  color: #1C3F3A; /* Hover color for links */
+  color: #1C3F3A;
 }
 
 .prose img {
-  max-width: 100%; /* Make images responsive */
+  max-width: 100%;
   height: auto;
-  border-radius: 8px; /* Smooth rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for images */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .prose blockquote {
@@ -72,28 +72,31 @@
   color: #555;
 }
 
-/* Custom responsive breakpoints for smaller screens */
+
+
+
+
 @media (max-width: 640px) {
-  /* For small screens (mobile) */
+ 
   .prose h1 {
-    font-size: 2rem; /* Smaller h1 for mobile */
+    font-size: 2rem;
   }
 
   .prose h2 {
-    font-size: 1.75rem; /* Adjust h2 font size */
+    font-size: 1.75rem;
   }
 
   .prose h3 {
-    font-size: 1.5rem; /* Adjust h3 font size */
+    font-size: 1.5rem;
   }
 
   .prose p {
-    font-size: 1rem; /* Smaller font for paragraphs */
+    font-size: 1rem;
     margin-bottom: 1.25rem;
   }
 
   .prose ul {
-    padding-left: 1rem; /* Adjust left padding for mobile */
+    padding-left: 1rem;
   }
 
   .prose li {

@@ -19,9 +19,15 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import ReactDOMServer from "react-dom/server";
 import html2pdf from "html2pdf.js";
 import Heading from "../Layout/Heading/Heading";
 import Blockchain from "../Pages/Blockchain/Blockchain";
+import Page1 from "../PDFPages/Page1";
+import Page2 from "../PDFPages/Page2";
+import Page3 from "../PDFPages/Page3";
+import Page4 from "../PDFPages/Page4";
+import Page5 from "../PDFPages/Page5";
 
 ChartJS.register(
   CategoryScale,
@@ -35,7 +41,8 @@ ChartJS.register(
 
 const TransactionsContent: React.FC = () => {
   const [transactions, setTransactions] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // Initially true to apply blur
+  const [loading, setLoading] = useState<boolean>(true); 
+  const [previewHtml, setPreviewHtml] = useState<string | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const fetchTransactions = async () => {
@@ -125,23 +132,39 @@ const TransactionsContent: React.FC = () => {
   const cryptoTaxRate = 0.3;
   const cryptoTax = totalTaxableAmount * cryptoTaxRate;
 
-  const generatePDF = async () => {
-    try {
-      const response = await axios.get("https://testdata-bh0z.onrender.com/download_all_pages_pdf", {
-        responseType: "blob", // Important for downloading files
-      });
+  const handleDownloadPDF = () => {
+    const staticHtml = ReactDOMServer.renderToString(
+      <>
+        <div className="">
+          <Page1 />
+        </div>
+        <div className="">
+          <Page2 />
+        </div>
+        <div className="">
+          <Page3 />
+        </div>
+        <div className="">
+          <Page4 />
+        </div>
+        <div className="">
+          <Page5 />
+        </div>
+      </>
+    );
   
-      // Create a download link and simulate a click to download the file
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "all_pages.pdf"; // Set the name for the downloaded file
-      a.click();
-      window.URL.revokeObjectURL(url); // Cleanup the object URL after download
-    } catch (error) {
-      console.error("Error downloading the PDF:", error);
-    }
+    console.log("Generated Static HTML:", staticHtml); // Add this log
+  
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = staticHtml;
+  
+    console.log("Temporary Div Content:", tempDiv.innerHTML); // Add this log
+  
+    html2pdf()
+      .from(tempDiv)
+      .save("generated_pdf.pdf");
   };
+  
   
 
   return (
@@ -236,7 +259,7 @@ const TransactionsContent: React.FC = () => {
               Pay for full tax report
             </button>
             <button
-              onClick={generatePDF}
+              onClick={handleDownloadPDF}
               className="bg-primary text-white border-2 border-white py-2 px-4 rounded-lg mt-4 "
             >
               Download Reports
