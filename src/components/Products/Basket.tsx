@@ -25,7 +25,7 @@ const Basket: React.FC = () => {
 
         <div className="flex justify-center">
           {" "}
-          <Link to = "/coinsets">
+          <Link to = "/smallcase">
           <Button
             fontSize="lg"
             className={`px-8 bg-primary font-semibold py-3 bg--primary text-white`} // Use bgColor prop to set the background color
