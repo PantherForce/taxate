@@ -145,7 +145,7 @@ const QuizGame: React.FC = () => {
   };
 
   return (
-    <div className="relative mx-auto flex justify-center items-center w-[50vw] h-[60vh]">
+    <div className="relative mx-auto flex justify-center items-center ">
       {/* Modal for quiz result */}
       {showModal && (
         <motion.div

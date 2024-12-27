@@ -209,7 +209,7 @@ const Signup = () => {
             // OTP Verification Form
             <form onSubmit={handleOtpVerification}>
               <div className="mb-4">
-                <label className="block text-sm md:text-lg font-semibold text-gray-600">Enter OTP</label>
+                <label className="block text-sm md:text-lg font-semibold text-gray-600">Enter OTP which is sent to your email id</label>
                 <input
                   type="text"
                   value={otp}
