@@ -33,6 +33,9 @@ import WalletBalance from "./components/Wrap/WalletBalance";
 import WalletConnect from "@walletconnect/client";
 import Smallcase from "./components/Pages/Smallcase/Smallcase";
 import PortfolioDetail from "./components/Smallcase/PortfolioDetail";
+import Metamask from "./components/WalletConnect/Metamask";
+import TaxateLp from "./components/Taxate/TaxateLp";
+import Taxate from "./components/Pages/Taxtate/Taxate";
 
 const App: React.FC = () => {
 
@@ -78,7 +81,9 @@ const App: React.FC = () => {
         <Route path="/post" element={<Posts/>}/>
         <Route path="/post/:slug" element={<PostPage/>} />
         <Route path="/smallcase" element={<Smallcase/>} />
+        <Route path="/meta-mask" element={<Metamask/>}/>
         <Route path="/smallcase/:id" element={<PortfolioDetail />} />
+        <Route path="/beta-program" element={<Taxate/>}/>
 
       </Routes>
       <Analytics />

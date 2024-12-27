@@ -20,6 +20,7 @@ interface Smallcase {
   investment_criteria: InvestmentCriteria;
   target_audience: string;
   rebalancing: Rebalancing;
+  rebalance_flag?: boolean;
 }
 
 interface PortfolioCardProps {
@@ -65,7 +66,14 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({ smallcase }) => {
       </div>
 
       <div className="mt-6">
-        <button className="px-4 py-2 bg-primary text-white text-sm md:text-base font-semibold rounded-lg transition duration-300 w-full hover:bg-primary-dark">
+        {smallcase.rebalance_flag && (
+          <div className='flex justify-center itme-center'>
+          <button className="px-4 w-40 py-2 bg-[#F4F1E6] text-primary text-sm md:text-base font-semibold rounded-lg transition duration-300 w-full hover:bg-warning-dark">
+            Rebalance
+          </button>
+          </div>
+        )}
+        <button className="px-4 py-2 bg-primary text-white text-sm md:text-base font-semibold rounded-lg transition duration-300 w-full hover:bg-primary-dark mt-2">
           View Details
         </button>
       </div>

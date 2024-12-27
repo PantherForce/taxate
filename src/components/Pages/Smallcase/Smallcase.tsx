@@ -8,12 +8,15 @@ import Navbar from '../../Navbar/Navbar';
 import Faqs from '../Faqs/Faqs';
 import ContentContainer from '../../Layout/ContentContainer/ContentContainer';
 import LoadingSpinner from '../../Loader/LoadingSpinner';
+import Metamask from '../../WalletConnect/Metamask';
 
 interface Smallcase {
   basket_id: string;
   basket_name: string;
   basket_description: string;
   basket_type: string;
+  rebalance_flag?: boolean;
+
   investment_criteria: {
     minimum_investment: string;
     maximum_investment: string;
@@ -48,6 +51,10 @@ const Smallcase: React.FC = () => {
         <div className="flex justify-center items-center mb-8">
           <h1 className="text-4xl font-bold text-center">Crypto Coin-sets</h1>
         </div>
+
+        <div>
+            <Metamask/>
+          </div>
 
         {/* Show loading text if data is still being fetched */}
         {loading ? (

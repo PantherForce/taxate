@@ -40,7 +40,6 @@ const GameBoard: React.FC = () => {
           Crypto Tax Games
         </h1>
 
-        {/* Game Cards Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {gameData.map((game) => (
             <motion.div

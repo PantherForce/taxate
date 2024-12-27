@@ -1,7 +1,6 @@
-// @ts-nocheck
-
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";  // Import Axios for making HTTP requests
 
 // Define the structure of a quiz question
 interface QuizQuestion {
@@ -102,6 +101,9 @@ const QuizGame: React.FC = () => {
   const [score, setScore] = useState(0);
   const [showModal, setShowModal] = useState<boolean>(false);
 
+
+  const user_id = window.localStorage.getItem("user_id" )
+
   const currentQuestion = quizQuestions[currentQuestionIndex];
 
   const handleOptionSelect = (option: string) => {
@@ -116,7 +118,21 @@ const QuizGame: React.FC = () => {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedOption(null);
     } else {
+     
+      submitScore();
       setShowModal(true);
+    }
+  };
+
+  const submitScore = async () => {
+    try {
+      const response = await axios.post("https://testdata-bh0z.onrender.com/gamescore", {
+        user_id: user_id,
+        score: score,
+      });
+      console.log("Score submitted successfully:", response.data);
+    } catch (error) {
+      console.error("Error submitting score:", error);
     }
   };
 
@@ -127,11 +143,11 @@ const QuizGame: React.FC = () => {
   };
 
   return (
-    <div className="relative flex justify-center items-center h-[60vh]">
+    <div className="relative mx-auto flex justify-center items-center w-[50vw] h-[60vh]">
       {/* Modal for quiz result */}
       {showModal && (
         <motion.div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          className="fixed inset-0 bg-blackbg-opacity-50 flex justify-center items-center z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -147,7 +163,7 @@ const QuizGame: React.FC = () => {
               Your score: {score}/{quizQuestions.length}
             </p>
             <motion.button
-              className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-all"
+              className="bg-primary text-white px-4 py-2 rounded-lg"
               onClick={closeModal}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -178,7 +194,6 @@ const QuizGame: React.FC = () => {
                   : "bg-gray-200"
               }`}
               onClick={() => handleOptionSelect(option)}
-              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.3 }}
             >
@@ -187,7 +202,7 @@ const QuizGame: React.FC = () => {
           ))}
         </div>
         <motion.button
-          className="bg-secondary text-primary px-4 py-2 rounded-lg mt-4 hover:bg-primary hover:text-white transition-all"
+          className="bg-secondary text-primary px-4 py-2 rounded-lg mt-4 :bg-primary hoverhover:text-white transition-all"
           onClick={handleNextQuestion}
           disabled={!selectedOption}
           whileHover={{ scale: 1.05 }}
