@@ -1,14 +1,15 @@
 // @ts-nocheck
 
-import React, { useState } from "react";
-import { FaPlay, FaQuestionCircle, FaPuzzlePiece, FaTimes } from "react-icons/fa"; // React Icons
-import { motion } from "framer-motion"; // Framer Motion
+
+import React, { useState, useEffect } from "react";
+import { FaPlay, FaQuestionCircle, FaPuzzlePiece, FaTimes } from "react-icons/fa";
+import { motion } from "framer-motion";
 import QuizGame from "./QuizGame";
 import PuzzleGame from "./PuzzleGame";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import TaxStrategyChallenge from "./TaxStrategyChallenge";
+import Signup from "../Singup/SignupModal"; // Import your Signup component
 
-// Game Data
 const gameData = [
   {
     title: "Crypto Tax Quiz",
@@ -35,21 +36,39 @@ const gameData = [
 
 const GameBoard: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<null | string>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-  const [score1, setScore1] = useState<number | null>(null); // Replace this with actual score logic
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false); // State for signup modal
+  const [isPlayDisabled, setIsPlayDisabled] = useState(false);
 
-  // Function to handle game selection
+  useEffect(() => {
+    const score1 = localStorage.getItem("score1");
+    setIsPlayDisabled(Boolean(score1));
+  }, []);
+
   const handleGameSelection = (gameType: string) => {
-    if (!score1) {
+    const userId = localStorage.getItem("user_id");
+
+    if (!userId) {
+      setIsSignupModalOpen(true); // Open signup modal if user_id is not present
+    } else {
       setSelectedGame(gameType);
-      setIsModalOpen(true); // Open modal when game is selected
+      setIsModalOpen(true); // Open game modal if user_id exists
     }
   };
 
-  // Close the modal
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedGame(null); // Reset selected game when modal closes
+    setSelectedGame(null);
+  };
+
+  const closeSignupModal = () => {
+    setIsSignupModalOpen(false);
+  };
+
+  const handleSignupCompletion = () => {
+    // Simulate signup and save user_id in local storage
+    localStorage.setItem("user_id", "user123"); // Replace with actual user_id from backend
+    setIsSignupModalOpen(false);
   };
 
   return (
@@ -59,13 +78,11 @@ const GameBoard: React.FC = () => {
           Crypto Tax Games
         </h1>
 
-        {/* Game Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {gameData.map((game) => (
             <motion.div
               key={game.id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition-transform hover:scale-105 hover:shadow-xl"
-              onClick={() => handleGameSelection(game.type)}
+              className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.3 }}
@@ -85,22 +102,22 @@ const GameBoard: React.FC = () => {
                   </div>
                 </div>
                 <button
-                  className={`w-full px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-all ${
-                    score1
+                  className={`w-full px-4 py-2 rounded-lg flex items-center justify-center space-x-2 ${
+                    isPlayDisabled
                       ? "bg-gray-400 text-gray-700 cursor-not-allowed"
-                      : "bg-primary text-white hover:bg-secondary"
+                      : "bg-primary text-white hover:bg-secondary transition-all"
                   }`}
-                  onClick={() => handleGameSelection(game.type)}
-                  disabled={!!score1}
+                  onClick={() => !isPlayDisabled && handleGameSelection(game.type)}
+                  disabled={isPlayDisabled}
                 >
-                  <FaPlay /> <span>Play</span>
+                  <FaPlay /> <span>{isPlayDisabled ? "Played" : "Play"}</span>
                 </button>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Modal for displaying selected game */}
+        {/* Game Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white p-8 rounded-lg max-w-4xl w-[90vw]">
@@ -115,6 +132,21 @@ const GameBoard: React.FC = () => {
                 {selectedGame === "puzzle" && <PuzzleGame />}
                 {selectedGame === "strategy-quiz" && <TaxStrategyChallenge />}
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Signup Modal */}
+        {isSignupModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white p-4 rounded-lg max-w-3xl w-[90vw]">
+              <button
+                onClick={closeSignupModal}
+                className=" text-xl text-gray-500 hover:text-gray-800"
+              >
+                <FaTimes size={20} color="red" />
+              </button>
+              <Signup onComplete={handleSignupCompletion} />
             </div>
           </div>
         )}

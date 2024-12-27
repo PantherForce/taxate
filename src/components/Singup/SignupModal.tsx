@@ -147,9 +147,9 @@ const Signup = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="flex justify-center items-center h-[70vh]">
-        <div className="bg-white p-8 mx-4 rounded-lg shadow-lg max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-3xl w-full">
+    
+      <div className="flex justify-center items-center h-[50vh]">
+        <div className="bg-white p-3 md:p-8 rounded-lg shadow-lg max-w-5xl w-full">
           <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
           {error && <div className="text-red-500 text-center mb-4">{error}</div>}
 

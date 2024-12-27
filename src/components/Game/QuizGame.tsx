@@ -149,7 +149,7 @@ const QuizGame: React.FC = () => {
   };
 
   return (
-    <div className="relative mx-auto flex justify-center items-center w-[50vw] h-[60vh]">
+    <div className="relative mx-auto flex justify-center items-center  h-[50vh]">
       {/* Modal for quiz result */}
       {showModal && (
         <motion.div
@@ -159,7 +159,7 @@ const QuizGame: React.FC = () => {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-white p-6 rounded-lg shadow-xl w-80 sm:w-96"
+            className="bg-white p-6 rounded-lg shadow-xl "
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.8 }}

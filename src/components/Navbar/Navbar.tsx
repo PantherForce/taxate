@@ -163,7 +163,7 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Menu - Slide In Animation */}
         {menuOpen && (
-          <div className="absolute top-16 left-0 w-full bg-white text-black flex flex-col items-center gap-4 py-6 transition-transform duration-500 transform translate-x-0 md:hidden">
+          <div className="absolute p-8 z-50 top-16 left-0 w-full bg-white text-black flex flex-col items-center gap-4 py-6 transition-transform duration-500 transform translate-x-0 md:hidden">
             {/* Home Link */}
             <div className="relative w-full">
               <a
@@ -256,13 +256,21 @@ const Navbar: React.FC = () => {
                 Baskets
               </a>
             </div>
-            {/* Contact Us Button */}
-            <a
-              href="#"
-              className="border border-black px-4 py-2 mt-2 hover:bg-black hover:text-white transition duration-300"
-            >
-              Contact Us
-            </a>
+            <div className="flex flex-col gap-2">
+          <Link to="/signup">
+            <button className="bg-primary px-5 py-2 text-lg text-white hover:bg-primary-dark transition duration-300">
+              Sign up
+            </button>
+          </Link>
+
+          <Link to="/login">
+            <button className="bg-primary ml-2 px-5 py-2 text-lg text-white hover:bg-primary-dark transition duration-300">
+              Login
+            </button>
+          </Link>
+
+        </div>
+            
           </div>
         )}
       </nav>
