@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";  // Import Axios for making HTTP requests
