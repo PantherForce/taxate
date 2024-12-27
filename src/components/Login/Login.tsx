@@ -36,38 +36,41 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
-
+  
     try {
       const response = await axios.post(
         "https://testdata-bh0z.onrender.com/login",
         formData
       );
       console.log("Login successful:", response.data);
-
+  
+      // Extract and store user_id in localStorage
+      const { user_id } = response.data;
+      localStorage.setItem("user_id", user_id);
+  
       // Show success toast
       toast.success("Login successful!", {
         position: "top-center",
         autoClose: 3000, // Toast will disappear after 3 seconds
       });
-
+  
       // Redirect to the dashboard after successful login
       navigate("/dashboard");
     } catch (error: any) {
       const errorMessage = error.response?.data?.error || "Login failed";
-
+  
       // Show error toast
       toast.error(errorMessage, {
         position: "top-center",
         autoClose: 3000,
       });
-      localStorage.setItem("email");
-      localStorage.setItem("full_name");
-
+  
       setError(errorMessage);
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <>

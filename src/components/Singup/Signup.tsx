@@ -46,46 +46,41 @@ const Signup = () => {
     setError("");
 
     try {
-      // Send signup request to the backend
-      const response = await axios.post(
-        "https://testdata-bh0z.onrender.com/signup",
-        formData
-      );
-      console.log("Signup successful:", response.data);
+        // Send signup request to the backend
+        const response = await axios.post(
+            "https://testdata-bh0z.onrender.com/signup",
+            formData
+        );
 
-      // Assuming the response contains user_id, email, and full_name
-      const { user_id, email, full_name } = response.data;
+        // Extract details from the response
+        const { user_id, email, full_name } = response.data;
 
-      // Store user details in localStorage
-      localStorage.setItem("user_id", user_id);  // Store the user_id
-      localStorage.setItem("email", email);      // Store the email
-      localStorage.setItem("full_name", full_name); // Store the full_name
+        // Store user details in localStorage
+        localStorage.setItem("user_id", user_id); 
+        localStorage.setItem("email", email); 
+        localStorage.setItem("full_name", full_name); 
 
-      // Show success toast
-      toast.success("Signup successful! Please check your email for OTP.", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+        // Show success toast
+        toast.success("Signup successful! Please check your email for OTP.", {
+            position: "top-center",
+            autoClose: 3000,
+        });
 
-      // Send OTP to the user's email
-      await sendOtpToEmail(email);
-
-      // Set OTP sent state
-      setOtpSent(true);
-
-      setLoading(false);
+        setOtpSent(true); // Enable OTP form
+        setLoading(false);
     } catch (error: any) {
-      // Handle errors
-      const errorMessage = error.response?.data?.error || "Signup failed";
-      toast.error(errorMessage, {
-        position: "top-center",
-        autoClose: 3000,
-      });
+        // Handle errors
+        const errorMessage = error.response?.data?.error || "Signup failed";
+        toast.error(errorMessage, {
+            position: "top-center",
+            autoClose: 3000,
+        });
 
-      setError(errorMessage);
-      setLoading(false);
+        setError(errorMessage);
+        setLoading(false);
     }
-  };
+};
+
 
   // Function to send OTP to user's email
   const sendOtpToEmail = async (email: string) => {
@@ -110,45 +105,45 @@ const Signup = () => {
     setError("");
 
     try {
-      const email = localStorage.getItem("email");
-      if (!email) {
-        setError("No email found in localStorage!");
+        const email = localStorage.getItem("email");
+        if (!email) {
+            setError("No email found in localStorage!");
+            setLoading(false);
+            return;
+        }
+
+        const response = await axios.post("https://testdata-bh0z.onrender.com/verify_otp", {
+            email,
+            otp,
+        });
+
+        if (response.data.message === "OTP verified successfully!") {
+            setEmailVerified(true);
+            toast.success("Email verified successfully!", {
+                position: "top-center",
+                autoClose: 3000,
+            });
+
+            navigate("/dashboard");
+        } else {
+            toast.error("Invalid OTP. Please try again.", {
+                position: "top-center",
+                autoClose: 3000,
+            });
+        }
+
         setLoading(false);
-        return;
-      }
-
-      const response = await axios.post("https://testdata-bh0z.onrender.com/verify_otp", {
-        email,
-        otp,
-      });
-
-      if (response.data.message === "OTP verified successfully!") {
-        setEmailVerified(true);
-        toast.success("Email verified successfully!", {
-          position: "top-center",
-          autoClose: 3000,
-        });
-
-        // Navigate to dashboard or other page
-        navigate("/dashboard");
-      } else {
-        toast.error("Invalid OTP. Please try again.", {
-          position: "top-center",
-          autoClose: 3000,
-        });
-      }
-
-      setLoading(false);
     } catch (error: any) {
-      const errorMessage = error.response?.data?.error || "OTP verification failed";
-      toast.error(errorMessage, {
-        position: "top-center",
-        autoClose: 3000,
-      });
-      setError(errorMessage);
-      setLoading(false);
+        const errorMessage = error.response?.data?.error || "OTP verification failed";
+        toast.error(errorMessage, {
+            position: "top-center",
+            autoClose: 3000,
+        });
+        setError(errorMessage);
+        setLoading(false);
     }
-  };
+};
+
 
   return (
     <>
@@ -209,7 +204,7 @@ const Signup = () => {
             // OTP Verification Form
             <form onSubmit={handleOtpVerification}>
               <div className="mb-4">
-                <label className="block text-sm md:text-lg font-semibold text-gray-600">Enter OTP which is sent to your email id</label>
+                <label className="block text-sm md:text-lg font-semibold text-gray-600">Enter OTP which is sent to your email adress</label>
                 <input
                   type="text"
                   value={otp}

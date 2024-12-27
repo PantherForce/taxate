@@ -128,6 +128,10 @@ const QuizGame: React.FC = () => {
 
   const submitScore = async () => {
     try {
+      // Store the score in localStorage
+      window.localStorage.setItem("score1", score.toString());
+  
+      // Submit the score to the server
       const response = await axios.post("https://testdata-bh0z.onrender.com/gamescore", {
         user_id: user_id,
         score: score,
@@ -137,7 +141,7 @@ const QuizGame: React.FC = () => {
       console.error("Error submitting score:", error);
     }
   };
-
+  
   const closeModal = () => {
     setShowModal(false);
     setCurrentQuestionIndex(0);
@@ -145,7 +149,7 @@ const QuizGame: React.FC = () => {
   };
 
   return (
-    <div className="relative mx-auto flex justify-center items-center ">
+    <div className="relative mx-auto flex justify-center items-center w-[50vw] h-[60vh]">
       {/* Modal for quiz result */}
       {showModal && (
         <motion.div

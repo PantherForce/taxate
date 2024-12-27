@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState } from "react";
 import { FaPlay, FaQuestionCircle, FaPuzzlePiece, FaTimes } from "react-icons/fa"; // React Icons
 import { motion } from "framer-motion"; // Framer Motion
@@ -34,11 +36,14 @@ const gameData = [
 const GameBoard: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<null | string>(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [score1, setScore1] = useState<number | null>(null); // Replace this with actual score logic
 
   // Function to handle game selection
   const handleGameSelection = (gameType: string) => {
-    setSelectedGame(gameType);
-    setIsModalOpen(true); // Open modal when game is selected
+    if (!score1) {
+      setSelectedGame(gameType);
+      setIsModalOpen(true); // Open modal when game is selected
+    }
   };
 
   // Close the modal
@@ -80,8 +85,13 @@ const GameBoard: React.FC = () => {
                   </div>
                 </div>
                 <button
-                  className="w-full bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 hover:bg-secondary transition-all"
+                  className={`w-full px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-all ${
+                    score1
+                      ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                      : "bg-primary text-white hover:bg-secondary"
+                  }`}
                   onClick={() => handleGameSelection(game.type)}
+                  disabled={!!score1}
                 >
                   <FaPlay /> <span>Play</span>
                 </button>
@@ -98,10 +108,9 @@ const GameBoard: React.FC = () => {
                 onClick={closeModal}
                 className=" text-xl text-gray-500 hover:text-gray-800"
               >
-                <FaTimes size={20} color="red"/>
+                <FaTimes size={20} color="red" />
               </button>
               <div className="modal-content">
-          
                 {selectedGame === "quiz" && <QuizGame />}
                 {selectedGame === "puzzle" && <PuzzleGame />}
                 {selectedGame === "strategy-quiz" && <TaxStrategyChallenge />}
