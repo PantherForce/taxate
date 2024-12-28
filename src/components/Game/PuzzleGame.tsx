@@ -31,7 +31,7 @@ const PuzzleGame: React.FC = () => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg w-full mt-16 sm:w-3/4 mx-auto">
+    <div className="p-3 bg-white rounded-lg shadow-lg w-full mt-16 sm:w-3/4 mx-auto">
       <h2 className="text-2xl font-semibold mb-4">
         Puzzle Clue #{currentClueIndex + 1}
       </h2>

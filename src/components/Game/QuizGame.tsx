@@ -184,19 +184,19 @@ const QuizGame: React.FC = () => {
 
       {/* Main quiz content */}
       <motion.div
-        className="p-6 bg-white rounded-lg shadow-lg w-full sm:w-3/4 mx-auto z-10"
+        className="p-3 bg-white rounded-lg shadow-lg w-full sm:w-3/4 mx-auto z-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-2xl font-semibold mb-4">
+        <h2 className="text-lg md:text-2xl font-semibold mb-4">
           {currentQuestion?.question}
         </h2>
         <div className="mb-4">
           {currentQuestion?.options.map((option, index) => (
             <motion.button
               key={index}
-              className={`block w-full p-3 mb-2 rounded-lg ${
+              className={`block text-sm w-full p-3 mb-2 rounded-lg ${
                 selectedOption === option
                   ? "bg-primary text-white"
                   : "bg-gray-200"
