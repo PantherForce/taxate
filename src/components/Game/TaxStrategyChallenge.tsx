@@ -142,12 +142,13 @@ const TaxStrategyChallenge: React.FC = () => {
 
   const closeModal = () => {
     setShowModal(false);
+    window.location.reload();
     setCurrentQuestionIndex(0);
     setScore(0);
   };
 
   return (
-    <div className="relative flex justify-center items-center h-[60vh]">
+    <div className="relative mx-auto flex justify-center items-center h-[80-vh] overflow-auto  md:h-[50vh]">
       {/* Modal for quiz result */}
       {showModal && (
         <motion.div

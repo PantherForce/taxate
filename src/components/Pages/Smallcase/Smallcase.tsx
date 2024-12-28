@@ -49,7 +49,7 @@ const Smallcase: React.FC = () => {
       <Navbar />
       <ContentContainer>
         <div className="flex justify-center items-center mb-8">
-          <h1 className="text-4xl font-bold text-center">Crypto Coin-sets</h1>
+          <h1 className="text-2xl md:text-4xl font-bold text-center">Crypto Coin-sets</h1>
         </div>
 
         <div>

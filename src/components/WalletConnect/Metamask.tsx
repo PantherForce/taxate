@@ -96,11 +96,11 @@ const Metamask: React.FC = () => {
 
   return (
     <div className="flex w-full flex-col items-start justify-start p-4 mb-6">
-      <h1 className="text-3xl font-bold text-center mb-4">Connect MetaMask</h1>
+      <h1 className="text-xl md:text-3xl font-bold text-center mb-4">Connect MetaMask</h1>
       {!account ? (
         <button
           onClick={() => window.ethereum.request({ method: "eth_requestAccounts" })}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className="px-6 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700"
         >
           Connect MetaMask
         </button>

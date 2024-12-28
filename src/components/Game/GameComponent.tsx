@@ -74,48 +74,57 @@ const GameBoard: React.FC = () => {
   return (
     <ContentContainer>
       <div className="">
-        <h1 className="text-4xl font-bold text-center text-primary mb-10">
+        <h1 className="text-2xl md:text-4xl font-bold text-center text-primary mb-4">
           Crypto Tax Games
         </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {gameData.map((game) => (
-            <motion.div
-              key={game.id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="relative w-full h-64">
-                <img
-                  src={game.image}
-                  alt={game.title}
-                  className="absolute inset-0 w-full h-full object-cover rounded-lg"
-                />
-              </div>
-              <div className="p-4">
-                <div className="flex items-center mb-2">
-                  <div className="text-xl font-semibold text-primary flex items-center space-x-2">
-                    {game.icon}
-                    <span>{game.title}</span>
-                  </div>
-                </div>
-                <button
-                  className={`w-full px-4 py-2 rounded-lg flex items-center justify-center space-x-2 ${
-                    isPlayDisabled
-                      ? "bg-gray-400 text-gray-700 cursor-not-allowed"
-                      : "bg-primary text-white hover:bg-secondary transition-all"
-                  }`}
-                  onClick={() => !isPlayDisabled && handleGameSelection(game.type)}
-                  disabled={isPlayDisabled}
-                >
-                  <FaPlay /> <span>{isPlayDisabled ? "Played" : "Play"}</span>
-                </button>
-              </div>
-            </motion.div>
-          ))}
+  {gameData.map((game) => (
+    <motion.div
+      key={game.id}
+      className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="relative w-full h-64">
+        <img
+          src={game.image}
+          alt={game.title}
+          className="absolute inset-0 w-full h-full object-cover rounded-lg"
+        />
+      </div>
+      <div className="p-4">
+        <div className="flex items-center mb-2">
+          <div className="text-lg md:text-xl font-semibold text-primary flex items-center space-x-2">
+            {game.icon}
+            <span className="text-lg md:text-xl">{game.title}</span>
+          </div>
         </div>
+        {game.id === 2 || game.id === 3 ? (
+          <button
+            className="w-full px-4 py-2 rounded-lg bg-gray-400 text-gray-700 cursor-not-allowed"
+            disabled
+          >
+            Coming Soon
+          </button>
+        ) : (
+          <button
+            className={`w-full px-4 py-2 rounded-lg flex items-center justify-center space-x-2 ${
+              isPlayDisabled
+                ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                : "bg-primary text-white hover:bg-secondary transition-all"
+            }`}
+            onClick={() => !isPlayDisabled && handleGameSelection(game.type)}
+            disabled={isPlayDisabled}
+          >
+            <FaPlay /> <span>{isPlayDisabled ? "Played" : "Play"}</span>
+          </button>
+        )}
+      </div>
+    </motion.div>
+  ))}
+</div>
 
         {/* Game Modal */}
         {isModalOpen && (

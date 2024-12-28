@@ -144,12 +144,14 @@ const QuizGame: React.FC = () => {
   
   const closeModal = () => {
     setShowModal(false);
+    window.location.reload();
+
     setCurrentQuestionIndex(0);
     setScore(0);
   };
 
   return (
-    <div className="relative mx-auto flex justify-center items-center  h-[50vh]">
+    <div className="relative mx-auto flex justify-center items-center h-[80-vh] overflow-auto  md:h-[50vh]">
       {/* Modal for quiz result */}
       {showModal && (
         <motion.div
