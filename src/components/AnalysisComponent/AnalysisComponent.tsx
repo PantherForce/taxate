@@ -25,8 +25,10 @@ const AnalysisComponent: React.FC = () => {
           {" "}
           <Link to = "/analysis">
           <Button
+          disabled
+          
             fontSize="lg"
-            className={`px-8 bg-primary font-semibold py-3 bg--primary text-white`} // Use bgColor prop to set the background color
+            className={`px-8 bg-primary  font-semibold py-3 bg--primary text-white`} // Use bgColor prop to set the background color
           >
             Go to wallet analysis
           </Button>
