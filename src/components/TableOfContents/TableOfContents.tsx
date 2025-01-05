@@ -43,16 +43,16 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
       >
         Table of Contents
       </motion.h3>
-      <ul className="list-disc pl-6 space-y-2 text-gray-600">
+      <ul className="flex flex-col gap-6 text-gray-600">
         {headings.map((heading) => (
           <motion.li
             key={heading.id}
-            whileHover={{ scale: 1.1 }} // Animation for hover effect
+            // Animation for hover effect
             transition={{ type: "spring", stiffness: 300 }}
           >
             <button
               onClick={() => handleScrollTo(heading.id)}
-              className="text-black text-lg md:text-base font-medium focus:outline-none hover:text-primary transition-all"
+              className="text-black text-lg md:text-xl font-normal"
             >
               {heading.text}
             </button>

@@ -79,6 +79,70 @@
 
 
 
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.prose th, .prose td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid #e2e8f0;
+}
+
+.prose th {
+  background-color: #f7fafc;
+  color: #2b6cb0;
+  font-weight: 600;
+}
+
+.prose td {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.prose tr:nth-child(even) {
+  background-color: #f7fafc;
+}
+
+.prose tr:hover {
+  background-color: #edf2f7;
+}
+
+.prose table caption {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2b6cb0;
+  margin-bottom: 1rem;
+}
+
+
+
+
+
+@media (min-width: 1024px) {
+  .prose table {
+      font-size: 1.125rem;
+  }
+
+  .prose th, .prose td {
+      padding: 1rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .prose table {
+      font-size: 1.25rem;
+  }
+
+  .prose th, .prose td {
+      padding: 1.25rem;
+  }
+}
+
+
+
 
 @media (max-width: 640px) {
  
@@ -93,6 +157,14 @@
   .prose h3 {
     font-size: 1.5rem;
   }
+
+  .prose table {
+    font-size: 0.875rem;
+}
+
+.prose th, .prose td {
+    padding: 0.5rem;
+}
 
   .prose p {
     font-size: 1rem;
@@ -112,6 +184,14 @@
   .prose h1 {
     font-size: 2.25rem;
   }
+
+  .prose table {
+    font-size: 1rem;
+}
+
+.prose th, .prose td {
+    padding: 0.75rem;
+}
 
   .prose h2 {
     font-size: 1.875rem;

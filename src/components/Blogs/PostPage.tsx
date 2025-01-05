@@ -114,8 +114,8 @@ const PostPage: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <div className="container mx-auto px-4 md:px-8 lg:px-16 py-8">
+<ContentContainer>
+      <div className="">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Table of Contents on larger screens */}
           <div className="hidden w-full md:block">
@@ -132,7 +132,9 @@ const PostPage: React.FC = () => {
             />
           </div>
         </div>
+        
       </div>
+      </ContentContainer>
 
       <div className="mt-12">
         <Faqs />

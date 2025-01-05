@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import ContentContainer from "../Layout/ContentContainer/ContentContainer";
 import Button from "../Layout/Button/Button";
+import Signup from "../Singup/SignupModal";
+import { FaTimes } from "react-icons/fa";
 
 const SignupCard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -82,46 +84,11 @@ const SignupCard: React.FC = () => {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-md w-3/4 md:w-1/3">
-            <h3 className="text-xl font-bold mb-4">Sign Up</h3>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="block text-sm font-semibold">Name</label>
-                <input
-                  type="text"
-                  className="w-full p-2 mt-2 border rounded-md"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-semibold">Email</label>
-                <input
-                  type="email"
-                  className="w-full p-2 mt-2 border rounded-md"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-3 md:flex-row justify-between">
-                <Button
-                  fontSize="lg"
-                  className="px-8 font-semibold py-3 bg-[#F4F1E6] text-black"
-                  onClick={() => setShowModal(false)} // Close modal on cancel
-                >
-                  Cancel
-                </Button>
-                <Button
-                  fontSize="lg"
-                  className="px-8 font-semibold py-3 bg-[#F4F1E6] text-black"
-                  type="submit"
-                  disabled={loading} // Disable submit button during loading
-                >
-                  {loading ? "Submitting..." : "Submit"}
-                </Button>
-              </div>
-            </form>
+          <div className="flex flex-row justify-between">
+            <h3 className="text-xl font-bold ">Join wishlist</h3>
+            <button  onClick={() => setShowModal(false)} ><FaTimes color="red"/></button>
+            </div>
+            <Signup/>
           </div>
         </div>
       )}
