@@ -61,7 +61,7 @@ const Signup = () => {
       });
 
       // Navigate to dashboard or other page
-      navigate("/games");
+      navigate("/dashboard");
       setLoading(false);
     } catch (error: any) {
       // Handle errors

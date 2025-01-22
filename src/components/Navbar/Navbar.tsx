@@ -130,6 +130,15 @@ const Navbar: React.FC = () => {
           >
             AI-Analytics
           </a>
+
+          <a
+            href="/beta-rewards"
+            className="text-xl hover:text-primary transition duration-300"
+          >
+            Beta rewards
+          </a>
+
+
         </div>
 
         <div className="hidden md:flex gap-8">

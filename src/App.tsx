@@ -1,7 +1,12 @@
 // @ts-nocheck
 
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import ReactGA from "react-ga4";
 import Home from "./components/Pages/Home/Home";
 import CryptoTaxCalculator from "./components/Calculator/CryptoTaxCalculator";
@@ -38,7 +43,6 @@ import TaxateLp from "./components/Taxate/TaxateLp";
 import Taxate from "./components/Pages/Taxtate/Taxate";
 
 const App: React.FC = () => {
-
   useEffect(() => {
     ReactGA.initialize("G-5ZV7QG0229");
 
@@ -75,16 +79,16 @@ const App: React.FC = () => {
           path="/why-paying-taxes-on-crypto-matters"
           element={<Blogcontent />}
         />
-        <Route path="/crypto-tax-update" element={<CryptoTaxUpdate/>}/>
-        <Route path="/crypto-tax-update" element={<CryptoTaxUpdate/>}/>
-        <Route path="/gst-news" element={<GstContent/>}/>
-        <Route path="/post" element={<Posts/>}/>
-        <Route path="/post/:slug" element={<PostPage/>} />
-        <Route path="/smallcase" element={<Smallcase/>} />
-        <Route path="/meta-mask" element={<Metamask/>}/>
+        <Route path="/crypto-tax-update" element={<CryptoTaxUpdate />} />
+        <Route path="/crypto-tax-update" element={<CryptoTaxUpdate />} />
+        <Route path="/gst-news" element={<GstContent />} />
+        <Route path="/post" element={<Posts />} />
+        <Route path="/post/:slug" element={<PostPage />} />
+        <Route path="/smallcase" element={<Smallcase />} />
+        <Route path="/meta-mask" element={<Metamask />} />
         <Route path="/smallcase/:id" element={<PortfolioDetail />} />
-        <Route path="/beta-program" element={<Taxate/>}/>
-
+        <Route path="/beta-program" element={<Taxate />} />
+        <Route path="/beta-rewards" element={<Taxate />} />
       </Routes>
       <Analytics />
     </Router>

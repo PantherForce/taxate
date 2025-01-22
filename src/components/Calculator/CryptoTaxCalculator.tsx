@@ -167,10 +167,10 @@ const CryptoTaxCalculator: React.FC = () => {
               fontSize="lg"
               fontColor="text-white"
             >
-              Get Started
+              Join wishlist
             </Heading>
             <Text fontSize="md" fontColor="text-white" className="mt-2">
-              With our range of features that you can equip for free, KoinX
+              With our range of features that you can equip for free, taxate
               allows you to be more educated and aware of your tax reports.
             </Text>
             <Button
